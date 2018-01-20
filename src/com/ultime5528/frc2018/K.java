@@ -30,6 +30,15 @@ public class K {
 		
 		prefs.putDouble("inter_y_c", OI.INTER_Y_C);
 		
+		prefs.putDouble("base_pilotable_largeur", BasePilotable.LARGEUR);
+		
+		prefs.putDouble("p_follower", BasePilotable.P_FOLLOWER);
+		
+		prefs.putDouble("d_follower",BasePilotable.D_FOLLOWER);
+		
+		prefs.putDouble("k_angle_follower",BasePilotable.K_ANGLE_FOLLOWER);
+		
+		
 	}
 	
 	
@@ -47,6 +56,13 @@ public class K {
 		OI.INTER_Y_C = prefs.getDouble("inter_y_c", OI.INTER_Y_C);
 		Robot.oi.getInterY().setC(OI.INTER_Y_C);
 		
+		BasePilotable.LARGEUR = prefs.getDouble("base_pilotable_largeur", BasePilotable.LARGEUR);
+		
+		BasePilotable.P_FOLLOWER = prefs.getDouble("p_follower", BasePilotable.P_FOLLOWER);
+		
+		BasePilotable.K_ANGLE_FOLLOWER = prefs.getDouble("k_angle_follower", BasePilotable.K_ANGLE_FOLLOWER);
+		
+		
 	}
 	
 	
@@ -56,8 +72,11 @@ public class K {
 		public static final int BASE_PILOTABLE_MOTEUR_GAUCHE	 = 0;
 		public static final int BASE_PILOTABLE_MOTEUR_DROIT		 = 1;
 		
-		public static final int BASE_PILOTABLE_ENCODER_A		 = 0;
-		public static final int BASE_PILOTABLE_ENCODER_B		 = 1;
+		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_A		 = 0;
+		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_B		 = 1;
+		
+		public static final int BASE_PILOTABLE_ENCODER_DROIT_A		 = 2;
+		public static final int BASE_PILOTABLE_ENCODER_DROIT_B		 = 3;
 		
 		public static final int ELEVATEUR_MOTEUR				 = 2;
 		
@@ -73,6 +92,14 @@ public class K {
 		public static double INTER_Y_C = 0.1;
 		
 		
+	}
+	
+	
+	public static final class BasePilotable {
+		public static double LARGEUR = 0.5;
+		public static double P_FOLLOWER = 0;
+		public static double D_FOLLOWER = 0;
+		public static double K_ANGLE_FOLLOWER = -0.01;
 	}
 	
 }
