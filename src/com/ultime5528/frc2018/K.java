@@ -7,6 +7,8 @@
 
 package com.ultime5528.frc2018;
 
+import com.ultime5528.frc2018.Robot;
+
 import edu.wpi.first.wpilibj.Preferences;
 
 /**
@@ -17,7 +19,6 @@ import edu.wpi.first.wpilibj.Preferences;
  */
 public class K {
 	
-
 	
 	public static void init() {
 		
@@ -58,6 +59,9 @@ public class K {
 		public static final int BASE_PILOTABLE_ENCODER_A		 = 0;
 		public static final int BASE_PILOTABLE_ENCODER_B		 = 1;
 		
+		public static final int ELEVATEUR_MOTEUR				 = 2;
+		
+		public static final int ELEVATEUR_POTENTIOMETRE			 = 0;
 	}
 	
 	
