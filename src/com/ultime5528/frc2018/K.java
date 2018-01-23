@@ -38,6 +38,9 @@ public class K {
 		
 		prefs.putDouble("k_angle_follower",BasePilotable.K_ANGLE_FOLLOWER);
 		
+		prefs.putDouble("max_velocity", K.BasePilotable.MAX_VELOCITY);
+		
+		prefs.putDouble("correction_gauche", K.BasePilotable.CORRECTION_GAUCHE);
 		
 	}
 	
@@ -62,6 +65,9 @@ public class K {
 		
 		BasePilotable.K_ANGLE_FOLLOWER = prefs.getDouble("k_angle_follower", BasePilotable.K_ANGLE_FOLLOWER);
 		
+		BasePilotable.MAX_VELOCITY = prefs.getDouble("max_velocity", K.BasePilotable.MAX_VELOCITY);
+		
+		BasePilotable.CORRECTION_GAUCHE = prefs.getDouble("coorection_gauche", K.BasePilotable.CORRECTION_GAUCHE);
 		
 	}
 	
@@ -100,6 +106,8 @@ public class K {
 		public static double P_FOLLOWER = 0;
 		public static double D_FOLLOWER = 0;
 		public static double K_ANGLE_FOLLOWER = -0.01;
+		public static double MAX_VELOCITY = 2.55;
+		public static double CORRECTION_GAUCHE = 0.98;
 	}
 	
 }

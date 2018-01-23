@@ -71,9 +71,9 @@ public class BasePilotable extends Subsystem {
     	TankModifier modifier = new TankModifier(trajectory).modify(K.BasePilotable.LARGEUR);
     	
     	rightFollower.setTrajectory(modifier.getRightTrajectory());	
-    	rightFollower.configurePIDVA(K.BasePilotable.P_FOLLOWER, 0.0,K.BasePilotable.D_FOLLOWER , 1 / maxVelocity, 0);
+    	rightFollower.configurePIDVA(K.BasePilotable.P_FOLLOWER, 0.0,K.BasePilotable.D_FOLLOWER , 1 / K.BasePilotable.MAX_VELOCITY, 0);
     	
-    	leftFollower.configurePIDVA(K.BasePilotable.P_FOLLOWER, 0.0,K.BasePilotable.D_FOLLOWER , 1 / maxVelocity, 0);
+    	leftFollower.configurePIDVA(K.BasePilotable.P_FOLLOWER, 0.0,K.BasePilotable.D_FOLLOWER , 1 / K.BasePilotable.MAX_VELOCITY, 0);
     	Trajectory traj = modifier.getLeftTrajectory();
     	System.out.println("Taille : " + traj.segments.length);
     	
@@ -88,7 +88,7 @@ public class BasePilotable extends Subsystem {
     public void suivreTrajectoire(){
     	
     	double l = leftFollower.calculate(encoderGauche.getDistance());
-		double r = rightFollower.calculate(encoderDroit.getDistance());
+		double r = -1 * rightFollower.calculate(encoderDroit.getDistance());
 
 		double gyro_heading = gyro.getAngle();
 		double desired_heading = Pathfinder.r2d(leftFollower.getHeading());  // Should also be in degrees
