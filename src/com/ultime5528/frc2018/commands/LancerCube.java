@@ -12,6 +12,7 @@ public class LancerCube extends Command {
 	private double speed;
 	
     public LancerCube(double speed) {
+    	super("LancerCube");
         requires(Robot.intake);
         this.speed = speed;
     }

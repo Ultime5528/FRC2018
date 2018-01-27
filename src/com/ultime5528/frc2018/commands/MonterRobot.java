@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MonterRobot extends Command {
 
     public MonterRobot() {
-        requires(Robot.grimpeur);
+        super("MonterRobot");
+    	requires(Robot.grimpeur);
     }
 
     // Called just before this Command runs the first time

@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Pilotage extends Command {
 
     public Pilotage() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        super("Pilotage");
     	requires(Robot.basePilotable);
     }
 

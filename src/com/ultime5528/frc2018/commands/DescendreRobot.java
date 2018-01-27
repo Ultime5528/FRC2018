@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DescendreRobot extends Command {
 
     public DescendreRobot() {
+    	super("DescendreRobot");
         requires(Robot.grimpeur);
     }
 

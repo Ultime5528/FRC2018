@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class PrendreCube extends Command {
 
     public PrendreCube() {
-        requires(Robot.intake);
+        super("PrendreCube");
+    	requires(Robot.intake);
     }
 
     // Called just before this Command runs the first time

@@ -10,8 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DescendreElevateur extends Command {
 
     public DescendreElevateur() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    	super("DescendreElevateur");
     	requires(Robot.elevateur);
     }
 
