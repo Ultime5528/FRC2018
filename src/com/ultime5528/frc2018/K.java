@@ -37,23 +37,27 @@ public class K {
 
 		prefs.putDouble("k_angle_follower", BasePilotable.K_ANGLE_FOLLOWER);
 
-		prefs.putDouble("max_velocity", K.BasePilotable.MAX_VELOCITY);
+		prefs.putDouble("max_velocity", BasePilotable.MAX_VELOCITY);
 
-		prefs.putDouble("correction_gauche", K.BasePilotable.CORRECTION_GAUCHE);
+		prefs.putDouble("correction_gauche", BasePilotable.CORRECTION_GAUCHE);
 
-		prefs.putDouble("max_encoder", K.Elevateur.MAX_ENCODER);
+		prefs.putDouble("max_encoder", Elevateur.MAX_ENCODER);
 
-		prefs.putDouble("min_encoder", K.Elevateur.MIN_ENCODER);
+		prefs.putDouble("min_encoder", Elevateur.MIN_ENCODER);
 
-		prefs.putDouble("vitesse_moteur_elevateur_descendre", K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE);
+		prefs.putDouble("vitesse_moteur_elevateur_descendre", Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE);
 
-		prefs.putDouble("vitesse_moteur_elevateur_monter", K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
+		prefs.putDouble("vitesse_moteur_elevateur_monter", Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
 
-		prefs.putDouble("VITESSE_PRENDRE", K.Intake.VITESSE_PRENDRE);
+		prefs.putDouble("VITESSE_PRENDRE", Intake.VITESSE_PRENDRE);
 
-		prefs.putDouble("VITESSE_LANCER_PROCHE", K.Intake.VITESSE_LANCER_PROCHE);
+		prefs.putDouble("VITESSE_LANCER_PROCHE", Intake.VITESSE_LANCER_PROCHE);
 
-		prefs.putDouble("VITESSE_LANCER_LOIN", K.Intake.VITESSE_LANCER_LOIN);
+		prefs.putDouble("VITESSE_LANCER_LOIN", Intake.VITESSE_LANCER_LOIN);
+		
+		prefs.putDouble("VITESSE_GRIMPER", Grimpeur.VITESSE_GRIMPER);
+		
+		prefs.putDouble("VITESSE_DESCENDRE", Grimpeur.VITESSE_DESCENDRE);
 	}
 
 	public static void update() {
@@ -75,25 +79,29 @@ public class K {
 
 		BasePilotable.K_ANGLE_FOLLOWER = prefs.getDouble("k_angle_follower", BasePilotable.K_ANGLE_FOLLOWER);
 
-		BasePilotable.MAX_VELOCITY = prefs.getDouble("max_velocity", K.BasePilotable.MAX_VELOCITY);
+		BasePilotable.MAX_VELOCITY = prefs.getDouble("max_velocity", BasePilotable.MAX_VELOCITY);
 
-		BasePilotable.CORRECTION_GAUCHE = prefs.getDouble("correction_gauche", K.BasePilotable.CORRECTION_GAUCHE);
+		BasePilotable.CORRECTION_GAUCHE = prefs.getDouble("correction_gauche", BasePilotable.CORRECTION_GAUCHE);
 
-		Elevateur.MAX_ENCODER = prefs.getDouble("max_encoder", K.Elevateur.MAX_ENCODER);
+		Elevateur.MAX_ENCODER = prefs.getDouble("max_encoder", Elevateur.MAX_ENCODER);
 
-		Elevateur.MIN_ENCODER = prefs.getDouble("min_encoder", K.Elevateur.MIN_ENCODER);
+		Elevateur.MIN_ENCODER = prefs.getDouble("min_encoder", Elevateur.MIN_ENCODER);
 
 		Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = prefs.getDouble("vitesse_moteur_elevateur_descendre",
-				K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE);
+				Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE);
 
 		Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER = prefs.getDouble("vitesse_moteur_elevateur_monter",
-				K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
+				Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
 
-		K.Intake.VITESSE_PRENDRE = prefs.getDouble("VITESSE_PRENDRE", K.Intake.VITESSE_PRENDRE);
+		Intake.VITESSE_PRENDRE = prefs.getDouble("VITESSE_PRENDRE", Intake.VITESSE_PRENDRE);
 
-		K.Intake.VITESSE_LANCER_PROCHE = prefs.getDouble("VITESSE_LANCER_PROCHE", K.Intake.VITESSE_LANCER_PROCHE);
+		Intake.VITESSE_LANCER_PROCHE = prefs.getDouble("VITESSE_LANCER_PROCHE", Intake.VITESSE_LANCER_PROCHE);
 
-		K.Intake.VITESSE_LANCER_LOIN = prefs.getDouble("VITESSE_LANCER_LOIN", K.Intake.VITESSE_LANCER_LOIN);
+		Intake.VITESSE_LANCER_LOIN = prefs.getDouble("VITESSE_LANCER_LOIN", Intake.VITESSE_LANCER_LOIN);
+		
+		Grimpeur.VITESSE_GRIMPER = prefs.getDouble("VITESSE_GRIMPER", Grimpeur.VITESSE_GRIMPER);
+	
+		Grimpeur.VITESSE_DESCENDRE = prefs.getDouble("VITESSE_DESCENDRE", Grimpeur.VITESSE_DESCENDRE);
 	}
 
 	public static final class Ports {
