@@ -1,6 +1,5 @@
 package com.ultime5528.frc2018.commands;
 
-import com.ultime5528.frc2018.K.Grimpeur;
 import com.ultime5528.frc2018.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,15 +7,15 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Grimper extends Command {
+public class DescendreRobot extends Command {
 
-    public Grimper() {
+    public DescendreRobot() {
         requires(Robot.grimpeur);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.grimpeur.grimper();
+    	Robot.grimpeur.descendre();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -36,6 +35,5 @@ public class Grimper extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

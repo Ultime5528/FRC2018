@@ -153,6 +153,7 @@ public class K {
 	}
 	public static final class Grimpeur {
 		public static double VITESSE_GRIMPER = 1;
+		public static double VITESSE_DESCENDRE = -1;
 	}
 	
 }

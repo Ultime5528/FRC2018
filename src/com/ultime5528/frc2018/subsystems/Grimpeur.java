@@ -44,5 +44,10 @@ public class Grimpeur extends Subsystem {
     	moteur.set(0);
     }
     
+    public void descendre() {
+    	moteur.set(K.Grimpeur.VITESSE_DESCENDRE);
+    }
+    
+    
 }
 
