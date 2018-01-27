@@ -34,7 +34,7 @@ public class BasePilotable extends Subsystem {
 		addChild("Moteur Droit", moteurDroit);
 
 		drive = new DifferentialDrive(moteurGauche, moteurDroit);
-		drive.setMaxOutput(0.7);
+		drive.setMaxOutput(1.0);
 
 		encoderGauche = new Encoder(K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_A, K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_B);
 		encoderGauche.setDistancePerPulse(-0.00023456);
@@ -55,7 +55,38 @@ public class BasePilotable extends Subsystem {
 		setDefaultCommand(new Pilotage());
 
 	}
+	
+	
+	public void resetGyro() {
+		gyro.reset();
+	}
+	
+	public void resetEncoders() {
+		encoderGauche.reset();
+		encoderDroit.reset();
+	}
 
+	public double getEncoderGaucheDistance() {
+		return encoderGauche.getDistance();
+	}
+	
+	public double getEncoderDroitDistance() {
+		return encoderDroit.getDistance();
+	}
+	
+	public double getEncoderGaucheVitesse() {
+		return encoderGauche.getRate();
+	}
+	
+	public double getHeading() {
+		return gyro.getAngle();
+	}
+	
+	public void tankDrive(double left, double right) {
+		//System.out.println("Gauche : " + left + "\tDroit : " + right);
+		drive.tankDrive(left, right, false);
+	}
+	
 	public void drive() {
 		Joystick joystick = Robot.oi.getJoystick();
 		drive.arcadeDrive(Robot.oi.getInterY().interpolate(-joystick.getY()), joystick.getX());

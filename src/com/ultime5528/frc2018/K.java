@@ -109,24 +109,31 @@ public class K {
 		public static final int BASE_PILOTABLE_MOTEUR_GAUCHE = 0;
 		public static final int BASE_PILOTABLE_MOTEUR_DROIT = 1;
 
+		public static final int ELEVATEUR_MOTEUR = 2;
+		
+		public static final int INTAKE_MOTEUR_GAUCHE = 3;
+		public static final int INTAKE_MOTEUR_DROITE = 4;
+		
+		public static final int GRIMPEUR_MOTEUR = 5;
+		public static final int GRIMPEUR_SERVO = 6;
+		
+		
+		
+		public static final int BASE_PILOTABLE_ENCODER_DROIT_A = 0;
+		public static final int BASE_PILOTABLE_ENCODER_DROIT_B = 1;
+		
 		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_A = 2;
 		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_B = 3;
 
-		public static final int BASE_PILOTABLE_ENCODER_DROIT_A = 0;
-		public static final int BASE_PILOTABLE_ENCODER_DROIT_B = 1;
+		public static final int GRIMPEUR_ENCODER_A = 4;
+		public static final int GRIMPEUR_ENCODER_B = 5;
 
-		public static final int ELEVATEUR_MOTEUR = 2;
+		
 		public static final int ELEVATEUR_ENCODER_A = 6;
 		public static final int ELEVATEUR_ENCODER_B = 7;
 
-		public static final int INTAKE_MOTEUR_GAUCHE = 3;
-		public static final int INTAKE_MOTEUR_DROITE = 4;
-		public static final int INTAKE_LIMIT_SWITCH = 6;
-
-		public static final int GRIMPEUR_MOTEUR = 5;
-		public static final int GRIMPEUR_ENCODER_A = 4;
-		public static final int GRIMPEUR_ENCODER_B = 5;
-		public static final int GRIMPEUR_SERVO = 6;
+		
+		public static final int INTAKE_LIMIT_SWITCH = 8;
 
 	}
 
@@ -139,7 +146,7 @@ public class K {
 	}
 
 	public static final class BasePilotable {
-		public static double LARGEUR = 0.5;
+		public static double LARGEUR = 0.61;
 		public static double P_FOLLOWER = 0;
 		public static double D_FOLLOWER = 0;
 		public static double K_ANGLE_FOLLOWER = -0.01;
