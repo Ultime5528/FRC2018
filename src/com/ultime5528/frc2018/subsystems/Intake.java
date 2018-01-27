@@ -35,8 +35,8 @@ public class Intake extends Subsystem {
 	}
 	
 	public void prendre(){
-		moteurGauche.set(K.Intake.VITESSE_PRENDRE_CUBE);
-		moteurDroite.set(K.Intake.VITESSE_PRENDRE_CUBE);
+		moteurGauche.set(K.Intake.VITESSE_PRENDRE);
+		moteurDroite.set(K.Intake.VITESSE_PRENDRE);
 	}
 	
 	public void stop() {

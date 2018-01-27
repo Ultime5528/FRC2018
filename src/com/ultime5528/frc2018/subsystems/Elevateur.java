@@ -1,10 +1,7 @@
 package com.ultime5528.frc2018.subsystems;
 
-import java.sql.Driver;
-
 import com.ultime5528.frc2018.K;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;

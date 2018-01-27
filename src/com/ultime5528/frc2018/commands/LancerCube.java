@@ -1,6 +1,5 @@
 package com.ultime5528.frc2018.commands;
 
-import com.ultime5528.frc2018.K;
 import com.ultime5528.frc2018.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;

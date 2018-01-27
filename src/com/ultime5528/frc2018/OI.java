@@ -7,11 +7,9 @@
 
 package com.ultime5528.frc2018;
 
-import com.ultime5528.frc2018.commands.SuivreTrajectoire;
 import com.ultime5528.frc2018.util.CubicInterpolator;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,7 +26,6 @@ public class OI {
 	public OI() {
 		joystick = new Joystick(0);
 		interY = new CubicInterpolator(K.OI.INTER_Y_A, K.OI.INTER_Y_B, K.OI.INTER_Y_C);
-		SmartDashboard.putData("Trajectoire", new SuivreTrajectoire());
 		
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 	}
