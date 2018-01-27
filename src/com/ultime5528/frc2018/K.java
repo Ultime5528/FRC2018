@@ -101,7 +101,7 @@ public class K {
 	
 	public static final class Ports {
 		
-		public static final int BASE_PILOTABLE_MOTEUR_GAUCHE	 = 0;
+		public static final int BASE_PILOTABLE_MOTEUR_GAUCHE	  = 0;
 		public static final int BASE_PILOTABLE_MOTEUR_DROIT		 = 1;
 		
 		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_A		 = 2;
@@ -111,12 +111,18 @@ public class K {
 		public static final int BASE_PILOTABLE_ENCODER_DROIT_B		 = 1;
 		
 		public static final int ELEVATEUR_MOTEUR				 = 2;
+		public static final int ELEVATEUR_POTENTIOMETRE			 = 0;
 		
 		public static final int INTAKE_MOTEUR_GAUCHE = 3;
 		public static final int INTAKE_MOTEUR_DROITE = 4;
 		public static final int INTAKE_LIMIT_SWITCH = 6;
 		
 		public static final int ELEVATEUR_POTENTIOMETRE			 = 0;
+		public static final int GRIMPEUR_MOTEUR = 5;
+		public static final int GRIMPEUR_ENCODER_A = 4;
+		public static final int GRIMPEUR_ENCODER_B = 5;
+		
+		
 	}
 	
 	
