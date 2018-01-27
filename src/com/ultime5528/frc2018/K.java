@@ -42,6 +42,13 @@ public class K {
 		
 		prefs.putDouble("correction_gauche", K.BasePilotable.CORRECTION_GAUCHE);
 		
+		prefs.putDouble("max_potentiometre",K.Elevateur.MAX_POTENTIOMETRE);
+		
+		prefs.putDouble("min_potentiometre", K.Elevateur.MIN_POTENTIOMETRE);
+	
+		prefs.putDouble("vitesse_moteur_elevateur_descendre",K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE);
+	
+		prefs.putDouble("vitesse_moteur_elevateur_monter", K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
 	}
 	
 	
@@ -67,7 +74,16 @@ public class K {
 		
 		BasePilotable.MAX_VELOCITY = prefs.getDouble("max_velocity", K.BasePilotable.MAX_VELOCITY);
 		
-		BasePilotable.CORRECTION_GAUCHE = prefs.getDouble("coorection_gauche", K.BasePilotable.CORRECTION_GAUCHE);
+		BasePilotable.CORRECTION_GAUCHE = prefs.getDouble("correction_gauche", K.BasePilotable.CORRECTION_GAUCHE);
+		
+		Elevateur.MAX_POTENTIOMETRE = prefs.getDouble("max_potentiometre", K.Elevateur.MAX_POTENTIOMETRE);
+		
+		Elevateur.MIN_POTENTIOMETRE = prefs.getDouble("min_potentiometre", K.Elevateur.MIN_POTENTIOMETRE);
+		
+		Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = prefs.getDouble("vitesse_moteur_elevateur_descendre",K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE);
+		
+		Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER = prefs.getDouble("vitesse_moteur_elevateur_monter", K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
+		
 		
 	}
 	
@@ -78,11 +94,11 @@ public class K {
 		public static final int BASE_PILOTABLE_MOTEUR_GAUCHE	 = 0;
 		public static final int BASE_PILOTABLE_MOTEUR_DROIT		 = 1;
 		
-		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_A		 = 0;
-		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_B		 = 1;
+		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_A		 = 2;
+		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_B		 = 3;
 		
-		public static final int BASE_PILOTABLE_ENCODER_DROIT_A		 = 2;
-		public static final int BASE_PILOTABLE_ENCODER_DROIT_B		 = 3;
+		public static final int BASE_PILOTABLE_ENCODER_DROIT_A		 = 0;
+		public static final int BASE_PILOTABLE_ENCODER_DROIT_B		 = 1;
 		
 		public static final int ELEVATEUR_MOTEUR				 = 2;
 		
@@ -110,4 +126,10 @@ public class K {
 		public static double CORRECTION_GAUCHE = 0.98;
 	}
 	
+	public static final class Elevateur{
+		public static double MAX_POTENTIOMETRE = 1000;
+		public static double MIN_POTENTIOMETRE = 0;
+		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = 0.5;
+		public static double VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = -0.5;
+	}
 }

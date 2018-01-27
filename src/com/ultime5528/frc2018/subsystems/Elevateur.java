@@ -17,8 +17,7 @@ public class Elevateur extends PIDSubsystem {
 
 	private AnalogPotentiometer potentiometre;
 	
-	public static final double MAX_POTENTIOMETRE = 1000;
-	public static final double MINIMUM_POTENTIOMETRE = 25;
+	
 	
 	// Initialize your subsystem here
 	public Elevateur() {
@@ -47,32 +46,38 @@ public class Elevateur extends PIDSubsystem {
 		// Return your input value for the PID loop
 		// e.g. a sensor, like a potentiometer:
 		// yourPot.getAverageVoltage() / kYourMaxVoltage;
-		return 0.0;
+		return potentiometre.get();
 	}
 
 	protected void usePIDOutput(double output) {
+		moteurElevateur.set(output);
 		// Use output to drive your system, like a motor
 		// e.g. yourMotor.set(output);
 	}
 	public void monter() {
 		
-		if(potentiometre.get() >= MAX_POTENTIOMETRE){
+		if(potentiometre.get() >= K.Elevateur.MAX_POTENTIOMETRE){
 			moteurElevateur.set(0.0);
 			
 		}
 		else{
-			moteurElevateur.set(0.5);
+			moteurElevateur.set(K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
 		}
 		
 	}
 	public void descendre(){
 	
-		if(potentiometre.get() <= MINIMUM_POTENTIOMETRE){
+		if(potentiometre.get() <= K.Elevateur.MIN_POTENTIOMETRE){
 			moteurElevateur.set(0.0);
 		}
 		else{
-			moteurElevateur.set(-0.5);
+			moteurElevateur.set(K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE);
 		}
+	}
+	
+	public void stop(){
+		
+		moteurElevateur.set(0.0);
 	}
 	
 }
