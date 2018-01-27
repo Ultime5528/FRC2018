@@ -5,6 +5,7 @@ import java.sql.Driver;
 import com.ultime5528.frc2018.K;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
@@ -15,7 +16,7 @@ public class Elevateur extends PIDSubsystem {
 
 	private VictorSP moteurElevateur;
 
-	private AnalogPotentiometer potentiometre;
+	private Encoder encoder;
 	
 	
 	
@@ -26,8 +27,8 @@ public class Elevateur extends PIDSubsystem {
 		moteurElevateur = new VictorSP(K.Ports.ELEVATEUR_MOTEUR);
 		addChild("MoteurElevateur", moteurElevateur);
 
-		potentiometre = new AnalogPotentiometer(K.Ports.ELEVATEUR_POTENTIOMETRE);
-		addChild("Potentiometre", potentiometre);
+		encoder = new Encoder(K.Ports.ELEVATEUR_ENCODER_A, K.Ports.ELEVATEUR_ENCODER_B);
+		addChild("Encoder", encoder);
 		
 		
 
@@ -42,21 +43,20 @@ public class Elevateur extends PIDSubsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
+	@Override
 	protected double returnPIDInput() {
-		// Return your input value for the PID loop
-		// e.g. a sensor, like a potentiometer:
-		// yourPot.getAverageVoltage() / kYourMaxVoltage;
-		return potentiometre.get();
+
+		return encoder.getDistance();
 	}
 
+	@Override
 	protected void usePIDOutput(double output) {
 		moteurElevateur.set(output);
-		// Use output to drive your system, like a motor
-		// e.g. yourMotor.set(output);
+		
 	}
 	public void monter() {
 		
-		if(potentiometre.get() >= K.Elevateur.MAX_POTENTIOMETRE){
+		if(encoder.get() >= K.Elevateur.MAX_ENCODER){
 			moteurElevateur.set(0.0);
 			
 		}
@@ -67,7 +67,7 @@ public class Elevateur extends PIDSubsystem {
 	}
 	public void descendre(){
 	
-		if(potentiometre.get() <= K.Elevateur.MIN_POTENTIOMETRE){
+		if(encoder.get() <= K.Elevateur.MIN_ENCODER){
 			moteurElevateur.set(0.0);
 		}
 		else{
