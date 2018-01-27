@@ -49,6 +49,12 @@ public class K {
 		prefs.putDouble("vitesse_moteur_elevateur_descendre",K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE);
 	
 		prefs.putDouble("vitesse_moteur_elevateur_monter", K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
+		
+		prefs.putDouble("VITESSE_PRENDRE", K.Intake.VITESSE_PRENDRE);
+		
+		prefs.putDouble("VITESSE_LANCER_PROCHE", K.Intake.VITESSE_LANCER_PROCHE);
+		
+		prefs.putDouble("VITESSE_LANCER_LOIN", K.Intake.VITESSE_LANCER_LOIN);
 	}
 	
 	
@@ -84,7 +90,11 @@ public class K {
 		
 		Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER = prefs.getDouble("vitesse_moteur_elevateur_monter", K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
 		
+		K.Intake.VITESSE_PRENDRE = prefs.getDouble("VITESSE_PRENDRE", K.Intake.VITESSE_PRENDRE);
 		
+		K.Intake.VITESSE_LANCER_PROCHE = prefs.getDouble("VITESSE_LANCER_PROCHE", K.Intake.VITESSE_LANCER_PROCHE);
+		
+		K.Intake.VITESSE_LANCER_LOIN = prefs.getDouble("VITESSE_LANCER_LOIN", K.Intake.VITESSE_LANCER_LOIN);
 	}
 	
 	
@@ -101,6 +111,10 @@ public class K {
 		public static final int BASE_PILOTABLE_ENCODER_DROIT_B		 = 1;
 		
 		public static final int ELEVATEUR_MOTEUR				 = 2;
+		
+		public static final int INTAKE_MOTEUR_GAUCHE = 3;
+		public static final int INTAKE_MOTEUR_DROITE = 4;
+		public static final int INTAKE_LIMIT_SWITCH = 6;
 		
 		public static final int ELEVATEUR_POTENTIOMETRE			 = 0;
 	}
@@ -131,5 +145,11 @@ public class K {
 		public static double MIN_POTENTIOMETRE = 0;
 		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = 0.5;
 		public static double VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = -0.5;
+	}
+	
+	public static final class Intake {
+		public static double VITESSE_PRENDRE = 0.7;
+		public static double VITESSE_LANCER_PROCHE = -0.2;
+		public static double VITESSE_LANCER_LOIN = -1;
 	}
 }

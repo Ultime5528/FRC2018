@@ -9,6 +9,7 @@ package com.ultime5528.frc2018;
 
 import com.ultime5528.frc2018.subsystems.BasePilotable;
 import com.ultime5528.frc2018.subsystems.Elevateur;
+import com.ultime5528.frc2018.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -30,6 +31,7 @@ public class Robot extends TimedRobot {
 	
 	public static final BasePilotable basePilotable = new BasePilotable();
 	public static final Elevateur elevateur = new Elevateur();
+	public static final Intake intake = new Intake();
 	public static OI oi;
 
 	/**
