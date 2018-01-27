@@ -118,6 +118,7 @@ public class K {
 		public static final int GRIMPEUR_MOTEUR = 5;
 		public static final int GRIMPEUR_ENCODER_A = 4;
 		public static final int GRIMPEUR_ENCODER_B = 5;
+		public static final int GRIMPEUR_SERVO = 6;
 
 	}
 
@@ -150,4 +151,8 @@ public class K {
 		public static double VITESSE_LANCER_PROCHE = -0.2;
 		public static double VITESSE_LANCER_LOIN = -1;
 	}
+	public static final class Grimpeur {
+		public static double VITESSE_GRIMPER = 1;
+	}
+	
 }
