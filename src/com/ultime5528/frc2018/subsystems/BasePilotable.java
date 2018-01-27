@@ -49,11 +49,11 @@ public class BasePilotable extends Subsystem {
     	drive.setMaxOutput(0.7);
     	
     	encoderGauche = new Encoder(K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_A, K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_B);
-    	encoderGauche.setDistancePerPulse(0.00023456);
+    	encoderGauche.setDistancePerPulse(-0.00023456);
     	addChild("encodeur gauche", encoderGauche);
     	
     	encoderDroit = new Encoder(K.Ports.BASE_PILOTABLE_ENCODER_DROIT_A, K.Ports.BASE_PILOTABLE_ENCODER_DROIT_B);
-    	encoderDroit.setDistancePerPulse(-0.00023456);
+    	encoderDroit.setDistancePerPulse(0.00023456);
     	addChild("encodeur droit", encoderDroit);
     	
     	gyro = new ADXRS450_Gyro();
@@ -88,7 +88,7 @@ public class BasePilotable extends Subsystem {
     public void suivreTrajectoire(){
     	
     	double l = leftFollower.calculate(encoderGauche.getDistance());
-		double r = -1 * rightFollower.calculate(encoderDroit.getDistance());
+		double r = rightFollower.calculate(encoderDroit.getDistance());
 
 		double gyro_heading = gyro.getAngle();
 		double desired_heading = Pathfinder.r2d(leftFollower.getHeading());  // Should also be in degrees
@@ -98,9 +98,10 @@ public class BasePilotable extends Subsystem {
 
 		System.out.println("Gauche : " + l + "\tDroite : " + r);
 		
-		moteurGauche.set(l + turn);
-		moteurDroit.set(r - turn);
-    	
+		moteurGauche.set(K.OI.INTER_Y_B + (1 - K.OI.INTER_Y_B) * (l + turn));
+		moteurDroit.set(-1 * (K.OI.INTER_Y_B + (1 - K.OI.INTER_Y_B) * (r - turn)));
+    	//moteurGauche.set(l + turn);
+    	//moteurDroit.set(r - turn);
     }
     
     public boolean trajectoireEstFinie(){
