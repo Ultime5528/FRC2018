@@ -11,6 +11,7 @@ import com.ultime5528.frc2018.subsystems.BasePilotable;
 import com.ultime5528.frc2018.subsystems.Elevateur;
 import com.ultime5528.frc2018.subsystems.Intake;
 import com.ultime5528.frc2018.subsystems.Grimpeur;
+import com.ultime5528.frc2018.subsystems.LEDController;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
 	public static final Elevateur elevateur = new Elevateur();
 	public static final Intake intake = new Intake();
 	public static final Grimpeur grimpeur = new Grimpeur (); 
+	public static final LEDController ledController = new LEDController();
 	public static OI oi;
 	 
 
@@ -88,6 +90,7 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		
 		K.update();
+		ledController.allumerRouge();
 	
 	}
 

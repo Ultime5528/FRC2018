@@ -23,7 +23,7 @@ public class LEDController extends Subsystem {
     }
     
     public void allumerRouge(){
-    	serial.writeString("r\n");
+    	serial.writeString("r");
     }
    
 }

@@ -7,9 +7,12 @@ import com.ultime5528.frc2018.commands.Pilotage;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.filters.LinearDigitalFilter;
 
 /**
  *
@@ -23,7 +26,10 @@ public class BasePilotable extends Subsystem {
 	private ADXRS450_Gyro gyro;
 	private Encoder encoderGauche;
 	private Encoder encoderDroit;
-
+	
+	private LinearDigitalFilter averageSpeedFilter;
+	private PIDSource averageSpeed;
+	
 	public BasePilotable() {
 		super("Base pilotable");
 
@@ -34,7 +40,7 @@ public class BasePilotable extends Subsystem {
 		addChild("Moteur Droit", moteurDroit);
 
 		drive = new DifferentialDrive(moteurGauche, moteurDroit);
-		drive.setMaxOutput(0.7);
+		drive.setMaxOutput(1.0);
 
 		encoderGauche = new Encoder(K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_A, K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_B);
 		encoderGauche.setDistancePerPulse(-0.00023456);
@@ -47,7 +53,32 @@ public class BasePilotable extends Subsystem {
 		gyro = new ADXRS450_Gyro();
 		gyro.calibrate();
 		addChild("Gyro", gyro);
+		
+		averageSpeed = new PIDSource() {
+			@Override
+			public void setPIDSourceType(PIDSourceType pidSource) {
+			}
+			@Override
+			public double pidGet() {
+				return (encoderDroit.getRate() + encoderGauche.getRate()) / 2;
+			}
+			
+			@Override
+			public PIDSourceType getPIDSourceType() {
+				return PIDSourceType.kRate;
+			}
+		};
+		
+		averageSpeedFilter = LinearDigitalFilter.movingAverage(averageSpeed, 10);
 
+	}
+	
+	public double getAverageSpeed() {
+		return averageSpeed.pidGet();
+	}
+	
+	public LinearDigitalFilter getAverageSpeedFilter() {
+		return averageSpeedFilter;
 	}
 
 	public void initDefaultCommand() {
@@ -55,7 +86,38 @@ public class BasePilotable extends Subsystem {
 		setDefaultCommand(new Pilotage());
 
 	}
+	
+	
+	public void resetGyro() {
+		gyro.reset();
+	}
+	
+	public void resetEncoders() {
+		encoderGauche.reset();
+		encoderDroit.reset();
+	}
 
+	public double getEncoderGaucheDistance() {
+		return encoderGauche.getDistance();
+	}
+	
+	public double getEncoderDroitDistance() {
+		return encoderDroit.getDistance();
+	}
+	
+	public double getEncoderGaucheVitesse() {
+		return encoderGauche.getRate();
+	}
+	
+	public double getHeading() {
+		return gyro.getAngle();
+	}
+	
+	public void tankDrive(double left, double right) {
+		//System.out.println("Gauche : " + left + "\tDroit : " + right);
+		drive.tankDrive(left, right, false);
+	}
+	
 	public void drive() {
 		Joystick joystick = Robot.oi.getJoystick();
 		drive.arcadeDrive(Robot.oi.getInterY().interpolate(-joystick.getY()), joystick.getX());
