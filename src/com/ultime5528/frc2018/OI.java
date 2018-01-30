@@ -30,6 +30,8 @@ public class OI {
 		
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 		SmartDashboard.putData("Suivre courbe 2 2 ", new SuivreArc(2, 1, 0.4));
+		SmartDashboard.putData("Suivre courbe 2 0 ", new SuivreArc(2, 0, 0.4));
+		
 	}
 	
 	public Joystick getJoystick() {

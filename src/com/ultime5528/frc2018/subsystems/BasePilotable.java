@@ -7,9 +7,12 @@ import com.ultime5528.frc2018.commands.Pilotage;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.filters.LinearDigitalFilter;
 
 /**
  *
@@ -23,7 +26,10 @@ public class BasePilotable extends Subsystem {
 	private ADXRS450_Gyro gyro;
 	private Encoder encoderGauche;
 	private Encoder encoderDroit;
-
+	
+	private LinearDigitalFilter averageSpeedFilter;
+	private PIDSource averageSpeed;
+	
 	public BasePilotable() {
 		super("Base pilotable");
 
@@ -47,7 +53,32 @@ public class BasePilotable extends Subsystem {
 		gyro = new ADXRS450_Gyro();
 		gyro.calibrate();
 		addChild("Gyro", gyro);
+		
+		averageSpeed = new PIDSource() {
+			@Override
+			public void setPIDSourceType(PIDSourceType pidSource) {
+			}
+			@Override
+			public double pidGet() {
+				return (encoderDroit.getRate() + encoderGauche.getRate()) / 2;
+			}
+			
+			@Override
+			public PIDSourceType getPIDSourceType() {
+				return PIDSourceType.kRate;
+			}
+		};
+		
+		averageSpeedFilter = LinearDigitalFilter.movingAverage(averageSpeed, 10);
 
+	}
+	
+	public double getAverageSpeed() {
+		return averageSpeed.pidGet();
+	}
+	
+	public LinearDigitalFilter getAverageSpeedFilter() {
+		return averageSpeedFilter;
 	}
 
 	public void initDefaultCommand() {

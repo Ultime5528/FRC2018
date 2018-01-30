@@ -5,6 +5,8 @@ import com.ultime5528.frc2018.Robot;
 
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.filters.LinearDigitalFilter;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -21,6 +23,8 @@ public class SuivreArc extends Command {
 	
 	boolean enLigneDroite = false;
 	boolean shouldBrake = false;
+	
+	
 
     public SuivreArc(double xForward, double ySide, double vitesse) {
         
@@ -35,8 +39,7 @@ public class SuivreArc extends Command {
         if(Math.abs(radius) <= MAX_RADIUS) {
         	
         	angle = Math.asin(xForward / radius);
-        	System.out.println("Angle : " + Math.toDegrees(angle));
-            distance = radius * angle;
+        	distance = radius * angle;
             System.out.println("Distance : " + distance);
         	
             //Si on tourne vers la droite, la roue gauche va plus vite.
@@ -54,6 +57,8 @@ public class SuivreArc extends Command {
         	
         } else {
         	
+        	distance = xForward;
+        	
         	vitesse *= Math.signum(xForward);
         	
         	vGauche = vitesse;
@@ -63,8 +68,6 @@ public class SuivreArc extends Command {
         }
         
         vBrake = VITESSE_BRAKE * Math.signum(xForward);
-        
-        System.out.println("X : " + xForward + "\tY : " + ySide + "\tRadius : " + radius);
         
         Preferences.getInstance().putDouble("MAX_RADIUS", MAX_RADIUS);
         Preferences.getInstance().putDouble("VITESSE_BRAKE", VITESSE_BRAKE);
@@ -77,6 +80,7 @@ public class SuivreArc extends Command {
     protected void initialize() {
     	Robot.basePilotable.resetGyro();
     	Robot.basePilotable.resetEncoders();
+    	Robot.basePilotable.getAverageSpeedFilter().reset();
     	
     	shouldBrake = false;
     	
@@ -90,10 +94,11 @@ public class SuivreArc extends Command {
     
     protected void execute() {
     	
+    	SmartDashboard.putNumber("Average speed filter", Robot.basePilotable.getAverageSpeedFilter().pidGet());
+    	
     	if(shouldBrake) {
     		
     		Robot.basePilotable.tankDrive(vBrake, vBrake);
-    		System.out.println("Left speed : " + Robot.basePilotable.getEncoderGaucheVitesse());
     		return;
     		
     	}
@@ -103,7 +108,7 @@ public class SuivreArc extends Command {
     	
     	double distanceParcourue = (Robot.basePilotable.getEncoderGaucheDistance() + Robot.basePilotable.getEncoderDroitDistance()) / 2.0;
     	
-    	System.out.println("Distance parcourue : " + distanceParcourue);
+    	
     	
     	if(distanceParcourue >= distance)
     		shouldBrake = true;
@@ -121,7 +126,7 @@ public class SuivreArc extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return shouldBrake && Robot.basePilotable.getEncoderGaucheVitesse() < THRESHOLD_VITESSE;
+        return shouldBrake && Robot.basePilotable.getAverageSpeedFilter().get() < THRESHOLD_VITESSE;
     }
 
     // Called once after isFinished returns true
