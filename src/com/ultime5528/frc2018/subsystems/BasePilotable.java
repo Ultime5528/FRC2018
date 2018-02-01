@@ -114,7 +114,7 @@ public class BasePilotable extends Subsystem {
 	}
 	
 	public void tankDrive(double left, double right) {
-		//System.out.println("Gauche : " + left + "\tDroit : " + right);
+		System.out.println("Gauche : " + left + "\tDroit : " + right);
 		drive.tankDrive(left, right, false);
 	}
 	

@@ -68,12 +68,12 @@ public class SuivreArc extends Command {
         }
         
         vBrake = VITESSE_BRAKE * Math.signum(xForward);
-        
+        /*
         Preferences.getInstance().putDouble("MAX_RADIUS", MAX_RADIUS);
         Preferences.getInstance().putDouble("VITESSE_BRAKE", VITESSE_BRAKE);
         Preferences.getInstance().putDouble("ANGLE_P", ANGLE_P);
         Preferences.getInstance().putDouble("THRESHOLD_VITESSE", THRESHOLD_VITESSE);
-        
+        */
     }
 
     

@@ -8,6 +8,7 @@
 package com.ultime5528.frc2018;
 
 import com.ultime5528.frc2018.commands.SuivreArc;
+import com.ultime5528.frc2018.commands.SuivreTrajectoire;
 import com.ultime5528.frc2018.util.CubicInterpolator;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -31,7 +32,8 @@ public class OI {
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 		SmartDashboard.putData("Suivre courbe 2 2 ", new SuivreArc(2, 1, 0.4));
 		SmartDashboard.putData("Suivre courbe 2 0 ", new SuivreArc(2, 0, 0.4));
-		
+		SmartDashboard.putData("Suivre Trajectoire 2 2 0", new SuivreTrajectoire());
+	
 	}
 	
 	public Joystick getJoystick() {
