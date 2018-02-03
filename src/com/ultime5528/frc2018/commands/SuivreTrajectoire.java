@@ -15,25 +15,22 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 public class SuivreTrajectoire extends Command { 
 
 	private Trajectory trajectory; 
-	private double maxVelocity = 1.7; 
 	private int indexSegment = 0;
-	private double vitesse;
+	private double vitesse, vitesseBrake;
 	
 	public static double VITESSE_BRAKE = -1.0;
 	public static double ANGLE_P = 0.1;
 	public static double THRESHOLD_VITESSE = 0.01;
 
-	public SuivreTrajectoire() { 
+	
+	public SuivreTrajectoire(Waypoint[] points, double vitesse, double vitesseBrake) { 
+		
+		super("SuivreTrajectoire");
 
-		Waypoint[] points = new Waypoint[] { 
-			new Waypoint(0, 0, 0),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees 
-			new Waypoint(2, -0.5, Pathfinder.d2r(-45))                           // Waypoint @ x=0, y=0,   exit angle=0 radians 
-		}; 
-
-		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05,maxVelocity, 2.0, 60.0); 
+		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, vitesse, 100, 10000); 
 		trajectory = Pathfinder.generate(points, config); 
-
-		this.vitesse = 0.4;
+		this.vitesseBrake = vitesseBrake;
+		this.vitesse = vitesse;
 		
 		requires(Robot.basePilotable); 
 		
@@ -43,17 +40,11 @@ public class SuivreTrajectoire extends Command {
 	protected void initialize() { 
 		Robot.basePilotable.resetGyro();
 		Robot.basePilotable.resetEncoders();
-		indexSegment = 0;//Robot.basePilotable.setTrajectoire(trajectory, maxVelocity); 
-		VITESSE_BRAKE = Preferences.getInstance().getDouble("VITESSE_BRAKE", VITESSE_BRAKE);
-    	ANGLE_P = Preferences.getInstance().getDouble("ANGLE_P", ANGLE_P);
-    	THRESHOLD_VITESSE = Preferences.getInstance().getDouble("THRESHOLD_VITESSE", THRESHOLD_VITESSE);
-    
+		indexSegment = 0;    
 	} 
 
 	// Called repeatedly when this Command is scheduled to run 
 	protected void execute() { 
-
-		//Robot.basePilotable.suivreTrajectoire(); 
 
 		double distanceParcourue = (Robot.basePilotable.getEncoderGaucheDistance() + Robot.basePilotable.getEncoderDroitDistance()) / 2.0;
 		double vitesseGauche = vitesse;
@@ -67,9 +58,10 @@ public class SuivreTrajectoire extends Command {
 		
 		
 		if(indexSegment >= trajectory.segments.length){
-			Robot.basePilotable.tankDrive(VITESSE_BRAKE, VITESSE_BRAKE);
+			Robot.basePilotable.tankDrive(vitesseBrake, vitesseBrake);
 			return; 
 		}
+		
 		System.out.println(indexSegment);
 		
     	double error = Pathfinder.boundHalfDegrees(Pathfinder.r2d(trajectory.segments[indexSegment].heading)) - Robot.basePilotable.getHeading();

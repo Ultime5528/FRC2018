@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
 	public static final Elevateur elevateur = new Elevateur();
 	public static final Intake intake = new Intake();
 	public static final Grimpeur grimpeur = new Grimpeur (); 
-	//public static final LEDController ledController = new LEDController();
+	public static final LEDController ledController = new LEDController();
 	public static OI oi;
 	 
 
@@ -90,7 +90,7 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		
 		K.update();
-		//ledController.allumerRouge();
+		ledController.allumerRouge();
 	
 	}
 

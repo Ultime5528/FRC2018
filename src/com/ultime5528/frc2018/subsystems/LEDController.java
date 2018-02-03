@@ -1,5 +1,6 @@
 package com.ultime5528.frc2018.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -9,9 +10,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class LEDController extends Subsystem {
 
 	private SerialPort serial;
+	private boolean estBranche;
 	
 	public LEDController(){
-		serial = new SerialPort(9600, SerialPort.Port.kOnboard);
+		estBranche = false;
+		
+		try {
+			
+			serial = new SerialPort(9600, SerialPort.Port.kUSB1);
+			estBranche = true;
+			
+		} catch (Exception e) {
+			DriverStation.reportError("Arduino debranche", true);
+		}
+		
+		
 	}
 	
     // Put methods for controlling this subsystem
@@ -23,7 +36,9 @@ public class LEDController extends Subsystem {
     }
     
     public void allumerRouge(){
-    	serial.writeString("r");
+    	if(estBranche){
+    		serial.writeString("r");
+    	}
     }
    
 }

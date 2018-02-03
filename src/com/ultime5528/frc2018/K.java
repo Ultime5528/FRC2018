@@ -58,6 +58,22 @@ public class K {
 		prefs.putDouble("VITESSE_GRIMPER", Grimpeur.VITESSE_GRIMPER);
 		
 		prefs.putDouble("VITESSE_DESCENDRE", Grimpeur.VITESSE_DESCENDRE);
+		
+		prefs.putDouble("THRESHOLD_VITESSE", SuivreTrajectoire.THRESHOLD_VITESSE);
+		
+		prefs.putDouble("VITESSE_BRAKE", SuivreTrajectoire.VITESSE_BRAKE);
+		
+		prefs.putDouble("P_ANGLE", SuivreTrajectoire.P_ANGLE);
+		
+		prefs.putDouble("ELEVATEUR_P", Elevateur.P);
+	
+		prefs.putDouble("ELEVATEUR_I", Elevateur.I);
+	
+		prefs.putDouble("ELEVATEUR_D", Elevateur.D);
+		
+		prefs.putDouble("VITESSE_GARDER_CUBE", Intake.VITESSE_GARDER_CUBE);
+	
+	
 	}
 
 	public static void update() {
@@ -92,16 +108,39 @@ public class K {
 
 		Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER = prefs.getDouble("vitesse_moteur_elevateur_monter",
 				Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
-
+		
+		Elevateur.P = prefs.getDouble("ELEVATEUR_P", Elevateur.P);
+		
+		Elevateur.I = prefs.getDouble("ELEVATEUR_I", Elevateur.I);
+		
+		Elevateur.D = prefs.getDouble("ELEVATEUR_D", Elevateur.D);
+		
+		Elevateur.TOLERANCE = prefs.getDouble("ELEVATEUR_TOLERANCE", Elevateur.TOLERANCE);
+		
+		Robot.elevateur.setAbsoluteTolerance(Elevateur.TOLERANCE);
+		
+		Robot.elevateur.getPIDController().setPID(Elevateur.P, Elevateur.I, Elevateur.D);
+		
 		Intake.VITESSE_PRENDRE = prefs.getDouble("VITESSE_PRENDRE", Intake.VITESSE_PRENDRE);
 
 		Intake.VITESSE_LANCER_PROCHE = prefs.getDouble("VITESSE_LANCER_PROCHE", Intake.VITESSE_LANCER_PROCHE);
 
 		Intake.VITESSE_LANCER_LOIN = prefs.getDouble("VITESSE_LANCER_LOIN", Intake.VITESSE_LANCER_LOIN);
 		
+		Intake.VITESSE_GARDER_CUBE = prefs.getDouble("VITESSE_GARDER_CUBE", Intake.VITESSE_GARDER_CUBE);
+		
 		Grimpeur.VITESSE_GRIMPER = prefs.getDouble("VITESSE_GRIMPER", Grimpeur.VITESSE_GRIMPER);
 	
 		Grimpeur.VITESSE_DESCENDRE = prefs.getDouble("VITESSE_DESCENDRE", Grimpeur.VITESSE_DESCENDRE);
+		
+		SuivreTrajectoire.THRESHOLD_VITESSE = prefs.getDouble("THRESHOLD_VITESSE", SuivreTrajectoire.THRESHOLD_VITESSE);
+		
+		SuivreTrajectoire.VITESSE_BRAKE = prefs.getDouble("VITESSE_BRAKE", SuivreTrajectoire.THRESHOLD_VITESSE);
+		
+		SuivreTrajectoire.P_ANGLE = prefs.getDouble("P_ANGLE", SuivreTrajectoire.P_ANGLE);
+		
+		
+		
 	}
 
 	public static final class Ports {
@@ -133,7 +172,8 @@ public class K {
 		public static final int ELEVATEUR_ENCODER_B = 7;
 
 		
-		public static final int INTAKE_LIMIT_SWITCH = 8;
+		public static final int INTAKE_SWITCH_DROITE = 8;
+		public static final int INTAKE_SWITCH_GAUCHE = 9;
 
 	}
 
@@ -159,16 +199,28 @@ public class K {
 		public static double MIN_ENCODER = 0;
 		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = 0.5;
 		public static double VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = -0.5;
+		public static double P = 0;
+		public static double I = 0;
+		public static double D = 0;
+		public static double TOLERANCE = 0.1;
 	}
 
 	public static final class Intake {
 		public static double VITESSE_PRENDRE = 0.7;
 		public static double VITESSE_LANCER_PROCHE = -0.2;
 		public static double VITESSE_LANCER_LOIN = -1;
+		public static double VITESSE_GARDER_CUBE = -0.2;
+		
 	}
 	public static final class Grimpeur {
 		public static double VITESSE_GRIMPER = 1;
 		public static double VITESSE_DESCENDRE = -1;
+	}
+	public static final class SuivreTrajectoire {
+		public static double VITESSE_BRAKE = -1;
+		public static double THRESHOLD_VITESSE = 0.01;
+		public static double P_ANGLE = 0.01;
+		
 	}
 	
 }

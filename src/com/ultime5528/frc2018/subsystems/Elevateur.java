@@ -19,7 +19,7 @@ public class Elevateur extends PIDSubsystem {
 	
 	// Initialize your subsystem here
 	public Elevateur() {
-		super("Elevateur", 0, 0, 0);
+		super("Elevateur", K.Elevateur.P, K.Elevateur.I, K.Elevateur.D);
 
 		moteurElevateur = new VictorSP(K.Ports.ELEVATEUR_MOTEUR);
 		addChild("MoteurElevateur", moteurElevateur);
@@ -38,19 +38,19 @@ public class Elevateur extends PIDSubsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
+	
 	}
-
+	
 	@Override
 	protected double returnPIDInput() {
-
 		return encoder.getDistance();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
 		moteurElevateur.set(output);
-		
 	}
+	
 	public void monter() {
 		
 		if(encoder.get() >= K.Elevateur.MAX_ENCODER){

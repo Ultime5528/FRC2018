@@ -13,7 +13,8 @@ public class Intake extends Subsystem {
 
 	private VictorSP moteurGauche;
 	private VictorSP moteurDroite;
-	private DigitalInput limitSwitch;
+	private DigitalInput switchDroite;
+	private DigitalInput switchGauche;
 
 	public Intake() {
 		
@@ -25,9 +26,17 @@ public class Intake extends Subsystem {
 		moteurDroite = new VictorSP(K.Ports.INTAKE_MOTEUR_DROITE);
 		addChild("Moteur Droite", moteurDroite);
 
-		limitSwitch = new DigitalInput(K.Ports.INTAKE_LIMIT_SWITCH);
-		addChild("Limit Switch", limitSwitch);
+		switchDroite = new DigitalInput(K.Ports.INTAKE_SWITCH_DROITE);
+		addChild("Switch Droite", switchDroite);
 		
+		switchGauche = new DigitalInput(K.Ports.INTAKE_SWITCH_GAUCHE);
+		addChild("Switch Gauche", switchGauche);
+		
+	}
+	
+	public boolean hasCube(){
+		
+		return switchDroite.get() && switchGauche.get();
 	}
 
 	public void initDefaultCommand() {
@@ -42,6 +51,11 @@ public class Intake extends Subsystem {
 	public void stop() {
 		moteurDroite.set(0);
 		moteurGauche.set(0);
+	}
+	
+	public void garder(){
+		moteurDroite.set(-0.2);
+		moteurGauche.set(-0.2);
 	}
 	
 	public void lancer(double speed) {

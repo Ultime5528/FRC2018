@@ -41,7 +41,6 @@ public class BasePilotable extends Subsystem {
 
 		drive = new DifferentialDrive(moteurGauche, moteurDroit);
 		drive.setMaxOutput(1.0);
-
 		encoderGauche = new Encoder(K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_A, K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_B);
 		encoderGauche.setDistancePerPulse(-0.00023456);
 		addChild("encodeur gauche", encoderGauche);
