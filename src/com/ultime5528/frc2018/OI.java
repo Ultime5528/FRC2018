@@ -7,6 +7,9 @@
 
 package com.ultime5528.frc2018;
 
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Waypoint;
+
 import com.ultime5528.frc2018.commands.SuivreArc;
 import com.ultime5528.frc2018.commands.SuivreTrajectoire;
 import com.ultime5528.frc2018.util.CubicInterpolator;
@@ -26,13 +29,19 @@ public class OI {
 	private CubicInterpolator interY;
 	
 	public OI() {
+		
+		Waypoint[] ligneDroite = {
+				new Waypoint(0, 0, Pathfinder.d2r(180)),
+				new Waypoint(-2, 0, Pathfinder.d2r(180))
+		};
+		
 		joystick = new Joystick(0);
 		interY = new CubicInterpolator(K.OI.INTER_Y_A, K.OI.INTER_Y_B, K.OI.INTER_Y_C);
 		
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 		SmartDashboard.putData("Suivre courbe 2 2 ", new SuivreArc(2, 1, 0.4));
 		SmartDashboard.putData("Suivre courbe 2 0 ", new SuivreArc(2, 0, 0.4));
-		SmartDashboard.putData("Suivre Trajectoire 2 2 0", new SuivreTrajectoire());
+		SmartDashboard.putData("Suivre Trajectoire 2 2 0", new SuivreTrajectoire(ligneDroite,-0.4 , K.SuivreTrajectoire.VITESSE_BRAKE));
 	
 	}
 	

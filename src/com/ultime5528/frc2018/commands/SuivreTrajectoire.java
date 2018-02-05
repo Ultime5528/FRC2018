@@ -17,17 +17,22 @@ public class SuivreTrajectoire extends Command {
 	private Trajectory trajectory; 
 	private int indexSegment = 0;
 	private double vitesse, vitesseBrake;
+	private double angleInitial;
 	
 	public static double VITESSE_BRAKE = -1.0;
 	public static double ANGLE_P = 0.1;
 	public static double THRESHOLD_VITESSE = 0.01;
+	
 
 	
 	public SuivreTrajectoire(Waypoint[] points, double vitesse, double vitesseBrake) { 
 		
 		super("SuivreTrajectoire");
-
-		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, vitesse, 100, 10000); 
+		
+		vitesseBrake *= Math.signum(vitesse) * Math.signum(vitesseBrake) * -1;
+		
+		angleInitial = Pathfinder.r2d(points[0].angle);		
+		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, Math.abs(vitesse), 100, 10000); 
 		trajectory = Pathfinder.generate(points, config); 
 		this.vitesseBrake = vitesseBrake;
 		this.vitesse = vitesse;
@@ -46,7 +51,7 @@ public class SuivreTrajectoire extends Command {
 	// Called repeatedly when this Command is scheduled to run 
 	protected void execute() { 
 
-		double distanceParcourue = (Robot.basePilotable.getEncoderGaucheDistance() + Robot.basePilotable.getEncoderDroitDistance()) / 2.0;
+		double distanceParcourue = Math.abs(Robot.basePilotable.getEncoderGaucheDistance() + Robot.basePilotable.getEncoderDroitDistance()) / 2.0;
 		double vitesseGauche = vitesse;
 		double vitesseDroite = vitesse;
 		
@@ -64,7 +69,9 @@ public class SuivreTrajectoire extends Command {
 		
 		System.out.println(indexSegment);
 		
-    	double error = Pathfinder.boundHalfDegrees(Pathfinder.r2d(trajectory.segments[indexSegment].heading)) - Robot.basePilotable.getHeading();
+    	double error = Pathfinder.boundHalfDegrees(Pathfinder.r2d(trajectory.segments[indexSegment].heading)) - Robot.basePilotable.getHeading() - angleInitial;
+    	error =  Pathfinder.boundHalfDegrees(error);
+    	System.out.println( Pathfinder.boundHalfDegrees(Pathfinder.r2d(trajectory.segments[indexSegment].heading)));
     	
     	double correction = ANGLE_P * error;
     	
@@ -75,7 +82,7 @@ public class SuivreTrajectoire extends Command {
 	// Make this return true when this Command no longer needs to run execute() 
 	protected boolean isFinished() { 
 
-		return (indexSegment >= trajectory.segments.length) && Robot.basePilotable.getAverageSpeedFilter().get() < THRESHOLD_VITESSE; //Robot.basePilotable.trajectoireEstFinie(); 
+		return (indexSegment >= trajectory.segments.length) && -1 * Math.signum(vitesseBrake)* Robot.basePilotable.getAverageSpeedFilter().get() < THRESHOLD_VITESSE; //Robot.basePilotable.trajectoireEstFinie(); 
 
 	} 
 
