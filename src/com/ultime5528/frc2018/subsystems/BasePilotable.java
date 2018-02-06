@@ -27,8 +27,8 @@ public class BasePilotable extends Subsystem {
 	private Encoder encoderGauche;
 	private Encoder encoderDroit;
 	
-	private LinearDigitalFilter averageSpeedFilter;
-	private PIDSource averageSpeed;
+	private LinearDigitalFilter averageSpeedFilter, angleSpeedFilter;
+	private PIDSource averageSpeed, angleSpeed;
 	
 	public BasePilotable() {
 		super("Base pilotable");
@@ -68,17 +68,36 @@ public class BasePilotable extends Subsystem {
 			}
 		};
 		
+		angleSpeed = new PIDSource() {
+			@Override
+			public void setPIDSourceType(PIDSourceType pidSource) {
+			}
+			@Override
+			public double pidGet() {
+				return gyro.getRateX();
+			}
+			
+			@Override
+			public PIDSourceType getPIDSourceType() {
+				return PIDSourceType.kRate;
+			}
+		};
+		
 		averageSpeedFilter = LinearDigitalFilter.movingAverage(averageSpeed, 10);
-
+		angleSpeedFilter = LinearDigitalFilter.movingAverage(angleSpeed, 10);
+		
 	}
 	
 	public double getAverageSpeed() {
 		return averageSpeed.pidGet();
 	}
-	
+	public LinearDigitalFilter getAngleSpeedFilter() {
+		return angleSpeedFilter;
+	}
 	public LinearDigitalFilter getAverageSpeedFilter() {
 		return averageSpeedFilter;
 	}
+
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
