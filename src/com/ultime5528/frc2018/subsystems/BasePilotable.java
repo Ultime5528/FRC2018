@@ -1,5 +1,7 @@
 package com.ultime5528.frc2018.subsystems;
 
+import com.analog.adis16448.frc.ADIS16448_IMU;
+import com.analog.adis16448.frc.ADIS16448_IMU.Axis;
 import com.ultime5528.frc2018.K;
 import com.ultime5528.frc2018.Robot;
 import com.ultime5528.frc2018.commands.Pilotage;
@@ -23,7 +25,7 @@ public class BasePilotable extends Subsystem {
 	private VictorSP moteurDroit;
 	private DifferentialDrive drive;
 
-	private ADXRS450_Gyro gyro;
+	private ADIS16448_IMU gyro;
 	private Encoder encoderGauche;
 	private Encoder encoderDroit;
 	
@@ -49,7 +51,7 @@ public class BasePilotable extends Subsystem {
 		encoderDroit.setDistancePerPulse(0.00023456);
 		addChild("encodeur droit", encoderDroit);
 
-		gyro = new ADXRS450_Gyro();
+		gyro = new ADIS16448_IMU(Axis.kX);
 		gyro.calibrate();
 		addChild("Gyro", gyro);
 		
@@ -109,7 +111,7 @@ public class BasePilotable extends Subsystem {
 	}
 	
 	public double getHeading() {
-		return gyro.getAngle();
+		return gyro.getYaw();
 	}
 	
 	public void tankDrive(double left, double right) {
