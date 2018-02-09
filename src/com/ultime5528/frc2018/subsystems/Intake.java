@@ -1,6 +1,7 @@
 package com.ultime5528.frc2018.subsystems;
 
 import com.ultime5528.frc2018.K;
+import com.ultime5528.frc2018.commands.MaintienCube;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -40,12 +41,12 @@ public class Intake extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-
+		setDefaultCommand(new MaintienCube());
 	}
 	
 	public void prendre(){
-		moteurGauche.set(K.Intake.VITESSE_PRENDRE);
-		moteurDroite.set(K.Intake.VITESSE_PRENDRE);
+		moteurGauche.set(-K.Intake.VITESSE_PRENDRE);
+		moteurDroite.set( 0.5 * K.Intake.VITESSE_PRENDRE);
 	}
 	
 	public void stop() {
@@ -54,13 +55,13 @@ public class Intake extends Subsystem {
 	}
 	
 	public void garder(){
-		moteurDroite.set(-0.2);
-		moteurGauche.set(-0.2);
+		moteurDroite.set(K.Intake.VITESSE_GARDER_CUBE);
+		moteurGauche.set(K.Intake.VITESSE_GARDER_CUBE);
 	}
 	
 	public void lancer(double speed) {
 		moteurDroite.set(speed);
-		moteurGauche.set(speed);
+		moteurGauche.set(-speed);
 		
 	}
 }
