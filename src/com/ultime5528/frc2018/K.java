@@ -148,12 +148,12 @@ public class K {
 		public static final int BASE_PILOTABLE_MOTEUR_GAUCHE = 0;
 		public static final int BASE_PILOTABLE_MOTEUR_DROIT = 1;
 
-		public static final int ELEVATEUR_MOTEUR = 2;
+		public static final int ELEVATEUR_MOTEUR = 3;
 		
-		public static final int INTAKE_MOTEUR_GAUCHE = 3;
-		public static final int INTAKE_MOTEUR_DROITE = 4;
+		public static final int INTAKE_MOTEUR_GAUCHE = 4;
+		public static final int INTAKE_MOTEUR_DROITE = 5;
 		
-		public static final int GRIMPEUR_MOTEUR = 5;
+		public static final int GRIMPEUR_MOTEUR = 2;
 		public static final int GRIMPEUR_SERVO = 6;
 		
 		
@@ -195,10 +195,10 @@ public class K {
 	}
 
 	public static final class Elevateur {
-		public static double MAX_ENCODER = 1000;
-		public static double MIN_ENCODER = 0;
-		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = 0.5;
-		public static double VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = -0.5;
+		public static double MAX_ENCODER = 100000000;
+		public static double MIN_ENCODER = -1000000;
+		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = 0.4;
+		public static double VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = 0.04;
 		public static double P = 0;
 		public static double I = 0;
 		public static double D = 0;
@@ -206,10 +206,10 @@ public class K {
 	}
 
 	public static final class Intake {
-		public static double VITESSE_PRENDRE = 0.7;
-		public static double VITESSE_LANCER_PROCHE = -0.2;
+		public static double VITESSE_PRENDRE = 0.4;
+		public static double VITESSE_LANCER_PROCHE = -0.4;
 		public static double VITESSE_LANCER_LOIN = -1;
-		public static double VITESSE_GARDER_CUBE = -0.2;
+		public static double VITESSE_GARDER_CUBE = -0.02;
 		
 	}
 	public static final class Grimpeur {

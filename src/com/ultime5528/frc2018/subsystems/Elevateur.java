@@ -1,6 +1,9 @@
 package com.ultime5528.frc2018.subsystems;
 
+import org.opencv.core.Point;
+
 import com.ultime5528.frc2018.K;
+import com.ultime5528.frc2018.util.LinearInterpolator;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -12,8 +15,10 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 public class Elevateur extends PIDSubsystem {
 
 	private VictorSP moteurElevateur;
-
+	private LinearInterpolator interpolateurMonter, interpolateurDescendre;
 	private Encoder encoder;
+	private Point[] pointsMonter, pointsDescendre;
+	
 	
 	
 	
@@ -27,6 +32,18 @@ public class Elevateur extends PIDSubsystem {
 		encoder = new Encoder(K.Ports.ELEVATEUR_ENCODER_A, K.Ports.ELEVATEUR_ENCODER_B);
 		addChild("Encoder", encoder);
 		
+		pointsMonter = new Point[] { 
+				new Point(0, 0.4),
+				new Point(10, 0.4),
+				};
+		
+		pointsDescendre = new Point[]{
+				new Point(0, 0),
+				new Point(10, -0.15)
+		};
+		
+		interpolateurMonter = new LinearInterpolator(pointsMonter);
+		interpolateurDescendre = new LinearInterpolator(pointsDescendre);
 		
 
 		// Use these to get going:
@@ -58,7 +75,7 @@ public class Elevateur extends PIDSubsystem {
 			
 		}
 		else{
-			moteurElevateur.set(K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
+			moteurElevateur.set(interpolateurMonter.interpolate(encoder.getDistance()));
 		}
 		
 	}
@@ -68,13 +85,21 @@ public class Elevateur extends PIDSubsystem {
 			moteurElevateur.set(0.0);
 		}
 		else{
-			moteurElevateur.set(K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE);
+			moteurElevateur.set(interpolateurMonter.interpolate(getPosition()));
 		}
 	}
 	
 	public void stop(){
 		
 		moteurElevateur.set(0.0);
+	}
+	
+	public void resetEncoder(){
+		encoder.reset();
+	}
+	
+	public void tendre(){
+		moteurElevateur.set(0.042);
 	}
 	
 }

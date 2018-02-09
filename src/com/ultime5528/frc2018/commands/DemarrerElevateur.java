@@ -7,32 +7,33 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DescendreElevateur extends Command {
+public class DemarrerElevateur extends Command {
 
-    public DescendreElevateur() {
-    	super("DescendreElevateur");
-    	requires(Robot.elevateur);
+    public DemarrerElevateur() {
+        // Use requires() here to declare subsystem dependencies
+        requires(Robot.elevateur);
+        setTimeout(0.5);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.elevateur.descendre();
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.elevateur.descendre();
+    	Robot.elevateur.tendre();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	
     	Robot.elevateur.stop();
+    	Robot.elevateur.resetEncoder();
     }
 
     // Called when another command which requires one or more of the same
