@@ -12,6 +12,7 @@ import jaci.pathfinder.Waypoint;
 
 import com.ultime5528.frc2018.commands.SuivreArc;
 import com.ultime5528.frc2018.commands.SuivreTrajectoire;
+import com.ultime5528.frc2018.commands.Tourner;
 import com.ultime5528.frc2018.util.CubicInterpolator;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -42,6 +43,7 @@ public class OI {
 		SmartDashboard.putData("Suivre courbe 2 2 ", new SuivreArc(2, 1, 0.4));
 		SmartDashboard.putData("Suivre courbe 2 0 ", new SuivreArc(2, 0, 0.4));
 		SmartDashboard.putData("Suivre Trajectoire 2 2 0", new SuivreTrajectoire(ligneDroite ,-0.4 , K.SuivreTrajectoire.VITESSE_BRAKE));
+		SmartDashboard.putData("Tourner", new Tourner(90, 0.5, -0.6));
 	
 	}
 	
