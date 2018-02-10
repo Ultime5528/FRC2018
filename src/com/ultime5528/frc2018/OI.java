@@ -14,10 +14,13 @@ import org.opencv.core.Point;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 
+import com.ultime5528.frc2018.commands.DemarrerElevateur;
 import com.ultime5528.frc2018.commands.DescendreElevateur;
 import com.ultime5528.frc2018.commands.LancerCube;
 import com.ultime5528.frc2018.commands.MonterElevateur;
+import com.ultime5528.frc2018.commands.MonterRobot;
 import com.ultime5528.frc2018.commands.PrendreCube;
+import com.ultime5528.frc2018.commands.SetElevateur;
 import com.ultime5528.frc2018.commands.SuivreArc;
 import com.ultime5528.frc2018.commands.SuivreTrajectoire;
 import com.ultime5528.frc2018.util.CubicInterpolator;
@@ -39,6 +42,9 @@ public class OI {
 	private JoystickButton button12;
 	private JoystickButton button9;
 	private JoystickButton button10;
+	private JoystickButton button7;
+	private JoystickButton button8;
+	private JoystickButton button2;
 	
 	public OI() {
 		
@@ -54,7 +60,12 @@ public class OI {
 		SmartDashboard.putData("Suivre courbe 2 2 ", new SuivreArc(2, 1, 0.4));
 		SmartDashboard.putData("Suivre courbe 2 0 ", new SuivreArc(2, 0, 0.4));
 		SmartDashboard.putData("Suivre Trajectoire 2 2 0", new SuivreTrajectoire(ligneDroite ,0.4 , K.SuivreTrajectoire.VITESSE_BRAKE));
-	
+		SmartDashboard.putData("Set Elevateur 0", new SetElevateur(0));
+		SmartDashboard.putData("Set Elevateur .1", new SetElevateur(0.1));
+		SmartDashboard.putData("Set Elevateur 0.6", new SetElevateur(0.6));
+		SmartDashboard.putData("Set Elevateur 1.4", new SetElevateur(1.4));
+		
+		
 		button9 = new JoystickButton(joystick, 9);
 		button9.whileHeld(new MonterElevateur());
 		
@@ -66,6 +77,15 @@ public class OI {
 		
 		button12 = new JoystickButton(joystick, 12);
 		button12.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_PROCHE));
+		
+		button7 = new JoystickButton(joystick, 7);
+		button7.whenPressed(new DemarrerElevateur());
+		
+		button8 = new JoystickButton(joystick, 8);
+		button8.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
+		
+		button2 = new JoystickButton(joystick, 2);
+		button2.whileHeld(new MonterRobot());
 		
 		
 	}

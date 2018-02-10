@@ -1,7 +1,5 @@
 package com.ultime5528.frc2018.util;
 
-import org.opencv.core.Point;
-
 public class LinearInterpolator {
 
 	private Point[] points;
@@ -13,12 +11,23 @@ public class LinearInterpolator {
 
 	public double interpolate(double x){
 
-		int i = 0;
+		int i = 1;
 		
-		while(x <= points[i].x){
+		
+		if(x <= points[0].x){	
+			return points[0].y;
+		}
+		
+		
+		while(i < points.length && x > points[i].x){
 			i++;
 		}
 
+		
+		if(i == points.length){
+			return points[i-1].y;
+		}
+		
 		return (points[i].y - points[i-1].y)/(points[i].x - points[i-1].x)*(x - points[i-1].x) + points[i-1].y; 
 	}
 

@@ -12,7 +12,7 @@ public class DemarrerElevateur extends Command {
     public DemarrerElevateur() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.elevateur);
-        setTimeout(0.5);
+        setTimeout(1.0);
     }
 
     // Called just before this Command runs the first time

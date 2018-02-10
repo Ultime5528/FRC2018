@@ -158,11 +158,11 @@ public class K {
 		
 		
 		
-		public static final int BASE_PILOTABLE_ENCODER_DROIT_A = 0;
-		public static final int BASE_PILOTABLE_ENCODER_DROIT_B = 1;
+		public static final int BASE_PILOTABLE_ENCODER_DROIT_A = 2;
+		public static final int BASE_PILOTABLE_ENCODER_DROIT_B = 3;
 		
-		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_A = 2;
-		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_B = 3;
+		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_A = 0;
+		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_B = 1;
 
 		public static final int GRIMPEUR_ENCODER_A = 4;
 		public static final int GRIMPEUR_ENCODER_B = 5;
@@ -195,14 +195,14 @@ public class K {
 	}
 
 	public static final class Elevateur {
-		public static double MAX_ENCODER = 100000000;
-		public static double MIN_ENCODER = -1000000;
-		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = 0.4;
-		public static double VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = 0.04;
-		public static double P = 0;
+		public static double MAX_ENCODER = 1.55;
+		public static double MIN_ENCODER = 0;
+		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = -0.5;
+		public static double VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = 0.15;
+		public static double P = -15;
 		public static double I = 0;
 		public static double D = 0;
-		public static double TOLERANCE = 0.1;
+		public static double TOLERANCE = 0.00000000000000000001;
 	}
 
 	public static final class Intake {

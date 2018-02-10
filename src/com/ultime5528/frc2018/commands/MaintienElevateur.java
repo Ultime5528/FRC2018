@@ -17,7 +17,7 @@ public class MaintienElevateur extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.elevateur.setSetpoint(Robot.elevateur.getPosition());
+    	Robot.elevateur.setSetpoint(Robot.elevateur.getHauteur());
     	Robot.elevateur.enable();
     }
 

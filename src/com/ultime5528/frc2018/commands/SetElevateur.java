@@ -19,24 +19,28 @@ public class SetElevateur extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.elevateur.setSetpoint(hauteur);
-    	Robot.elevateur.enable();
-    	
+    	//Robot.elevateur.setSetpoint(hauteur);
+    	//Robot.elevateur.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    	if(Robot.elevateur.getHauteur() < hauteur){
+    		Robot.elevateur.monter();
+    	}
+    	else{ 
+    		Robot.elevateur.descendre();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {	
-        return Robot.elevateur.onTarget();
+        return Math.abs(hauteur - Robot.elevateur.getHauteur()) <= 0.05;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.elevateur.disable();
+    	//Robot.elevateur.disable();
     }
 
     // Called when another command which requires one or more of the same

@@ -1,5 +1,9 @@
 package com.ultime5528.frc2018.subsystems;
 
+import java.sql.Driver;
+
+import com.ultime5528.frc2018.commands.SignalerLED;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -32,14 +36,52 @@ public class LEDController extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new SignalerLED());
     }
     
-    public void allumerRouge(){
-    	if(estBranche){
-    		serial.writeString("r");
-    	}
+    public void setModeAuto(){
+    	sendString("auto");
     }
    
-}
+    public void setModeTeleop(){
+    	sendString("teleop");
+    	
+    }
+  
+    public void setModeCube(){
+    	sendString("cube");	
+    }
+    
+    public void setModeEndGame(){
+    	sendString("endGame");
+    }
+    
+    public void setModeMonter(){
+    	sendString("monter");
+    }
 
+    private void sendString(String command){
+    	if(estBranche){
+    		serial.writeString(command);
+    	}
+    }
+    
+    public void setModeCurrentPeriod(){
+    	if(DriverStation.getInstance().isAutonomous()){
+    		setModeAuto();
+    	}
+    	else if(DriverStation.getInstance().getMatchTime() <= 30){
+    		setModeEndGame();
+    		}
+    	else{
+    		setModeTeleop();
+    	}
+    }
+    
+    public void setModeSignal1(){
+    	sendString("signal1");
+    }
+    public void setModeSignal2(){
+    	sendString("signal2");
+    }
+}

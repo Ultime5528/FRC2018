@@ -55,13 +55,16 @@ public class Intake extends Subsystem {
 	}
 	
 	public void garder(){
-		moteurDroite.set(K.Intake.VITESSE_GARDER_CUBE);
-		moteurGauche.set(K.Intake.VITESSE_GARDER_CUBE);
+		setMoteurs(K.Intake.VITESSE_GARDER_CUBE);
 	}
 	
 	public void lancer(double speed) {
+		setMoteurs(speed);
+	}
+	
+	
+	private void setMoteurs(double speed){
 		moteurDroite.set(speed);
 		moteurGauche.set(-speed);
-		
 	}
 }

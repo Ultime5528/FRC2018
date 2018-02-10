@@ -76,6 +76,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		System.out.println("Message : " + DriverStation.getInstance().getGameSpecificMessage());
+		Robot.ledController.setModeAuto();
 	}
 
 	/**
@@ -90,7 +91,7 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		
 		K.update();
-		ledController.allumerRouge();
+		ledController.setModeTeleop();
 	
 	}
 
