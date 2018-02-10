@@ -76,7 +76,7 @@ public class BasePilotable extends Subsystem {
 			}
 			@Override
 			public double pidGet() {
-				return gyro.getRateX();
+				return gyro.getRate();
 			}
 			
 			@Override
