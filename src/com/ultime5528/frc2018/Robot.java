@@ -7,6 +7,7 @@
 
 package com.ultime5528.frc2018;
 
+import com.ultime5528.frc2018.commands.DemarrerElevateur;
 import com.ultime5528.frc2018.subsystems.BasePilotable;
 import com.ultime5528.frc2018.subsystems.Elevateur;
 import com.ultime5528.frc2018.subsystems.Intake;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -92,6 +94,7 @@ public class Robot extends TimedRobot {
 		
 		K.update();
 		ledController.setModeTeleop();
+		new DemarrerElevateur().start();
 	
 	}
 
@@ -108,5 +111,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	
 	}
 }

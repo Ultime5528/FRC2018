@@ -15,7 +15,7 @@ public class LancerCube extends Command {
     	super("LancerCube");
         requires(Robot.intake);
         this.speed = speed;
-        setTimeout(1);
+        setTimeout(0.5);
     }
 
     // Called just before this Command runs the first time

@@ -10,14 +10,15 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DemarrerElevateur extends Command {
 
     public DemarrerElevateur() {
-        // Use requires() here to declare subsystem dependencies
+        super("DemarrerElevateur");
+    	// Use requires() here to declare subsystem dependencies
         requires(Robot.elevateur);
         setTimeout(1.0);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	Robot.elevateur.disable();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -32,7 +33,6 @@ public class DemarrerElevateur extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.elevateur.stop();
     	Robot.elevateur.resetEncoder();
     }
 

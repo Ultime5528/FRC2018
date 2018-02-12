@@ -9,21 +9,19 @@ package com.ultime5528.frc2018;
 
 
 
-import org.opencv.core.Point;
-
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 
+import com.ultime5528.frc2018.commands.AutonomeGaucheScaleGauche;
 import com.ultime5528.frc2018.commands.DemarrerElevateur;
 import com.ultime5528.frc2018.commands.DescendreElevateur;
 import com.ultime5528.frc2018.commands.LancerCube;
 import com.ultime5528.frc2018.commands.MonterElevateur;
 import com.ultime5528.frc2018.commands.MonterRobot;
-import com.ultime5528.frc2018.commands.PrendreCube;
+import com.ultime5528.frc2018.commands.PrendreLeverCube;
 import com.ultime5528.frc2018.commands.SetElevateur;
 import com.ultime5528.frc2018.commands.SuivreArc;
 import com.ultime5528.frc2018.commands.SuivreTrajectoire;
-import com.ultime5528.frc2018.commands.Tourner;
 import com.ultime5528.frc2018.util.CubicInterpolator;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -38,14 +36,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
 
 	private Joystick joystick;
-	private JoystickButton button11;
-	private CubicInterpolator interY;
-	private JoystickButton button12;
-	private JoystickButton button9;
-	private JoystickButton button10;
-	private JoystickButton button7;
-	private JoystickButton button8;
 	private JoystickButton button2;
+	private CubicInterpolator interY;
+	private JoystickButton button4;
+	private JoystickButton button5;
+	private JoystickButton button3;
+	private JoystickButton button7;
+	private JoystickButton button6;
+	private JoystickButton button11;
 	
 	public OI() {
 		
@@ -65,28 +63,30 @@ public class OI {
 		SmartDashboard.putData("Set Elevateur .1", new SetElevateur(0.1));
 		SmartDashboard.putData("Set Elevateur 0.6", new SetElevateur(0.6));
 		SmartDashboard.putData("Set Elevateur 1.4", new SetElevateur(1.4));
+		SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutonomeGaucheScaleGauche());
 		
+		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 		
-		button9 = new JoystickButton(joystick, 9);
-		button9.whileHeld(new MonterElevateur());
+		button5 = new JoystickButton(joystick, 5);
+		button5.whileHeld(new MonterElevateur());
 		
-		button10 = new JoystickButton(joystick, 10);
-		button10.whileHeld(new DescendreElevateur());
+		button3 = new JoystickButton(joystick, 3);
+		button3.whileHeld(new DescendreElevateur());
 
-		button11 = new JoystickButton(joystick, 11);
-		button11.toggleWhenPressed(new PrendreCube());
+		button2 = new JoystickButton(joystick, 2);
+		button2.toggleWhenPressed(new PrendreLeverCube());
 		
-		button12 = new JoystickButton(joystick, 12);
-		button12.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_PROCHE));
+		button4 = new JoystickButton(joystick, 4);
+		button4.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_PROCHE));
 		
 		button7 = new JoystickButton(joystick, 7);
 		button7.whenPressed(new DemarrerElevateur());
 		
-		button8 = new JoystickButton(joystick, 8);
-		button8.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
+		button6 = new JoystickButton(joystick, 6);
+		button6.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
 		
-		button2 = new JoystickButton(joystick, 2);
-		button2.whileHeld(new MonterRobot());
+		button11 = new JoystickButton(joystick, 11);
+		button11.whileHeld(new MonterRobot());
 		
 		
 	}

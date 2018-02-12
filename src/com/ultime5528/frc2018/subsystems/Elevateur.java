@@ -26,7 +26,7 @@ public class Elevateur extends PIDSubsystem {
 	public Elevateur() {
 		super("Elevateur", K.Elevateur.P, K.Elevateur.I, K.Elevateur.D);
 
-		setAbsoluteTolerance(K.Elevateur.TOLERANCE);
+		//setAbsoluteTolerance(K.Elevateur.TOLERANCE);
 		
 		moteurElevateur = new VictorSP(K.Ports.ELEVATEUR_MOTEUR);
 		addChild("MoteurElevateur", moteurElevateur);

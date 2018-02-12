@@ -44,14 +44,14 @@ public class BasePilotable extends Subsystem {
 		drive = new DifferentialDrive(moteurGauche, moteurDroit);
 		drive.setMaxOutput(1.0);
 		encoderGauche = new Encoder(K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_A, K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_B);
-		encoderGauche.setDistancePerPulse(-0.00023456);
+		encoderGauche.setDistancePerPulse(0.00022624);
 		addChild("encodeur gauche", encoderGauche);
 
 		encoderDroit = new Encoder(K.Ports.BASE_PILOTABLE_ENCODER_DROIT_A, K.Ports.BASE_PILOTABLE_ENCODER_DROIT_B);
-		encoderDroit.setDistancePerPulse(0.00023456);
+		encoderDroit.setDistancePerPulse(-0.00022624);
 		addChild("encodeur droit", encoderDroit);
 
-		gyro = new ADIS16448_IMU(Axis.kX);
+		gyro = new ADIS16448_IMU(Axis.kY);
 		gyro.calibrate();
 		addChild("Gyro", gyro);
 		
@@ -130,7 +130,7 @@ public class BasePilotable extends Subsystem {
 	}
 	
 	public double getHeading() {
-		return gyro.getYaw();
+		return -gyro.getAngleY();
 	}
 	
 	public void tankDrive(double left, double right) {

@@ -1,6 +1,8 @@
 package com.ultime5528.frc2018.commands;
 
 import com.ultime5528.frc2018.Robot;
+import com.ultime5528.frc2018.util.LinearInterpolator;
+import com.ultime5528.frc2018.util.Point;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -11,14 +13,23 @@ import edu.wpi.first.wpilibj.command.Command;
 public class SetElevateur extends Command {
 	
 	private double hauteur;
-    
+	private LinearInterpolator interpolator;
+	
 	public SetElevateur(double hauteur) {
-        this.hauteur = hauteur;
+        super("SetElevateur");
+		Point[] points = new Point[] {
+				new Point(0,0),
+				new Point(0,0)
+		};
+		
+		interpolator = new LinearInterpolator(points);
+		this.hauteur = hauteur;
         requires(Robot.elevateur);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.elevateur.disable();
     	//Robot.elevateur.setSetpoint(hauteur);
     	//Robot.elevateur.enable();
     }
@@ -40,6 +51,8 @@ public class SetElevateur extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.elevateur.setSetpoint(Robot.elevateur.getHauteur());
+    	Robot.elevateur.enable();
     	//Robot.elevateur.disable();
     }
 
