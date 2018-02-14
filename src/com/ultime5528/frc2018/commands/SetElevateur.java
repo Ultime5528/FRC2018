@@ -46,7 +46,7 @@ public class SetElevateur extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {	
-        return Math.abs(hauteur - Robot.elevateur.getHauteur()) <= 0.05;
+        return Math.abs(hauteur - Robot.elevateur.getHauteur()) <= 0.02;
     }
 
     // Called once after isFinished returns true

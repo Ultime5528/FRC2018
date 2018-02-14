@@ -1,0 +1,45 @@
+package com.ultime5528.frc2018.triggers;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Trigger;
+
+/**
+ *
+ */
+public class POVTrigger extends Trigger {
+	
+	public enum Arrow {
+		
+		UP(225, 315, 0 ),
+		DOWN(45, 135 , 0);
+		
+		private int angle1;
+		private int angle2;
+		private int angle3;
+		
+		
+		private Arrow(int angle1, int angle2, int angle3) {
+			this.angle1 = angle1;
+			this.angle2 = angle2;
+			this.angle3 = angle3;
+		}
+		
+		private boolean isWithinRange(int pov) {
+			return pov == angle1 || pov == angle2 || pov == angle3;
+		}
+		
+		
+	}
+	
+	
+	private Joystick joystick;
+	
+	public POVTrigger(Joystick joystick) {
+		
+		this.joystick = joystick;
+	}
+
+    public boolean get() {
+        return false;
+    }
+}

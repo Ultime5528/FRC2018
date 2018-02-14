@@ -13,6 +13,7 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 
 import com.ultime5528.frc2018.commands.AutonomeGaucheScaleGauche;
+import com.ultime5528.frc2018.commands.AutonomeGaucheScaleGaucheSwitchGauche;
 import com.ultime5528.frc2018.commands.DemarrerElevateur;
 import com.ultime5528.frc2018.commands.DescendreElevateur;
 import com.ultime5528.frc2018.commands.LancerCube;
@@ -25,6 +26,7 @@ import com.ultime5528.frc2018.commands.SuivreTrajectoire;
 import com.ultime5528.frc2018.util.CubicInterpolator;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -46,7 +48,9 @@ public class OI {
 	private JoystickButton button5;
 	private JoystickButton button6;
 	private JoystickButton button8;
-	
+	private JoystickButton button11;
+	private JoystickButton button12;
+
 	public OI() {
 		
 		Waypoint[] ligneDroite = {
@@ -62,11 +66,12 @@ public class OI {
 		SmartDashboard.putData("Suivre courbe 2 2 ", new SuivreArc(2, 1, 0.4));
 		SmartDashboard.putData("Suivre courbe 2 0 ", new SuivreArc(2, 0, 0.4));
 		SmartDashboard.putData("Suivre Trajectoire 2 2 0", new SuivreTrajectoire(ligneDroite ,0.4 , K.SuivreTrajectoire.VITESSE_BRAKE));
-		SmartDashboard.putData("Set Elevateur 0", new SetElevateur(0));
+		SmartDashboard.putData("Set Elevateur 0", new SetElevateur(K.Elevateur.HAUTEUR_BAS));
 		SmartDashboard.putData("Set Elevateur .1", new SetElevateur(0.1));
 		SmartDashboard.putData("Set Elevateur 0.6", new SetElevateur(0.6));
 		SmartDashboard.putData("Set Elevateur 1.4", new SetElevateur(1.4));
 		SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutonomeGaucheScaleGauche());
+		SmartDashboard.putData("AutonomeGaucheScaleGaucheSwitchGauche",new AutonomeGaucheScaleGaucheSwitchGauche());
 		
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 		
@@ -100,6 +105,11 @@ public class OI {
 		button8 = new JoystickButton(gamepad, 8);
 		button8.whenPressed(new DemarrerElevateur());
 		
+		button11 = new JoystickButton(joystick, 11);
+		button11.toggleWhenPressed(new PrendreLeverCube());
+		
+		button12 = new JoystickButton(joystick, 12);
+		button12.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
 		
 		
 	}

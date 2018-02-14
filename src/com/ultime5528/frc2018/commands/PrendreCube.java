@@ -8,7 +8,10 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class PrendreCube extends Command {
-
+	
+	private boolean tourner = false;
+	private long time;
+	
     public PrendreCube() {
         super("PrendreCube");
     	requires(Robot.intake);
@@ -16,12 +19,34 @@ public class PrendreCube extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    
+    	tourner = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.prendre();
+    	
+    	if(tourner) {
+    		
+    		Robot.intake.tournerCube(); // Tourner le cube sur lui-même
+    		
+    		// On le fait tourner pendant 300 millisecondes
+    		if(System.currentTimeMillis() - time > 300) {
+    			tourner = false;
+    			time = System.currentTimeMillis();
+    		}
+    			
+    		
+    	}
+    	// On ne recommence pas à le faire tourner avant 500 ms, et on vérifie le courant dans l'intake
+    	else if(System.currentTimeMillis() - time > 500 && (Robot.pdp.getCurrent(6) > 2.2 || Robot.pdp.getCurrent(7) > 4.2)) {
+    		
+    		tourner = true;
+    		Robot.intake.tournerCube();
+    		time = System.currentTimeMillis();
+    		
+    	}
+    	else
+    		Robot.intake.prendre();
     }
     
     // Make this return true when this Command no longer needs to run execute()

@@ -37,7 +37,7 @@ public class Intake extends Subsystem {
 	
 	public boolean hasCube(){
 		
-		return switchDroite.get() && switchGauche.get();
+		return switchDroite.get() || switchGauche.get();
 	}
 
 	public void initDefaultCommand() {
@@ -45,8 +45,8 @@ public class Intake extends Subsystem {
 	}
 	
 	public void prendre(){
-		moteurGauche.set(-K.Intake.VITESSE_PRENDRE);
-		moteurDroite.set( 0.5 * K.Intake.VITESSE_PRENDRE);
+		moteurGauche.set(-0.6 * K.Intake.VITESSE_PRENDRE);
+		moteurDroite.set(K.Intake.VITESSE_PRENDRE);
 	}
 	
 	public void stop() {
@@ -66,5 +66,15 @@ public class Intake extends Subsystem {
 	private void setMoteurs(double speed){
 		moteurDroite.set(speed);
 		moteurGauche.set(-speed);
+	}
+
+	public void tournerCube() {
+		System.out.println("Tourner cube");
+		moteurGauche.set(0.8 * K.Intake.VITESSE_PRENDRE);
+		moteurDroite.set(K.Intake.VITESSE_PRENDRE);
+	}
+
+	public void prendreFort() {
+		setMoteurs(0.6);
 	}
 }

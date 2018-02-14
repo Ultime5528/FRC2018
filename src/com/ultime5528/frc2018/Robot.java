@@ -16,6 +16,7 @@ import com.ultime5528.frc2018.subsystems.LEDController;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -35,8 +36,8 @@ public class Robot extends TimedRobot {
 	public static final Intake intake = new Intake();
 	public static final Grimpeur grimpeur = new Grimpeur (); 
 	public static final LEDController ledController = new LEDController();
+	public static final PowerDistributionPanel pdp = new PowerDistributionPanel();
 	public static OI oi;
-	 
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		SmartDashboard.putData(pdp);
 		CameraServer.getInstance().startAutomaticCapture();
 		K.init();
 	}
@@ -104,6 +106,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Intake gauche", pdp.getCurrent(6));
+		SmartDashboard.putNumber("Intake droit", pdp.getCurrent(7));
 	}
 
 	/**

@@ -199,6 +199,7 @@ public class K {
 		public static double MIN_ENCODER = 0;
 		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = -0.5;
 		public static double VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = 0.15;
+		public static double HAUTEUR_BAS = -0.01;
 		public static double P = -15;
 		public static double I = 0;
 		public static double D = 0;
@@ -206,10 +207,10 @@ public class K {
 	}
 
 	public static final class Intake {
-		public static double VITESSE_PRENDRE = 0.4;
+		public static double VITESSE_PRENDRE = 0.40;
 		public static double VITESSE_LANCER_PROCHE = -0.4;
 		public static double VITESSE_LANCER_LOIN = -1;
-		public static double VITESSE_GARDER_CUBE = 0.06;
+		public static double VITESSE_GARDER_CUBE = 0.20;
 		
 	}
 	public static final class Grimpeur {
