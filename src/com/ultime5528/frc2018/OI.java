@@ -23,6 +23,8 @@ import com.ultime5528.frc2018.commands.PrendreLeverCube;
 import com.ultime5528.frc2018.commands.SetElevateur;
 import com.ultime5528.frc2018.commands.SuivreArc;
 import com.ultime5528.frc2018.commands.SuivreTrajectoire;
+import com.ultime5528.frc2018.triggers.POVTrigger;
+import com.ultime5528.frc2018.triggers.POVTrigger.Arrow;
 import com.ultime5528.frc2018.util.CubicInterpolator;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -41,15 +43,17 @@ public class OI {
 	private Joystick joystick;
 	private XboxController gamepad;
 	private CubicInterpolator interY;
-	private JoystickButton button1;
+	private JoystickButton buttonG1;
 	private JoystickButton button2;
-	private JoystickButton button3;
-	private JoystickButton button4;
-	private JoystickButton button5;
-	private JoystickButton button6;
-	private JoystickButton button8;
+	private JoystickButton buttonG2;
+	private JoystickButton buttonG3;
+	private JoystickButton buttonG4;
+	private JoystickButton buttonG5;
+	private JoystickButton buttonG6;
+	private JoystickButton buttonG8;
 	private JoystickButton button11;
 	private JoystickButton button12;
+	private POVTrigger downG; 
 
 	public OI() {
 		
@@ -75,41 +79,38 @@ public class OI {
 		
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 		
-		button5 = new JoystickButton(joystick, 5);
-		button5.whileHeld(new MonterElevateur());
-		
-		button3 = new JoystickButton(joystick, 3);
-		button3.whileHeld(new DescendreElevateur());
-		
-		button1 = new JoystickButton(gamepad, 1);
-		button1.whenPressed(new SetElevateur(0));
+		buttonG1 = new JoystickButton(gamepad, 1);
+		buttonG1.whenPressed(new SetElevateur(0));
 
 		button2 = new JoystickButton(joystick, 2);
 		button2.whileHeld(new MonterRobot());
 		
-		button2 = new JoystickButton(gamepad, 2);
-		button2.whenPressed(new SetElevateur(0.6));
+		buttonG2 = new JoystickButton(gamepad, 2);
+		buttonG2.whenPressed(new SetElevateur(0.6));
 		
-		button3 = new JoystickButton(gamepad, 3);
-		button3.whenPressed(new SetElevateur(0.1));
+		buttonG3 = new JoystickButton(gamepad, 3);
+		buttonG3.whenPressed(new SetElevateur(0.1));
 		
-		button4 = new JoystickButton(gamepad, 4);
-		button4.whenPressed(new SetElevateur(1.4));
+		buttonG4 = new JoystickButton(gamepad, 4);
+		buttonG4.whenPressed(new SetElevateur(1.4));
 		
-		button5 = new JoystickButton(gamepad, 5);
-		button5.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_PROCHE));
+		buttonG5 = new JoystickButton(gamepad, 5);
+		buttonG5.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_PROCHE));
 		
-		button6 = new JoystickButton(gamepad, 6);
-		button6.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
+		buttonG6 = new JoystickButton(gamepad, 6);
+		buttonG6.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
 		
-		button8 = new JoystickButton(gamepad, 8);
-		button8.whenPressed(new DemarrerElevateur());
+		buttonG8 = new JoystickButton(gamepad, 8);
+		buttonG8.whenPressed(new DemarrerElevateur());
 		
 		button11 = new JoystickButton(joystick, 11);
 		button11.toggleWhenPressed(new PrendreLeverCube());
 		
 		button12 = new JoystickButton(joystick, 12);
 		button12.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
+		
+		downG= new POVTrigger(gamepad, Arrow.DOWN);
+		downG.toggleWhenActive(new PrendreLeverCube());
 		
 		
 	}

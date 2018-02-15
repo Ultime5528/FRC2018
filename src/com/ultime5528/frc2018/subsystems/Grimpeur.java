@@ -16,7 +16,6 @@ public class Grimpeur extends Subsystem {
     private Encoder encoder;
     private Servo servo;
     
-    
     public Grimpeur () {
     	
     	super("Grimpeur");

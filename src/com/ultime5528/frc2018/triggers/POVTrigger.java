@@ -1,5 +1,6 @@
 package com.ultime5528.frc2018.triggers;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
@@ -32,14 +33,15 @@ public class POVTrigger extends Trigger {
 	}
 	
 	
-	private Joystick joystick;
+	private GenericHID joystick;
+	private Arrow arrow;
 	
-	public POVTrigger(Joystick joystick) {
-		
+	public POVTrigger(GenericHID joystick, Arrow arrow) {
+		this.arrow = arrow;
 		this.joystick = joystick;
 	}
 
     public boolean get() {
-        return false;
+        return arrow.isWithinRange(joystick.getPOV());
     }
 }
