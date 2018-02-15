@@ -1,16 +1,16 @@
 #include <Adafruit_NeoPixel.h>
 
-final int PIN = 10; //for now the pin has to be 10
-final int NUM_LEDS = 240;
-final int BRIGHTNESS = 255;
+int PIN = 6; //for now the pin has to be 10
+int NUM_LEDS = 240;
+int BRIGHTNESS = 255;
 
 int temps = 0;
 String message = "";
 char alliance = '0';
-boolean signal1, signal2;
+boolean signal1 = false, signal2 = false;
 unsigned long tempsSignal;
 
-Adafruit_NeoPixel strip = new Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = new Adafruit_NeoPixel(NUM_LEDS, 6, NEO_GRB + NEO_KHZ800);
 
 uint32_t rouge = strip.Color(255, 0, 0);
 uint32_t bleu = strip.Color(0, 0, 255);
@@ -21,12 +21,16 @@ uint32_t blanc = strip.Color(255, 255, 255);
 uint32_t allianceLed;
 
 
+
 void setup() {
-  strip.setBrightness(BRIGHTNESS);
+  //strip.setBrightness(BRIGHTNESS);
   strip.begin();
-  strip.setPixelColor(0, 0x00FF00);
+  //strip.setPixelColor(0, 0x00FF00);
+  for(int i = 0; i < NUM_LEDS; i++) {
+    strip.setPixelColor(i, 0, 255, 0);
+  }
   strip.show();
-  Serial.begin(9600);
+  //Serial.begin(9600);
 }
 
 
@@ -34,21 +38,26 @@ void setup() {
 void loop() {
 
   temps++;
-
+  /*temps = temps % NUM_LEDS;
+  strip.setPixelColor(temps, 255, 255, 0);
+  strip.show();
+  delay(20);*/
+  debutMatch(temps);
+/*
   if(signal1){
-    signal1();
+    funcSignal1();
     if(millis() - tempsSignal >= 3000)
     signal1 = false;
   }
   
-  if(signal2){
-    signal2();
+  else if(signal2){
+    funcSignal2();
     if(millis() - tempsSignal >= 3000)
     signal2 = false;
   }
  
   
-  if(message == "rouge" || message == "bleu"){
+  else if(message == "rouge" || message == "bleu"){
     
     alliance = message[0];
     message = "autonome";
@@ -76,33 +85,37 @@ void loop() {
  else if(message == "teleop"){
     teleop();
   }
- else if(message == ""){
+ else {
     debutMatch();
   }
+  */
 }
 
+/*
 void serialEvent(){
 
   String messageRecu = Serial.readStringUntil('\n');
 
-  if(messageRecu == "signal1")
+  if(messageRecu == "signal1") {
     signal1 = true;
     tempsSignal = millis();
-  else if(messageRecu == "signal2") 
+  }
+  else if(messageRecu == "signal2") {
     signal2 = true;
     tempsSignal = millis();
-  else
+  }
+  else {
     message = messageRecu;
-    
+  }
 }
-
-void debutMatch() {
-	final int longueurCycle = 60;
+*/
+void debutMatch(int temps) {
+	  int longueurCycle = 20;
 	double y;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
-		y = 0.5 * Math.sin (2 * Math.PI / longueurCycle * (i + temps)) + 0.5;
+		y = 0.5 * sin (2 * PI/ longueurCycle * (i + temps)) + 0.5;
 		
 		strip.setPixelColor (i, interpolate(rouge, bleu, y)); //interpolate(rouge, bleu, y));
 		
@@ -113,12 +126,12 @@ void debutMatch() {
 
 
 void endGame() {
-	final int longueurCycle = 60;
+	  int longueurCycle = 60;
 	double y;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
-		y = 1 - ((i + temps) % longueurCycle) / longueurCycle
+		y = 1 - ((i + temps) % longueurCycle) / longueurCycle;
 		
 		strip.setPixelColor (i, interpolate(noir, allianceLed, y)); //interpolate(rouge, bleu, y));
 		
@@ -127,10 +140,10 @@ void endGame() {
 	delay(50);
 }
 
-void signal1() {
-	final int longueurCycle = 60;
+void funcSignal1() {
+	  int longueurCycle = 60;
 	
-	double y = -2/longueurCycle * Math.abs((temps % longueurCycle) - longueurCycle/2) + 1;
+	double y = -2/longueurCycle * abs((temps % longueurCycle) - longueurCycle/2) + 1;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
@@ -141,10 +154,10 @@ void signal1() {
 	delay(10);
 }
 
-void signal2() {
-	final double longueurCycle = 60;
+void funcSignal2() {
+	int longueurCycle = 60;
 	
-  double y = -2/longueurCycle * Math.abs((temps % longueurCycle) - longueurCycle/2) + 1;
+  double y = -2/longueurCycle *  abs((temps % longueurCycle) - longueurCycle/2) + 1;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
@@ -156,12 +169,12 @@ void signal2() {
 }
 
 void autonome() {
-	final int longueurCycle = 20;
+	  int longueurCycle = 20;
   double y;
-	final int distance = 1;
+	  int distance = 1;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
-		y = distance * (Math.sin(2 * Math.PI / longueurCycle * (i + temps)) - 1) + 1;
+		y = distance * ( sin(2 *  PI / longueurCycle * (i + temps)) - 1) + 1;
 		
 		strip.setPixelColor(i, interpolate(allianceLed, blanc, y));
 	}
@@ -170,14 +183,14 @@ void autonome() {
 }
 
 void monter() {
-  final int longueurCycle = 15;
+    int longueurCycle = 15;
 	double y;
-  final int distance = 1;
+    int distance = 1;
 	
 	temps = temps % (2 * longueurCycle);
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
-		y = (i % longueurCycle) - longueurCycle + Math.abs(temps % longueurCycle - longueurCycle);
+		y = (i % longueurCycle) - longueurCycle +  abs(temps % longueurCycle - longueurCycle);
 		
 		
 		if(temps < longueurCycle) {
@@ -199,14 +212,14 @@ void monter() {
 }
 
 void teleop() {
-	final int longueurCycle = 60;
+	  int longueurCycle = 60;
 	double y;
 	
 	temps %= longueurCycle;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
-		y = Math.sin(2 * Math.PI / (longueurCycle / 5) * (i + temps)) + 2 * (-1 - 2.25) / longueurCycle * Math.abs(temps - (longueurCycle / 2.0)) + 2.25;
+		y =  sin(2 *  PI / (longueurCycle / 5) * (i + temps)) + 2 * (-1 - 2.25) / longueurCycle *  abs(temps - (longueurCycle / 2.0)) + 2.25;
 		
 		if(y > 0)
 			strip.setPixelColor (i, interpolate(allianceLed, blanc, y)); //interpolate(rouge, bleu, y));
@@ -219,17 +232,17 @@ void teleop() {
 }
 
 void cube() {
-	final int longueurCycle = 60;
+	  int longueurCycle = 60;
 	double y;
 	
 	temps %= longueurCycle;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
-		y = Math.sin(2 * Math.PI / (longueurCycle / 5) * (i + temps)) + 2 * (-1 - 2.25) / longueurCycle * Math.abs(temps - (longueurCycle / 2.0)) + 2.25;
+		y = sin(2 *  PI / (longueurCycle / 5) * (i + temps)) + 2 * (-1 - 2.25) / longueurCycle * abs(temps - (longueurCycle / 2.0)) + 2.25;
 		
 		if(y > 0)
-			strip.setPixelColor (i, interpolate(allianceLed, jaune, y)); //interpolate(rouge, bleu, y));
+			strip.setPixelColor (i, interpolate(allianceLed, jaune, y));
 		else
 			strip.setPixelColor (i, allianceLed);
 		
@@ -238,16 +251,37 @@ void cube() {
 	delay(50);
 }
 
-void interpolate(a, b, t) {
+
+uint32_t interpolate( uint32_t fromColor, uint32_t toColor, double t ){
+  // fromColor
+  uint8_t r = ( fromColor & ((uint32_t)0xFF << 16) ) >> 16;
+  uint8_t g = ( fromColor & ((uint32_t)0xFF << 8) ) >> 8;
+  uint8_t b = ( fromColor & ((uint32_t)0xFF) );
+  // toColor
+  uint8_t r2 = ( toColor & ((uint32_t)0xFF << 16) ) >> 16;
+  uint8_t g2 = ( toColor & ((uint32_t)0xFF << 8) ) >> 8;
+  uint8_t b2 = ( toColor & ((uint32_t)0xFF) );
+  
+  // Interpolate
+  float ri = r - ( ((float)(r-r2)) *t );
+  float gi = g - ( ((float)(g-g2)) * t);
+  float bi = b - ( ((float)(b-b2)) * t);
+
+  return strip.Color( (int)ri, (int)gi, (int)bi );
+}
+
+
+/*
+uint32_t interpolate(uint32_t a, uint32_t b, double t) {
   
   if(t > 1)
      t = 1;
   else if(t < 0)
      t = 0;
   
-	return (((a & 0xff0000) + ((b & 0xff0000) - (a & 0xff0000)) * t) & 0xff0000) | (((a & 0xff00) + ((b & 0xff00) - (a & 0xff00)) * t) & 0xff00) | (((a & 0xff) + ((b & 0xff) - (a & 0xff)) * t)  & 0xff)
+	return (((uint32_t)((a & 0xff0000) + ((b & 0xff0000) - (a & 0xff0000)) * t)) & 0xff0000) | (((uint32_t)((a & 0x00ff00) + ((b & 0x00ff00) - (a & 0xff00)) * t)) & 0xff00) | (((uint32_t)((a & 0xff) + ((b & 0xff) - (a & 0xff)) * t))  & 0xff);
 }
-
+*/
 
 
 
