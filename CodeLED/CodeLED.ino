@@ -1,5 +1,6 @@
 #include <Adafruit_NeoPixel.h>
 
+
 int PIN = 6; //for now the pin has to be 10
 int NUM_LEDS = 240;
 int BRIGHTNESS = 255;
@@ -10,7 +11,7 @@ char alliance = '0';
 boolean signal1 = false, signal2 = false;
 unsigned long tempsSignal;
 
-Adafruit_NeoPixel strip = new Adafruit_NeoPixel(NUM_LEDS, 6, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, 6, NEO_GRB + NEO_KHZ800);
 
 uint32_t rouge = strip.Color(255, 0, 0);
 uint32_t bleu = strip.Color(0, 0, 255);
@@ -18,7 +19,7 @@ uint32_t noir = strip.Color(0, 0, 0);
 uint32_t vert = strip.Color(0, 255, 0);
 uint32_t jaune = strip.Color(255, 255, 0);
 uint32_t blanc = strip.Color(255, 255, 255);
-uint32_t allianceLed;
+uint32_t allianceLed = rouge;
 
 
 
@@ -26,11 +27,8 @@ void setup() {
   //strip.setBrightness(BRIGHTNESS);
   strip.begin();
   //strip.setPixelColor(0, 0x00FF00);
-  for(int i = 0; i < NUM_LEDS; i++) {
-    strip.setPixelColor(i, 0, 255, 0);
-  }
   strip.show();
-  //Serial.begin(9600);
+  Serial.begin(9600);
 }
 
 
@@ -42,7 +40,7 @@ void loop() {
   strip.setPixelColor(temps, 255, 255, 0);
   strip.show();
   delay(20);*/
-  debutMatch(temps);
+  teleop();
 /*
   if(signal1){
     funcSignal1();
@@ -109,8 +107,8 @@ void serialEvent(){
   }
 }
 */
-void debutMatch(int temps) {
-	  int longueurCycle = 20;
+void debutMatch() {
+	  int longueurCycle = 25;
 	double y;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
@@ -121,17 +119,17 @@ void debutMatch(int temps) {
 		
 	}
 	strip.show();
-	delay(50);
+	delay(25);
 }
 
 
 void endGame() {
-	  int longueurCycle = 60;
+	int longueurCycle = 10;
 	double y;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
-		y = 1 - ((i + temps) % longueurCycle) / longueurCycle;
+		y = 1.0 - ((i + temps) % longueurCycle) / (double)longueurCycle;
 		
 		strip.setPixelColor (i, interpolate(noir, allianceLed, y)); //interpolate(rouge, bleu, y));
 		
@@ -141,9 +139,9 @@ void endGame() {
 }
 
 void funcSignal1() {
-	  int longueurCycle = 60;
+	  int longueurCycle = 20;
 	
-	double y = -2/longueurCycle * abs((temps % longueurCycle) - longueurCycle/2) + 1;
+	double y = -2.0 / longueurCycle * abs((temps % longueurCycle) - longueurCycle / 2.0) + 1;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
@@ -155,9 +153,9 @@ void funcSignal1() {
 }
 
 void funcSignal2() {
-	int longueurCycle = 60;
+	int longueurCycle = 20;
 	
-  double y = -2/longueurCycle *  abs((temps % longueurCycle) - longueurCycle/2) + 1;
+  double y = -2.0 / longueurCycle *  abs((temps % longueurCycle) - longueurCycle / 2.0) + 1;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
@@ -169,9 +167,9 @@ void funcSignal2() {
 }
 
 void autonome() {
-	  int longueurCycle = 20;
+	  int longueurCycle = 5;
   double y;
-	  int distance = 1;
+	  int distance = 3;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		y = distance * ( sin(2 *  PI / longueurCycle * (i + temps)) - 1) + 1;
@@ -179,7 +177,7 @@ void autonome() {
 		strip.setPixelColor(i, interpolate(allianceLed, blanc, y));
 	}
 	strip.show();
-	delay(50);
+	delay(40);
 }
 
 void monter() {
@@ -212,7 +210,7 @@ void monter() {
 }
 
 void teleop() {
-	  int longueurCycle = 60;
+	 int longueurCycle = 30;
 	double y;
 	
 	temps %= longueurCycle;
@@ -228,7 +226,7 @@ void teleop() {
 		
 	}
 	strip.show();
-	delay(50);
+	delay(30);
 }
 
 void cube() {
@@ -237,7 +235,7 @@ void cube() {
 	
 	temps %= longueurCycle;
 	
-	for (int i = 0; i < NUM_LEDS; i++) {
+	for (int i = 0; i < 60; i++) {
 		
 		y = sin(2 *  PI / (longueurCycle / 5) * (i + temps)) + 2 * (-1 - 2.25) / longueurCycle * abs(temps - (longueurCycle / 2.0)) + 2.25;
 		
@@ -252,7 +250,13 @@ void cube() {
 }
 
 
-uint32_t interpolate( uint32_t fromColor, uint32_t toColor, double t ){
+uint32_t interpolate( uint32_t fromColor, uint32_t toColor, float t){
+
+  if(t > 1.0f)
+    t = 1.0f;
+  else if(t < 0.0f)
+    t = 0.0f;
+  
   // fromColor
   uint8_t r = ( fromColor & ((uint32_t)0xFF << 16) ) >> 16;
   uint8_t g = ( fromColor & ((uint32_t)0xFF << 8) ) >> 8;
@@ -263,7 +267,7 @@ uint32_t interpolate( uint32_t fromColor, uint32_t toColor, double t ){
   uint8_t b2 = ( toColor & ((uint32_t)0xFF) );
   
   // Interpolate
-  float ri = r - ( ((float)(r-r2)) *t );
+  float ri = r - ( ((float)(r-r2)) * t );
   float gi = g - ( ((float)(g-g2)) * t);
   float bi = b - ( ((float)(b-b2)) * t);
 
