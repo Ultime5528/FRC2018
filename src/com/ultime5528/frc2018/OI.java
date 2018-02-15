@@ -23,6 +23,8 @@ import com.ultime5528.frc2018.commands.PrendreLeverCube;
 import com.ultime5528.frc2018.commands.SetElevateur;
 import com.ultime5528.frc2018.commands.SuivreArc;
 import com.ultime5528.frc2018.commands.SuivreTrajectoire;
+import com.ultime5528.frc2018.triggers.AxisDownTrigger;
+import com.ultime5528.frc2018.triggers.AxisUpTrigger;
 import com.ultime5528.frc2018.triggers.POVTrigger;
 import com.ultime5528.frc2018.triggers.POVTrigger.Arrow;
 import com.ultime5528.frc2018.util.CubicInterpolator;
@@ -54,6 +56,8 @@ public class OI {
 	private JoystickButton button11;
 	private JoystickButton button12;
 	private POVTrigger downG; 
+	private AxisUpTrigger leftAxisUp;
+	private AxisDownTrigger leftAxisDown;
 
 	public OI() {
 		
@@ -112,6 +116,11 @@ public class OI {
 		downG= new POVTrigger(gamepad, Arrow.DOWN);
 		downG.toggleWhenActive(new PrendreLeverCube());
 		
+		leftAxisDown = new AxisDownTrigger(gamepad, 1);
+		leftAxisDown.whileActive(new DescendreElevateur());
+		
+		leftAxisUp = new AxisUpTrigger(gamepad, 1);
+		leftAxisUp.whileActive(new MonterElevateur());
 		
 	}
 	

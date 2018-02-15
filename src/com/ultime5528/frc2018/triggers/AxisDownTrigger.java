@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
 /**
  *
  */
-public class AxisUpTrigger extends Trigger {
+public class AxisDownTrigger extends Trigger {
 	private GenericHID joystick;
 	private int axis;
 	
-	public AxisUpTrigger(GenericHID joystick, int axis) {
+	public AxisDownTrigger(GenericHID joystick, int axis) {
 	
 		this.joystick = joystick;
 		this.axis = axis;
@@ -19,6 +19,6 @@ public class AxisUpTrigger extends Trigger {
 	}
 
     public boolean get() {
-        return joystick.getRawAxis(axis) < -0.5;
+        return joystick.getRawAxis(axis) > 0.5;
     }
 }

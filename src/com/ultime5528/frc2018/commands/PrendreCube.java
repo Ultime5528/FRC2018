@@ -27,7 +27,7 @@ public class PrendreCube extends Command {
     	
     	if(tourner) {
     		
-    		Robot.intake.tournerCube(); // Tourner le cube sur lui-même
+    		Robot.intake.tournerCube(); // Tourner le cube sur lui-meme
     		
     		// On le fait tourner pendant 300 millisecondes
     		if(System.currentTimeMillis() - time > 300) {
@@ -37,7 +37,7 @@ public class PrendreCube extends Command {
     			
     		
     	}
-    	// On ne recommence pas à le faire tourner avant 500 ms, et on vérifie le courant dans l'intake
+    	// On ne recommence pas a le faire tourner avant 500 ms, et on verifie le courant dans l'intake
     	else if(System.currentTimeMillis() - time > 500 && (Robot.pdp.getCurrent(6) > 2.2 || Robot.pdp.getCurrent(7) > 4.2)) {
     		
     		tourner = true;

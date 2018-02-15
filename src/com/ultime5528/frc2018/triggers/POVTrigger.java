@@ -11,8 +11,8 @@ public class POVTrigger extends Trigger {
 	
 	public enum Arrow {
 		
-		UP(225, 315, 0 ),
-		DOWN(45, 135 , 0);
+		UP(315, 0, 45),
+		DOWN(135, 180, 225);
 		
 		private int angle1;
 		private int angle2;
