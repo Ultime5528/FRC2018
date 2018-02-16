@@ -12,6 +12,8 @@ package com.ultime5528.frc2018;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 
+import com.ultime5528.frc2018.commands.AutoCentreSwitchDroite;
+import com.ultime5528.frc2018.commands.AutoCentreSwitchGauche;
 import com.ultime5528.frc2018.commands.AutonomeGaucheScaleGauche;
 import com.ultime5528.frc2018.commands.AutonomeGaucheScaleGaucheSwitchGauche;
 import com.ultime5528.frc2018.commands.DemarrerElevateur;
@@ -80,6 +82,8 @@ public class OI {
 		SmartDashboard.putData("Set Elevateur 1.4", new SetElevateur(1.4));
 		SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutonomeGaucheScaleGauche());
 		SmartDashboard.putData("AutonomeGaucheScaleGaucheSwitchGauche",new AutonomeGaucheScaleGaucheSwitchGauche());
+		SmartDashboard.putData("AutoCentreSwitchDroite", new AutoCentreSwitchDroite());
+		SmartDashboard.putData("AutoCentreSwitchGauche", new AutoCentreSwitchGauche());
 		
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 		

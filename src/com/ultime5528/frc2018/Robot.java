@@ -8,6 +8,7 @@
 package com.ultime5528.frc2018;
 
 import com.ultime5528.frc2018.commands.DemarrerElevateur;
+import com.ultime5528.frc2018.commands.SignalerLED;
 import com.ultime5528.frc2018.subsystems.BasePilotable;
 import com.ultime5528.frc2018.subsystems.Elevateur;
 import com.ultime5528.frc2018.subsystems.Intake;
@@ -80,7 +81,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		System.out.println("Message : " + DriverStation.getInstance().getGameSpecificMessage());
-		Robot.ledController.setModeAuto();
+		Robot.ledController.setModeAlliance();
 	}
 
 	/**
@@ -97,6 +98,7 @@ public class Robot extends TimedRobot {
 		K.update();
 		ledController.setModeTeleop();
 		new DemarrerElevateur().start();
+		new SignalerLED().start();
 	
 	}
 

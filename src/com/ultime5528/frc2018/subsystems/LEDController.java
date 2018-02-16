@@ -36,7 +36,6 @@ public class LEDController extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new SignalerLED());
     }
     
     public void setModeAuto(){
@@ -84,4 +83,15 @@ public class LEDController extends Subsystem {
     public void setModeSignal2(){
     	sendString("signal2");
     }
+
+	public void setModeAlliance() {
+		
+		if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue) {
+			sendString("bleu");
+			
+		}
+		else {
+			sendString("Rouge");
+		}
+	}
 }
