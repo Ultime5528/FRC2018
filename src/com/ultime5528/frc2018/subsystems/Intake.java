@@ -69,7 +69,6 @@ public class Intake extends Subsystem {
 	}
 
 	public void tournerCube() {
-		System.out.println("Tourner cube");
 		moteurGauche.set(0.8 * K.Intake.VITESSE_PRENDRE);
 		moteurDroite.set(K.Intake.VITESSE_PRENDRE);
 	}

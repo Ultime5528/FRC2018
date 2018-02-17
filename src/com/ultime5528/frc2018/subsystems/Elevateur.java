@@ -69,18 +69,23 @@ public class Elevateur extends PIDSubsystem {
 		moteurElevateur.set(output);
 	}
 	
-	public void monter() {
+	public void monter(LinearInterpolator interpolator) {
 		
 		if(encoder.getDistance() >= K.Elevateur.MAX_ENCODER){
 			moteurElevateur.set(0.0);
 			
 		}
 		else{
-			moteurElevateur.set(interpolateurMonter.interpolate(encoder.getDistance()));
+			moteurElevateur.set(interpolator.interpolate(encoder.getDistance()));
 			//moteurElevateur.set(K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
 		}
 		
 	}
+	
+	public void monter(){
+		monter(interpolateurMonter);
+	}
+	
 	public void descendre(){
 	
 		if(encoder.getDistance() <= K.Elevateur.MIN_ENCODER){

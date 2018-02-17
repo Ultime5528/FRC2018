@@ -7,31 +7,31 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MonterRobot extends Command {
+public class MaintienGrimpeur extends Command {
 
-    public MonterRobot() {
-        super("MonterRobot");
-    	requires(Robot.grimpeur);
+    public MaintienGrimpeur() {
+        // Use requires() here to declare subsystem dependencies
+        requires(Robot.elevateur);
+        setTimeout(1);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.grimpeur.grimper();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.grimpeur.grimper();
+    	Robot.grimpeur.maintien();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	new MaintienGrimpeur().start();
+    	Robot.grimpeur.stop();
     }
 
     // Called when another command which requires one or more of the same

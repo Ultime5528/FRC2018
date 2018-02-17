@@ -1,6 +1,7 @@
 package com.ultime5528.frc2018.commands;
 
 import com.ultime5528.frc2018.Robot;
+import com.ultime5528.frc2018.subsystems.LEDController;
 import com.ultime5528.frc2018.util.LinearInterpolator;
 import com.ultime5528.frc2018.util.Point;
 
@@ -17,10 +18,29 @@ public class SetElevateur extends Command {
 	
 	public SetElevateur(double hauteur) {
         super("SetElevateur");
-		Point[] points = new Point[] {
-				new Point(0,0),
-				new Point(0,0)
-		};
+        
+        double hauteurActuelle = Robot.elevateur.getHauteur();
+        double diff = Math.abs(hauteurActuelle - hauteur);
+        
+        Point[] points;
+        
+        if(diff > 0.2){
+        	diff = 0.2;
+        	 
+        	points = new Point[] {
+     				new Point(hauteurActuelle, -0.4),
+     				new Point(hauteurActuelle + (diff/2) ,-1),
+     				new Point(hauteur - (diff/2),-1),
+     				new Point(hauteur,-0.4)
+     		};
+        }
+        
+        else{
+        	points = new Point[] {
+        			new Point(hauteurActuelle, -0.4)
+        	};
+        }
+        
 		
 		interpolator = new LinearInterpolator(points);
 		this.hauteur = hauteur;
@@ -30,6 +50,7 @@ public class SetElevateur extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.elevateur.disable();
+    	Robot.ledController.setModeMonter();
     	//Robot.elevateur.setSetpoint(hauteur);
     	//Robot.elevateur.enable();
     }
@@ -37,7 +58,7 @@ public class SetElevateur extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(Robot.elevateur.getHauteur() < hauteur){
-    		Robot.elevateur.monter();
+    		Robot.elevateur.monter(interpolator);
     	}
     	else{ 
     		Robot.elevateur.descendre();
@@ -53,6 +74,7 @@ public class SetElevateur extends Command {
     protected void end() {
     	Robot.elevateur.setSetpoint(Robot.elevateur.getHauteur());
     	Robot.elevateur.enable();
+    	Robot.ledController.setModeCurrentPeriod();
     	//Robot.elevateur.disable();
     }
 

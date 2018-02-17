@@ -46,21 +46,32 @@ public class OI {
 
 	private Joystick joystick;
 	private XboxController gamepad;
+	
+	
 	private CubicInterpolator interY;
+	
+	
 	private JoystickButton buttonG1;
-	private JoystickButton button2;
 	private JoystickButton buttonG2;
 	private JoystickButton buttonG3;
 	private JoystickButton buttonG4;
 	private JoystickButton buttonG5;
 	private JoystickButton buttonG6;
 	private JoystickButton buttonG8;
+	
+	
+	private JoystickButton button2;
+	private JoystickButton button3;
+	private JoystickButton button5;
 	private JoystickButton button11;
 	private JoystickButton button12;
+	
+	
 	private POVTrigger downG; 
 	private AxisUpTrigger leftAxisUp;
 	private AxisDownTrigger leftAxisDown;
 
+	
 	public OI() {
 		
 		Waypoint[] ligneDroite = {
@@ -87,11 +98,10 @@ public class OI {
 		
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 		
+		// Button Gamepad
+		
 		buttonG1 = new JoystickButton(gamepad, 1);
 		buttonG1.whenPressed(new SetElevateur(0));
-
-		button2 = new JoystickButton(joystick, 2);
-		button2.whileHeld(new MonterRobot());
 		
 		buttonG2 = new JoystickButton(gamepad, 2);
 		buttonG2.whenPressed(new SetElevateur(0.6));
@@ -111,11 +121,25 @@ public class OI {
 		buttonG8 = new JoystickButton(gamepad, 8);
 		buttonG8.whenPressed(new DemarrerElevateur());
 		
+		
+		//Button Joystick
+		
+		button2 = new JoystickButton(joystick, 2);
+		button2.whileHeld(new MonterRobot());
+
+		button3 = new JoystickButton(joystick, 3);
+		button3.whileHeld(new DescendreElevateur());
+		
+		button5 = new JoystickButton(joystick, 5);
+		button5.whileHeld(new MonterElevateur());
+		
 		button11 = new JoystickButton(joystick, 11);
 		button11.toggleWhenPressed(new PrendreLeverCube());
 		
 		button12 = new JoystickButton(joystick, 12);
 		button12.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
+		
+		// Button Gamepad
 		
 		downG= new POVTrigger(gamepad, Arrow.DOWN);
 		downG.toggleWhenActive(new PrendreLeverCube());

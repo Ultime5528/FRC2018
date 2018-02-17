@@ -216,6 +216,7 @@ public class K {
 	public static final class Grimpeur {
 		public static double VITESSE_GRIMPER = 1;
 		public static double VITESSE_DESCENDRE = -1;
+		public static double VITESSE_MAINTIEN = -0.5;
 	}
 	public static final class SuivreTrajectoire {
 		public static double VITESSE_BRAKE = -1;

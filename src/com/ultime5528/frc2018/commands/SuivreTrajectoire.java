@@ -67,11 +67,8 @@ public class SuivreTrajectoire extends Command {
 			return; 
 		}
 		
-		System.out.println(indexSegment);
-		
     	double error = Pathfinder.r2d(trajectory.segments[indexSegment].heading) - Robot.basePilotable.getHeading() - angleInitial;
     	error =  Pathfinder.boundHalfDegrees(error);
-    	System.out.println( Pathfinder.boundHalfDegrees(Pathfinder.r2d(trajectory.segments[indexSegment].heading)));
     	
     	double correction = ANGLE_P * error;
     	
