@@ -3,7 +3,7 @@
 
 int PIN = 6; //for now the pin has to be 10
 int NUM_LEDS = 240;
-int BRIGHTNESS = 255;
+int BRIGHTNESS = 60;
 
 int temps = 0;
 String message = "";
@@ -24,7 +24,7 @@ uint32_t allianceLed = rouge;
 
 
 void setup() {
-  //strip.setBrightness(BRIGHTNESS);
+  strip.setBrightness(BRIGHTNESS);
   strip.begin();
   //strip.setPixelColor(0, 0x00FF00);
   strip.show();
@@ -40,7 +40,8 @@ void loop() {
   strip.setPixelColor(temps, 255, 255, 0);
   strip.show();
   delay(20);*/
-  teleop();
+  //teleop();
+
 /*
   if(signal1){
     funcSignal1();
@@ -53,9 +54,9 @@ void loop() {
     if(millis() - tempsSignal >= 3000)
     signal2 = false;
   }
- 
+ */
   
-  else if(message == "rouge" || message == "bleu"){
+  if(message == "rouge" || message == "bleu"){
     
     alliance = message[0];
     message = "autonome";
@@ -68,7 +69,8 @@ void loop() {
     }
     
   }
- else if(message == "cube"){
+ 
+ if(message == "cube"){
     cube();
   }
  else if(message == "monter"){
@@ -83,17 +85,23 @@ void loop() {
  else if(message == "teleop"){
     teleop();
   }
+  else if (message == "signal1"){
+    funcSignal1();
+  }
+   else if (message == "signal2"){
+    funcSignal2();
+  }
  else {
     debutMatch();
   }
-  */
+  
 }
 
-/*
+
 void serialEvent(){
 
   String messageRecu = Serial.readStringUntil('\n');
-
+/*
   if(messageRecu == "signal1") {
     signal1 = true;
     tempsSignal = millis();
@@ -104,16 +112,30 @@ void serialEvent(){
   }
   else {
     message = messageRecu;
-  }
+  }*/
+
+  if(messageRecu == "autonome" ||
+    messageRecu == "teleop" ||
+    messageRecu == "cube" ||
+    messageRecu == "endGame" ||
+    messageRecu == "monter" ||
+    messageRecu == "signal1" ||
+    messageRecu == "signal2" ||
+    messageRecu == "bleu" ||
+    messageRecu == "rouge" ){
+     message = messageRecu; 
+    }
+  
 }
-*/
+
+
 void debutMatch() {
 	  int longueurCycle = 25;
 	double y;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
-		y = 0.5 * sin (2 * PI/ longueurCycle * (i + temps)) + 0.5;
+		y = 1.0 * sin (2 * PI/ longueurCycle * (i + temps)) + 0.5;
 		
 		strip.setPixelColor (i, interpolate(rouge, bleu, y)); //interpolate(rouge, bleu, y));
 		
@@ -210,14 +232,14 @@ void monter() {
 }
 
 void teleop() {
-	 int longueurCycle = 30;
+	 int longueurCycle = 60;
 	double y;
 	
 	temps %= longueurCycle;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
-		y =  sin(2 *  PI / (longueurCycle / 5) * (i + temps)) + 2 * (-1 - 2.25) / longueurCycle *  abs(temps - (longueurCycle / 2.0)) + 2.25;
+		y =  sin(2 *  PI / (longueurCycle / 5) * (i + temps)) + 2.0 * (-1 - 1.6) / longueurCycle *  abs(temps - (longueurCycle / 2.0)) + 1.6;
 		
 		if(y > 0)
 			strip.setPixelColor (i, interpolate(allianceLed, blanc, y)); //interpolate(rouge, bleu, y));
@@ -226,7 +248,7 @@ void teleop() {
 		
 	}
 	strip.show();
-	delay(30);
+	//delay(30);
 }
 
 void cube() {
@@ -235,9 +257,9 @@ void cube() {
 	
 	temps %= longueurCycle;
 	
-	for (int i = 0; i < 60; i++) {
+	for (int i = 0; i < NUM_LEDS; i++) {
 		
-		y = sin(2 *  PI / (longueurCycle / 5) * (i + temps)) + 2 * (-1 - 2.25) / longueurCycle * abs(temps - (longueurCycle / 2.0)) + 2.25;
+		y = sin(2 *  PI / (longueurCycle / 5) * (i + temps)) + 2 * (-1 - 1.6) / longueurCycle * abs(temps - (longueurCycle / 2.0)) + 1.6;
 		
 		if(y > 0)
 			strip.setPixelColor (i, interpolate(allianceLed, jaune, y));
@@ -246,7 +268,7 @@ void cube() {
 		
 	}
 	strip.show();
-	delay(50);
+	//delay(50);
 }
 
 
