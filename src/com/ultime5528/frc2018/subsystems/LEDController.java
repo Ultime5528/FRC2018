@@ -25,7 +25,7 @@ public class LEDController extends Subsystem {
 			estBranche = true;
 
 		} catch (Exception e) {
-			DriverStation.reportError("Arduino debranche", true);
+			DriverStation.reportError("Arduino debranche", false);
 		}
 
 		Notifier n = new Notifier(() -> renvoyerMode());
@@ -100,7 +100,6 @@ public class LEDController extends Subsystem {
 		
 		signal1 = true;
 		
-		DriverStation.reportError("signal",false);
 		new Thread(() -> {
 			try {
 				Thread.sleep(3000);

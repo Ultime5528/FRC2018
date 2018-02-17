@@ -24,20 +24,23 @@ public class SetElevateur extends Command {
         
         Point[] points;
         
-        if(diff > 0.2){
-        	diff = 0.2;
+        if(diff > 0.25){
+        	diff = 0.25;
         	 
         	points = new Point[] {
-     				new Point(hauteurActuelle, -0.4),
-     				new Point(hauteurActuelle + (diff/2) ,-1),
-     				new Point(hauteur - (diff/2),-1),
-     				new Point(hauteur,-0.4)
+     				new Point(hauteurActuelle, -0.35),
+     				new Point(hauteurActuelle + 0.05 * diff ,-1),
+     				new Point(hauteur - 0.95 * diff, -1),
+     				new Point(hauteur,-0.3)
      		};
+        	
+        	for(Point p : points)
+        		System.out.println(p.x + " " + p.y);
         }
         
         else{
         	points = new Point[] {
-        			new Point(hauteurActuelle, -0.4)
+        			new Point(hauteurActuelle, -0.45)
         	};
         }
         
@@ -51,8 +54,6 @@ public class SetElevateur extends Command {
     protected void initialize() {
     	Robot.elevateur.disable();
     	Robot.ledController.setModeMonter();
-    	//Robot.elevateur.setSetpoint(hauteur);
-    	//Robot.elevateur.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
