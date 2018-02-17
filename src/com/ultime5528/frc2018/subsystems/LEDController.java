@@ -1,10 +1,7 @@
 package com.ultime5528.frc2018.subsystems;
 
-import java.sql.Driver;
-
-import com.ultime5528.frc2018.commands.SignalerLED;
-
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -15,6 +12,8 @@ public class LEDController extends Subsystem {
 
 	private SerialPort serial;
 	private boolean estBranche;
+	private String mode;
+	
 	
 	public LEDController(){
 		estBranche = false;
@@ -28,6 +27,9 @@ public class LEDController extends Subsystem {
 			DriverStation.reportError("Arduino debranche", true);
 		}
 		
+		Notifier n = new Notifier(() -> renvoyerMode());
+		n.startPeriodic(0.5);
+		
 		
 	}
 	
@@ -39,7 +41,7 @@ public class LEDController extends Subsystem {
     }
     
     public void setModeAuto(){
-    	sendString("auto");
+    	sendString("autonome");
     }
    
     public void setModeTeleop(){
@@ -58,10 +60,15 @@ public class LEDController extends Subsystem {
     public void setModeMonter(){
     	sendString("monter");
     }
-
+    public void renvoyerMode(){
+    	sendString(mode);
+    }
+    
     private void sendString(String command){
-    	if(estBranche){
-    		serial.writeString(command);
+    	if(estBranche && command != null){
+    		serial.writeString(command + "\n");
+    		mode = command;
+    		System.out.println(command);
     	}
     }
     
@@ -72,18 +79,31 @@ public class LEDController extends Subsystem {
     	else if(DriverStation.getInstance().getMatchTime() <= 30){
     		setModeEndGame();
     		}
-    	else{
+    	else if(DriverStation.getInstance().isOperatorControl()){
     		setModeTeleop();
+    	} else {
+    		setModeDebutMatch();
     	}
     }
     
     public void setModeSignal1(){
     	sendString("signal1");
+    	
+    	Notifier notif = new Notifier(this::setModeCurrentPeriod);
+    	notif.startSingle(3);
+    	
     }
     public void setModeSignal2(){
     	sendString("signal2");
+    	
+    	Notifier notif = new Notifier(this::setModeCurrentPeriod);
+    	notif.startSingle(3);
     }
 
+    public void setModeDebutMatch() {
+    	sendString("debutMatch");
+    }
+    
 	public void setModeAlliance() {
 		
 		if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue) {
@@ -91,7 +111,7 @@ public class LEDController extends Subsystem {
 			
 		}
 		else {
-			sendString("Rouge");
+			sendString("rouge");
 		}
 	}
 }

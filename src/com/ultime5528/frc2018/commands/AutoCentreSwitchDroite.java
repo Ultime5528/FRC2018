@@ -17,8 +17,7 @@ public class AutoCentreSwitchDroite extends CommandGroup {
 		commandeDebut.addSequential(new SetElevateur(0.6));
 		commandeDebut.addSequential(new MaintienElevateur());
 	   
-	   // Add Commands here:
-    	addParallel(commandeDebut);;
+	   // Add Commands here
         
     	CommandGroup commandeAvancerLever = new CommandGroup("AvancerLever");
 		commandeAvancerLever.addParallel(commandeDebut);
