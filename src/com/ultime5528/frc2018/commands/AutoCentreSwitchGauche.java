@@ -16,7 +16,6 @@ public class AutoCentreSwitchGauche extends CommandGroup {
 		CommandGroup commandeDebut = new CommandGroup("Debut");
 		commandeDebut.addSequential(new DemarrerElevateur());
 		commandeDebut.addSequential(new SetElevateur(0.6));
-		commandeDebut.addSequential(new MaintienElevateur());
 	   
 	   // Add Commands here:
         
@@ -24,7 +23,7 @@ public class AutoCentreSwitchGauche extends CommandGroup {
 		commandeAvancerLever.addParallel(commandeDebut);
 		commandeAvancerLever.addParallel(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, 0),
-				new Waypoint(2.74, -1.7, 0)
+				new Waypoint(2.54, -1.7, 0)
 		}, 0.5, -0.2));
 		
 		addSequential(commandeAvancerLever);

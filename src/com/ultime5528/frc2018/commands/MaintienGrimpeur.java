@@ -11,7 +11,7 @@ public class MaintienGrimpeur extends Command {
 
     public MaintienGrimpeur() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.elevateur);
+        requires(Robot.grimpeur);
         setTimeout(1);
     }
 

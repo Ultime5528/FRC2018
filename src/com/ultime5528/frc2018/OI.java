@@ -14,6 +14,9 @@ import jaci.pathfinder.Waypoint;
 
 import com.ultime5528.frc2018.commands.AutoCentreSwitchDroite;
 import com.ultime5528.frc2018.commands.AutoCentreSwitchGauche;
+import com.ultime5528.frc2018.commands.AutoDroitScaleDroite;
+import com.ultime5528.frc2018.commands.AutoDroitScaleGauche;
+import com.ultime5528.frc2018.commands.AutoGaucheScaleDroite;
 import com.ultime5528.frc2018.commands.AutonomeGaucheScaleGauche;
 import com.ultime5528.frc2018.commands.AutonomeGaucheScaleGaucheSwitchGauche;
 import com.ultime5528.frc2018.commands.DemarrerElevateur;
@@ -84,24 +87,24 @@ public class OI {
 		interY = new CubicInterpolator(K.OI.INTER_Y_A, K.OI.INTER_Y_B, K.OI.INTER_Y_C);
 		
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
-		SmartDashboard.putData("Suivre courbe 2 2 ", new SuivreArc(2, 1, 0.4));
-		SmartDashboard.putData("Suivre courbe 2 0 ", new SuivreArc(2, 0, 0.4));
-		SmartDashboard.putData("Suivre Trajectoire 2 2 0", new SuivreTrajectoire(ligneDroite ,0.4 , K.SuivreTrajectoire.VITESSE_BRAKE));
 		SmartDashboard.putData("Set Elevateur 0", new SetElevateur(K.Elevateur.HAUTEUR_BAS));
 		SmartDashboard.putData("Set Elevateur .1", new SetElevateur(0.1));
 		SmartDashboard.putData("Set Elevateur 0.6", new SetElevateur(0.6));
 		SmartDashboard.putData("Set Elevateur 1.4", new SetElevateur(1.4));
-		SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutonomeGaucheScaleGauche());
-		SmartDashboard.putData("AutonomeGaucheScaleGaucheSwitchGauche",new AutonomeGaucheScaleGaucheSwitchGauche());
-		SmartDashboard.putData("AutoCentreSwitchDroite", new AutoCentreSwitchDroite());
-		SmartDashboard.putData("AutoCentreSwitchGauche", new AutoCentreSwitchGauche());
+		//SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutonomeGaucheScaleGauche());
+		//SmartDashboard.putData("AutonomeGaucheScaleGaucheSwitchGauche",new AutonomeGaucheScaleGaucheSwitchGauche());
+		//SmartDashboard.putData("AutoCentreSwitchDroite", new AutoCentreSwitchDroite());
+		//SmartDashboard.putData("AutoCentreSwitchGauche", new AutoCentreSwitchGauche());
+		SmartDashboard.putData("AutoGaucheScaleDroite", new AutoGaucheScaleDroite());
+		SmartDashboard.putData("AutoDroitScaleDroite", new AutoDroitScaleDroite());
+		SmartDashboard.putData("AutoDroitScaleGauche", new AutoDroitScaleGauche());
 		
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 		
 		// Button Gamepad
 		
 		buttonG1 = new JoystickButton(gamepad, 1);
-		buttonG1.whenPressed(new SetElevateur(0));
+		buttonG1.whenPressed(new SetElevateur(-0.005));
 		
 		buttonG2 = new JoystickButton(gamepad, 2);
 		buttonG2.whenPressed(new SetElevateur(0.6));

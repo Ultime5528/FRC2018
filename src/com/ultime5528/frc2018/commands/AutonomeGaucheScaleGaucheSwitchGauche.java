@@ -6,6 +6,7 @@ import jaci.pathfinder.Waypoint;
 import com.ultime5528.frc2018.K;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.PrintCommand;
 
 /**
  *
@@ -17,41 +18,50 @@ public class AutonomeGaucheScaleGaucheSwitchGauche extends CommandGroup {
     	CommandGroup commandeDebut = new CommandGroup("Debut");
 		commandeDebut.addSequential(new DemarrerElevateur());
 		commandeDebut.addSequential(new SetElevateur(0.1));
-		commandeDebut.addSequential(new MaintienElevateur());
 
 
 		addParallel(commandeDebut);
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, 0),
-				new Waypoint(5, -0.15, Pathfinder.d2r(17.5))
+				new Waypoint(5, -0.15, Pathfinder.d2r(18.5))
 		}, 0.6, -0.2));
 
 		CommandGroup commandeAvancerLever = new CommandGroup("AvancerLever");
-		commandeAvancerLever.addParallel(new SetElevateur(1.4));
+		commandeAvancerLever.addParallel(new SetElevateur(1.45));
 		commandeAvancerLever.addParallel(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, 0),
-				new Waypoint(1.25, 0.0, 0)
+				new Waypoint(1.42, 0.0, 0)
 		}, 0.4, -0.1));
+		commandeAvancerLever.addSequential(new PrintCommand("fin avancerLever"));
 
 		addSequential(commandeAvancerLever);
 		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
 		
-
-		CommandGroup commandeTournerDescendre = new CommandGroup("TournerDescendre");
-		commandeTournerDescendre.addParallel(new SetElevateur(0));
-		commandeTournerDescendre.addParallel(new Tourner(120, 0.5, -0.6));
-		
-		addSequential(commandeTournerDescendre);
-		
-		addSequential(new SuivreTrajectoire(new Waypoint[] {
+		addSequential(new Tourner(122, 0.5, -0.6));
+	
+		CommandGroup commandeTournerAvancer = new CommandGroup("TournerDescendre");
+		commandeTournerAvancer.addParallel(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, 0),
 				new Waypoint(1.5, 0, 0)}, 0.5, -0.2));
 		
-		addParallel(new SuivreTrajectoire(new Waypoint[] {
-				new Waypoint(0, 0, 0),
-				new Waypoint(1.5, 0, 0)}, 0.35, -0.2));
+		commandeTournerAvancer.addParallel(new SetElevateur(-0.005));
 		
-		addSequential(new PrendreLeverCube());
+		addSequential(commandeTournerAvancer);
+		
+		addParallel(new PrendreLeverCube());
+		
+		addSequential(new SuivreTrajectoire(new Waypoint[] {
+				new Waypoint(0, 0, 0),
+				new Waypoint(0.6, 0, 0)}, 0.30, -0.2), 2);
+		
+		
+		
+		addSequential(new SuivreTrajectoire(new Waypoint[] {
+				new Waypoint(0, 0, Pathfinder.d2r(-180)),
+				new Waypoint(-1, 0, Pathfinder.d2r(-180))
+				
+		}, -0.35, 0.2));
+		
     	// Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

@@ -31,7 +31,7 @@ public class SetElevateur extends Command {
      				new Point(hauteurActuelle, -0.35),
      				new Point(hauteurActuelle + 0.05 * diff ,-1),
      				new Point(hauteur - 0.95 * diff, -1),
-     				new Point(hauteur,-0.3)
+     				new Point(hauteur,-0.45)
      		};
         	
         	for(Point p : points)

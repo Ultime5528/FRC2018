@@ -6,6 +6,7 @@ import com.ultime5528.frc2018.util.Point;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -17,26 +18,21 @@ public class AutonomeGaucheScaleGauche extends CommandGroup {
 		CommandGroup commandeDebut = new CommandGroup("Debut");
 		commandeDebut.addSequential(new DemarrerElevateur());
 		commandeDebut.addSequential(new SetElevateur(0.1));
-		commandeDebut.addSequential(new MaintienElevateur());
+		commandeDebut.addSequential(new WaitCommand(1));
+		commandeDebut.addSequential(new SetElevateur(1.45));
+		
 
 
 		addParallel(commandeDebut);
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, 0),
-				new Waypoint(5, -0.15, Pathfinder.d2r(17.5))
-		}, 0.6, -0.2));
+				new Waypoint(6.4, 0.5, Pathfinder.d2r(17.5))
+		}, 0.6, -0.1));
 
-		CommandGroup commandeAvancerLever = new CommandGroup("AvancerLever");
-		commandeAvancerLever.addParallel(new SetElevateur(1.4));
-		commandeAvancerLever.addParallel(new SuivreTrajectoire(new Waypoint[] {
-				new Waypoint(0, 0, 0),
-				new Waypoint(1.25, 0.0, 0)
-		}, 0.4, -0.1));
 
-		addSequential(commandeAvancerLever);
 		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
 		
-		CommandGroup commandeTournerDescendre = new CommandGroup("TournerDescendre");
+		/*CommandGroup commandeTournerDescendre = new CommandGroup("TournerDescendre");
 		commandeTournerDescendre.addParallel(new SetElevateur(K.Elevateur.HAUTEUR_BAS));
 		commandeTournerDescendre.addParallel(new Tourner(120, 0.5, -0.6));
 		
@@ -63,7 +59,7 @@ public class AutonomeGaucheScaleGauche extends CommandGroup {
 		
 		addSequential(commandeReculerTourner);
 		addParallel(new MaintienElevateur());
-		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
+		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));*/
 	}
 		
 }

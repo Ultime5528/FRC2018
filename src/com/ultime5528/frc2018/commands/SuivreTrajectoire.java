@@ -32,7 +32,7 @@ public class SuivreTrajectoire extends Command {
 		vitesseBrake *= Math.signum(vitesse) * Math.signum(vitesseBrake) * -1;
 		
 		angleInitial = Pathfinder.r2d(points[0].angle);		
-		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, Math.abs(vitesse), 100, 10000); 
+		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_FAST, 0.05, Math.abs(vitesse), 100, 10000); 
 		trajectory = Pathfinder.generate(points, config); 
 		this.vitesseBrake = vitesseBrake;
 		this.vitesse = vitesse;
