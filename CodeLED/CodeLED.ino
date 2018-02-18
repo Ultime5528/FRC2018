@@ -122,7 +122,8 @@ void serialEvent(){
     messageRecu == "signal1" ||
     messageRecu == "signal2" ||
     messageRecu == "bleu" ||
-    messageRecu == "rouge" ){
+    messageRecu == "rouge" ||
+    messageRecu == "debutMatch"){
      message = messageRecu; 
     }
   
