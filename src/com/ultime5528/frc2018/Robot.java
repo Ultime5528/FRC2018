@@ -17,9 +17,11 @@ import com.ultime5528.frc2018.subsystems.LEDController;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GamepadBase;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -40,6 +42,10 @@ public class Robot extends TimedRobot {
 	public static final PowerDistributionPanel pdp = new PowerDistributionPanel();
 	public static OI oi;
 
+	private SendableChooser<String> chooser;
+	private static final String GAUCHE = "Gauche";
+	private static final String CENTRE = "Centre";
+	private static final String DROITE = "Droite";
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -84,6 +90,21 @@ public class Robot extends TimedRobot {
 		Robot.ledController.setModeAlliance();
 	}
 
+	public void startAuto(){
+		
+		String message = DriverStation.getInstance().getGameSpecificMessage();
+		
+		 if(message.length() >= 2){
+			 
+			 if(message.charAt(0) == 'R'){
+				 
+				 
+			 }
+			 
+			 
+		 }
+	}
+	
 	/**
 	 * This function is called periodically during autonomous.
 	 */

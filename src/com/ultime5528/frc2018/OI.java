@@ -91,7 +91,7 @@ public class OI {
 		SmartDashboard.putData("Set Elevateur .1", new SetElevateur(0.1));
 		SmartDashboard.putData("Set Elevateur 0.6", new SetElevateur(0.6));
 		SmartDashboard.putData("Set Elevateur 1.4", new SetElevateur(1.4));
-		//SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutonomeGaucheScaleGauche());
+		SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutonomeGaucheScaleGauche());
 		//SmartDashboard.putData("AutonomeGaucheScaleGaucheSwitchGauche",new AutonomeGaucheScaleGaucheSwitchGauche());
 		//SmartDashboard.putData("AutoCentreSwitchDroite", new AutoCentreSwitchDroite());
 		//SmartDashboard.putData("AutoCentreSwitchGauche", new AutoCentreSwitchGauche());
