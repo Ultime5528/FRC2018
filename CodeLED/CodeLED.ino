@@ -4,6 +4,7 @@
 int PIN = 6; //for now the pin has to be 10
 int NUM_LEDS = 240;
 int BRIGHTNESS = 60;
+const double CYCLE = 30;
 
 int temps = 0;
 String message = "";
@@ -131,12 +132,12 @@ void serialEvent(){
 
 
 void debutMatch() {
-	  int longueurCycle = 25;
+	  double longueurCycle = CYCLE;
 	double y;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
-		y = 1.0 * sin (2 * PI/ longueurCycle * (i + temps)) + 0.5;
+		y = 1.0 * sin (2 * PI/ longueurCycle * (i - temps)) + 0.5;
 		
 		strip.setPixelColor (i, interpolate(rouge, bleu, y)); //interpolate(rouge, bleu, y));
 		
@@ -147,7 +148,7 @@ void debutMatch() {
 
 
 void endGame() {
-	int longueurCycle = 10;
+	int longueurCycle = CYCLE/2;
 	double y;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
@@ -190,7 +191,7 @@ void funcSignal2() {
 }
 
 void autonome() {
-	  int longueurCycle = 5;
+	  double longueurCycle = CYCLE/4;
   double y;
 	  int distance = 3;
 	
@@ -233,10 +234,11 @@ void monter() {
 }
 
 void teleop() {
-	 int longueurCycle = 60;
-	double y;
+	 double longueurCycle = CYCLE *2 ;
+	 double y;
 	
-	temps %= longueurCycle;
+	if(temps >= longueurCycle)
+    temps -= longueurCycle;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
@@ -253,10 +255,11 @@ void teleop() {
 }
 
 void cube() {
-	  int longueurCycle = 60;
+	double longueurCycle = CYCLE *2 ;
 	double y;
 	
-	temps %= longueurCycle;
+	if(temps >= longueurCycle)
+    temps -= longueurCycle;
 	
 	for (int i = 0; i < NUM_LEDS; i++) {
 		
