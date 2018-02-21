@@ -33,14 +33,12 @@ public class SetElevateur extends Command {
      				new Point(hauteur - 0.95 * diff, -1),
      				new Point(hauteur,-0.45)
      		};
-        	
-        	for(Point p : points)
-        		System.out.println(p.x + " " + p.y);
+
         }
         
         else{
         	points = new Point[] {
-        			new Point(hauteurActuelle, -0.45)
+        			new Point(hauteurActuelle, -0.55)
         	};
         }
         

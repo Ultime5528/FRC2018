@@ -17,7 +17,7 @@ import com.ultime5528.frc2018.commands.AutoCentreSwitchGauche;
 import com.ultime5528.frc2018.commands.AutoDroitScaleDroite;
 import com.ultime5528.frc2018.commands.AutoDroitScaleGauche;
 import com.ultime5528.frc2018.commands.AutoGaucheScaleDroite;
-import com.ultime5528.frc2018.commands.AutonomeGaucheScaleGauche;
+import com.ultime5528.frc2018.commands.AutoGaucheScaleGauche;
 import com.ultime5528.frc2018.commands.AutonomeGaucheScaleGaucheSwitchGauche;
 import com.ultime5528.frc2018.commands.DemarrerElevateur;
 import com.ultime5528.frc2018.commands.DescendreElevateur;
@@ -28,6 +28,7 @@ import com.ultime5528.frc2018.commands.PrendreLeverCube;
 import com.ultime5528.frc2018.commands.SetElevateur;
 import com.ultime5528.frc2018.commands.SuivreArc;
 import com.ultime5528.frc2018.commands.SuivreTrajectoire;
+import com.ultime5528.frc2018.commands.TournerCube;
 import com.ultime5528.frc2018.triggers.AxisDownTrigger;
 import com.ultime5528.frc2018.triggers.AxisUpTrigger;
 import com.ultime5528.frc2018.triggers.POVTrigger;
@@ -73,6 +74,7 @@ public class OI {
 	private POVTrigger downG; 
 	private AxisUpTrigger leftAxisUp;
 	private AxisDownTrigger leftAxisDown;
+	private AxisDownTrigger rightTrigger;
 
 	
 	public OI() {
@@ -91,7 +93,7 @@ public class OI {
 		SmartDashboard.putData("Set Elevateur .1", new SetElevateur(0.1));
 		SmartDashboard.putData("Set Elevateur 0.6", new SetElevateur(0.6));
 		SmartDashboard.putData("Set Elevateur 1.4", new SetElevateur(1.4));
-		SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutonomeGaucheScaleGauche());
+		SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutoGaucheScaleGauche());
 		//SmartDashboard.putData("AutonomeGaucheScaleGaucheSwitchGauche",new AutonomeGaucheScaleGaucheSwitchGauche());
 		//SmartDashboard.putData("AutoCentreSwitchDroite", new AutoCentreSwitchDroite());
 		//SmartDashboard.putData("AutoCentreSwitchGauche", new AutoCentreSwitchGauche());
@@ -152,6 +154,9 @@ public class OI {
 		
 		leftAxisUp = new AxisUpTrigger(gamepad, 1);
 		leftAxisUp.whileActive(new MonterElevateur());
+		
+		rightTrigger = new AxisDownTrigger(gamepad, 3);
+		rightTrigger.whileActive(new TournerCube());
 		
 	}
 	

@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.command.WaitForChildren;
 /**
  *
  */
-public class AutonomeGaucheScaleGauche extends CommandGroup {
+public class AutoGaucheScaleGauche extends CommandGroup {
 
-	public AutonomeGaucheScaleGauche() {
+	public AutoGaucheScaleGauche() {
 
 		CommandGroup commandeDebut = new CommandGroup("Debut");
 		commandeDebut.addSequential(new DemarrerElevateur());

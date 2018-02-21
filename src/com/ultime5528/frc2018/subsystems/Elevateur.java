@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  */
 public class Elevateur extends PIDSubsystem {
 
-	private VictorSP moteurElevateur;
+	private VictorSP moteur;
 	private LinearInterpolator interpolateurMonter, interpolateurDescendre;
 	private Encoder encoder;
 	private Point[] pointsMonter, pointsDescendre;
@@ -28,8 +28,8 @@ public class Elevateur extends PIDSubsystem {
 
 		//setAbsoluteTolerance(K.Elevateur.TOLERANCE);
 		
-		moteurElevateur = new VictorSP(K.Ports.ELEVATEUR_MOTEUR);
-		addChild("MoteurElevateur", moteurElevateur);
+		moteur = new VictorSP(K.Ports.ELEVATEUR_MOTEUR);
+		addChild("moteur", moteur);
 
 		encoder = new Encoder(K.Ports.ELEVATEUR_ENCODER_A, K.Ports.ELEVATEUR_ENCODER_B);
 		addChild("Encoder", encoder);
@@ -41,8 +41,8 @@ public class Elevateur extends PIDSubsystem {
 				};
 		
 		pointsDescendre = new Point[]{
-				new Point(0.1, 0.12),
-				new Point(0.18, 0.3),
+				new Point(0.1, 0.15),
+				new Point(0.15, 0.3),
 				new Point(0.65,0.3),
 				new Point(0.8,0.2)
 		};
@@ -54,7 +54,7 @@ public class Elevateur extends PIDSubsystem {
 	
 	
 	public void initDefaultCommand() {
-		setDefaultCommand(new MaintienElevateur());
+		//setDefaultCommand(new MaintienElevateur());
 	}
 	
 	
@@ -66,40 +66,55 @@ public class Elevateur extends PIDSubsystem {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		moteurElevateur.set(output);
+		moteur.set(output);
 	}
+	
+	
+	public void startPID() {
+		setSetpoint(getHauteur());
+		enable();
+	}
+	
 	
 	public void monter(LinearInterpolator interpolator) {
 		
+		/*
 		if(encoder.getDistance() >= K.Elevateur.MAX_ENCODER){
-			moteurElevateur.set(0.0);
+			moteur.set(0.0);
 			
 		}
 		else{
-			moteurElevateur.set(interpolator.interpolate(encoder.getDistance()));
-			//moteurElevateur.set(K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
-		}
+			moteur.set(interpolator.interpolate(encoder.getDistance()));
+			//moteur.set(K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_MONTER);
+		}*/
+		
+		moteur.set(interpolator.interpolate(encoder.getDistance()));
 		
 	}
 	
-	public void monter(){
-		monter(interpolateurMonter);
+	public void monter() {
+		//monter(interpolateurMonter);
+		moteur.set(-0.65);
 	}
 	
 	public void descendre(){
 	
+		/*
 		if(encoder.getDistance() <= K.Elevateur.MIN_ENCODER){
-			moteurElevateur.set(0.0);
+			moteur.set(0.0);
 		}
 		else{
-			moteurElevateur.set(interpolateurDescendre.interpolate(encoder.getDistance()));
-			//moteurElevateur.set(K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE);
-		}
+			moteur.set(interpolateurDescendre.interpolate(encoder.getDistance()));
+			//moteur.set(K.Elevateur.VITESSE_MOTEUR_ELEVATEUR_DESCENDRE);
+		}*/
+		
+		moteur.set(interpolateurDescendre.interpolate(encoder.getDistance()));
+		
 	}
 	
 	public void stop(){
 		
-		moteurElevateur.set(0.0);
+		moteur.set(0.0);
 	}
 	
 	public void resetEncoder(){
@@ -107,7 +122,7 @@ public class Elevateur extends PIDSubsystem {
 	}
 	
 	public void tendre(){
-		moteurElevateur.set(-0.17);
+		moteur.set(-0.17);
 	}
 	
 	public double getHauteur(){

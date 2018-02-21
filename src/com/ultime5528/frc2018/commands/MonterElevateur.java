@@ -16,7 +16,7 @@ public class MonterElevateur extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.elevateur.monter();
+    	Robot.elevateur.disable();
     	Robot.ledController.setModeMonter();
     }
 
@@ -33,6 +33,7 @@ public class MonterElevateur extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.elevateur.stop();
+    	Robot.elevateur.startPID();
     	Robot.ledController.setModeCurrentPeriod();
     }
 

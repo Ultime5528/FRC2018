@@ -7,22 +7,19 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DescendreElevateur extends Command {
+public class TournerCube extends Command {
 
-    public DescendreElevateur() {
-    	super("DescendreElevateur");
-    	requires(Robot.elevateur);
+    public TournerCube() {
+        requires(Robot.intake);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.ledController.setModeMonter();
-    	Robot.elevateur.disable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.elevateur.descendre();
+    	Robot.intake.tournerCube();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,9 +29,7 @@ public class DescendreElevateur extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.elevateur.stop();
-    	Robot.ledController.setModeCurrentPeriod();
-    	Robot.elevateur.startPID();
+    	Robot.intake.stop();
     }
 
     // Called when another command which requires one or more of the same
