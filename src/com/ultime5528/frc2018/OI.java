@@ -88,20 +88,19 @@ public class OI {
 		gamepad = new XboxController(1);
 		interY = new CubicInterpolator(K.OI.INTER_Y_A, K.OI.INTER_Y_B, K.OI.INTER_Y_C);
 		
-		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
-		SmartDashboard.putData("Set Elevateur 0", new SetElevateur(K.Elevateur.HAUTEUR_BAS));
-		SmartDashboard.putData("Set Elevateur .1", new SetElevateur(0.1));
-		SmartDashboard.putData("Set Elevateur 0.6", new SetElevateur(0.6));
-		SmartDashboard.putData("Set Elevateur 1.4", new SetElevateur(1.4));
-		SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutoGaucheScaleGauche());
+		//SmartDashboard.putData("Scheduler", Scheduler.getInstance());
+		//SmartDashboard.putData("Set Elevateur 0", new SetElevateur(K.Elevateur.HAUTEUR_BAS));
+		//SmartDashboard.putData("Set Elevateur .1", new SetElevateur(0.1));
+		//SmartDashboard.putData("Set Elevateur 0.6", new SetElevateur(0.6));
+		//SmartDashboard.putData("Set Elevateur 1.4", new SetElevateur(1.4));
+		//SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutoGaucheScaleGauche());
 		//SmartDashboard.putData("AutonomeGaucheScaleGaucheSwitchGauche",new AutonomeGaucheScaleGaucheSwitchGauche());
 		//SmartDashboard.putData("AutoCentreSwitchDroite", new AutoCentreSwitchDroite());
 		//SmartDashboard.putData("AutoCentreSwitchGauche", new AutoCentreSwitchGauche());
-		SmartDashboard.putData("AutoGaucheScaleDroite", new AutoGaucheScaleDroite());
-		SmartDashboard.putData("AutoDroitScaleDroite", new AutoDroitScaleDroite());
-		SmartDashboard.putData("AutoDroitScaleGauche", new AutoDroitScaleGauche());
+		//SmartDashboard.putData("AutoGaucheScaleDroite", new AutoGaucheScaleDroite());
+		//SmartDashboard.putData("AutoDroitScaleDroite", new AutoDroitScaleDroite());
+		//SmartDashboard.putData("AutoDroitScaleGauche", new AutoDroitScaleGauche());
 		
-		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 		
 		// Button Gamepad
 		
@@ -115,7 +114,7 @@ public class OI {
 		buttonG3.whenPressed(new SetElevateur(0.1));
 		
 		buttonG4 = new JoystickButton(gamepad, 4);
-		buttonG4.whenPressed(new SetElevateur(1.4));
+		buttonG4.whenPressed(new SetElevateur(1.5));
 		
 		buttonG5 = new JoystickButton(gamepad, 5);
 		buttonG5.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_PROCHE));

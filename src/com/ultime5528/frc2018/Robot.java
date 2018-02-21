@@ -74,8 +74,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		
 		SmartDashboard.putData(pdp);
-
+		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
+		
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(640, 480);
 		camera.setFPS(22);
@@ -86,7 +88,6 @@ public class Robot extends TimedRobot {
 		chooser.addObject(CENTRE, CENTRE);
 
 		SmartDashboard.putData("Position", chooser);
-
 
 		K.init();
 	}

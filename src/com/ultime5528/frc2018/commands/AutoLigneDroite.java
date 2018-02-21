@@ -1,5 +1,6 @@
 package com.ultime5528.frc2018.commands;
 
+import jaci.pathfinder.Waypoint;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -8,21 +9,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoLigneDroite extends CommandGroup {
 
     public AutoLigneDroite() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+        
+        addSequential(new SuivreTrajectoire(new Waypoint[]{
+        		new Waypoint(0, 0 ,0),
+        		new Waypoint(3.2, 0, 0)
+        },0.45 , -0.1));
+       
     }
 }
