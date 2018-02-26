@@ -7,16 +7,31 @@
 
 package com.ultime5528.frc2018;
 
+import com.ultime5528.frc2018.commands.AutoCentreSwitchDroite;
+import com.ultime5528.frc2018.commands.AutoCentreSwitchGauche;
+import com.ultime5528.frc2018.commands.AutoDroitScaleDroite;
+import com.ultime5528.frc2018.commands.AutoDroitScaleGauche;
+import com.ultime5528.frc2018.commands.AutoGaucheScaleDroite;
+import com.ultime5528.frc2018.commands.AutoGaucheScaleGauche;
+import com.ultime5528.frc2018.commands.AutoLigneDroite;
+import com.ultime5528.frc2018.commands.DemarrerElevateur;
+import com.ultime5528.frc2018.commands.SignalerLED;
 import com.ultime5528.frc2018.subsystems.BasePilotable;
 import com.ultime5528.frc2018.subsystems.Elevateur;
 import com.ultime5528.frc2018.subsystems.Intake;
 import com.ultime5528.frc2018.subsystems.Grimpeur;
 import com.ultime5528.frc2018.subsystems.LEDController;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GamepadBase;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -27,15 +42,31 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-	
+
 	public static final BasePilotable basePilotable = new BasePilotable();
 	public static final Elevateur elevateur = new Elevateur();
 	public static final Intake intake = new Intake();
 	public static final Grimpeur grimpeur = new Grimpeur (); 
 	public static final LEDController ledController = new LEDController();
+	public static final PowerDistributionPanel pdp = new PowerDistributionPanel();
 	public static OI oi;
-	 
 
+	private static final AutoCentreSwitchDroite autoCentreSwitchDroite = new AutoCentreSwitchDroite();
+	private static final AutoCentreSwitchGauche autoCentreSwitchGauche = new AutoCentreSwitchGauche();
+	private static final AutoGaucheScaleGauche autoGaucheScaleGauche = new AutoGaucheScaleGauche();
+	private static final AutoGaucheScaleDroite autoGaucheScaleDroite = new AutoGaucheScaleDroite();
+	private static final AutoDroitScaleDroite autoDroitScaleDroite = new AutoDroitScaleDroite();
+	private static final AutoDroitScaleGauche autoDroitScaleGauche = new AutoDroitScaleGauche();
+	private static final AutoLigneDroite autoLigneDroite = new AutoLigneDroite();
+	private Command autoCommand;
+
+	private SendableChooser<String> chooser;
+	private static final String GAUCHE = "Gauche";
+	private static final String CENTRE = "Centre";
+	private static final String DROITE = "Droite";
+	private static final String LIGNE_DROITE = "Ligne droite";
+
+	private String position;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -43,7 +74,21 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		CameraServer.getInstance().startAutomaticCapture();
+		
+		SmartDashboard.putData(pdp);
+		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
+		
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		camera.setResolution(640, 480);
+		camera.setFPS(22);
+
+		chooser = new SendableChooser<>();
+		chooser.addObject(DROITE, DROITE);
+		chooser.addObject(GAUCHE, GAUCHE);
+		chooser.addObject(CENTRE, CENTRE);
+
+		SmartDashboard.putData("Position", chooser);
+
 		K.init();
 	}
 
@@ -54,7 +99,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		ledController.setModeDebutMatch();
 	}
 
 	@Override
@@ -76,6 +121,75 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		System.out.println("Message : " + DriverStation.getInstance().getGameSpecificMessage());
+		Robot.ledController.setModeAlliance();
+		position = chooser.getSelected();
+		startAuto();
+	}
+
+	public void startAuto(){
+
+		String message = DriverStation.getInstance().getGameSpecificMessage();
+
+		if(message.length() >= 2){
+
+			if(position.equals(GAUCHE)){
+
+				if(message.charAt(1) == 'L'){
+
+					autoCommand =  autoGaucheScaleGauche;
+
+				}
+
+				else if(message.charAt(1) == 'R'){
+
+					autoCommand = autoGaucheScaleDroite;
+
+				}
+
+
+			}	 
+
+			else if(position.equals(CENTRE)){
+
+				if(message.charAt(0) == 'L'){
+
+					autoCommand = autoCentreSwitchGauche;
+
+				}
+
+				else if(message.charAt(0) == 'R'){
+
+					autoCommand = autoCentreSwitchDroite;
+				}
+				
+			}
+			
+			else if(position.equals(DROITE)){
+				
+				if(message.charAt(1) == 'R'){
+
+					autoCommand = autoDroitScaleDroite;
+
+				}
+
+				else if(message.charAt(1) == 'L'){
+
+					autoCommand = autoDroitScaleGauche;
+
+				}
+
+			}
+			
+			else if(position.equals(LIGNE_DROITE)) {
+				
+				autoCommand = autoLigneDroite;
+				
+			}
+			
+			autoCommand.start();
+			
+		}
+
 	}
 
 	/**
@@ -83,15 +197,40 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		if (autoCommand == null) {
+			
+			startAuto();
+			
+			if(DriverStation.getInstance().getMatchTime() < 12){
+				
+				DriverStation.reportError("Pas de GameData", false);
+				
+				autoCommand = autoLigneDroite;
+			
+				autoCommand.start();
+				
+			}
+			
+		}
+		
+		Scheduler.getInstance().run();
 		
 	}
 
 	@Override
 	public void teleopInit() {
+
+		if(autoCommand != null){
+			
+			autoCommand.cancel();
+		
+		}
 		
 		K.update();
-		ledController.allumerRouge();
-	
+		ledController.setModeTeleop();
+		new DemarrerElevateur().start();
+		new SignalerLED().start();
+
 	}
 
 	/**
@@ -100,6 +239,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Intake gauche", pdp.getCurrent(6));
+		SmartDashboard.putNumber("Intake droit", pdp.getCurrent(7));
 	}
 
 	/**
@@ -107,5 +248,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+
 	}
 }

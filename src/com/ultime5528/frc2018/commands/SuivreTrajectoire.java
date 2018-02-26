@@ -32,7 +32,7 @@ public class SuivreTrajectoire extends Command {
 		vitesseBrake *= Math.signum(vitesse) * Math.signum(vitesseBrake) * -1;
 		
 		angleInitial = Pathfinder.r2d(points[0].angle);		
-		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, Math.abs(vitesse), 100, 10000); 
+		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_FAST, 0.05, Math.abs(vitesse), 100, 10000); 
 		trajectory = Pathfinder.generate(points, config); 
 		this.vitesseBrake = vitesseBrake;
 		this.vitesse = vitesse;
@@ -67,11 +67,8 @@ public class SuivreTrajectoire extends Command {
 			return; 
 		}
 		
-		System.out.println(indexSegment);
-		
     	double error = Pathfinder.r2d(trajectory.segments[indexSegment].heading) - Robot.basePilotable.getHeading() - angleInitial;
     	error =  Pathfinder.boundHalfDegrees(error);
-    	System.out.println( Pathfinder.boundHalfDegrees(Pathfinder.r2d(trajectory.segments[indexSegment].heading)));
     	
     	double correction = ANGLE_P * error;
     	

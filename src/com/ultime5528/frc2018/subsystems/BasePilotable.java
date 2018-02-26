@@ -1,5 +1,7 @@
 package com.ultime5528.frc2018.subsystems;
 
+import com.analog.adis16448.frc.ADIS16448_IMU;
+import com.analog.adis16448.frc.ADIS16448_IMU.Axis;
 import com.ultime5528.frc2018.K;
 import com.ultime5528.frc2018.Robot;
 import com.ultime5528.frc2018.commands.Pilotage;
@@ -23,7 +25,7 @@ public class BasePilotable extends Subsystem {
 	private VictorSP moteurDroit;
 	private DifferentialDrive drive;
 
-	private ADXRS450_Gyro gyro;
+	private ADIS16448_IMU gyro;
 	private Encoder encoderGauche;
 	private Encoder encoderDroit;
 	
@@ -42,14 +44,14 @@ public class BasePilotable extends Subsystem {
 		drive = new DifferentialDrive(moteurGauche, moteurDroit);
 		drive.setMaxOutput(1.0);
 		encoderGauche = new Encoder(K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_A, K.Ports.BASE_PILOTABLE_ENCODER_GAUCHE_B);
-		encoderGauche.setDistancePerPulse(-0.00023456);
+		encoderGauche.setDistancePerPulse(0.00022624);
 		addChild("encodeur gauche", encoderGauche);
 
 		encoderDroit = new Encoder(K.Ports.BASE_PILOTABLE_ENCODER_DROIT_A, K.Ports.BASE_PILOTABLE_ENCODER_DROIT_B);
-		encoderDroit.setDistancePerPulse(0.00023456);
+		encoderDroit.setDistancePerPulse(-0.00022624);
 		addChild("encodeur droit", encoderDroit);
 
-		gyro = new ADXRS450_Gyro();
+		gyro = new ADIS16448_IMU(Axis.kY);
 		gyro.calibrate();
 		addChild("Gyro", gyro);
 		
@@ -128,11 +130,10 @@ public class BasePilotable extends Subsystem {
 	}
 	
 	public double getHeading() {
-		return gyro.getAngle();
+		return -gyro.getAngleY();
 	}
 	
 	public void tankDrive(double left, double right) {
-		System.out.println("Gauche : " + left + "\tDroit : " + right);
 		drive.tankDrive(left, right, false);
 	}
 	

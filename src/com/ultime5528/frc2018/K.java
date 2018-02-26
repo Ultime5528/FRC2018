@@ -148,21 +148,21 @@ public class K {
 		public static final int BASE_PILOTABLE_MOTEUR_GAUCHE = 0;
 		public static final int BASE_PILOTABLE_MOTEUR_DROIT = 1;
 
-		public static final int ELEVATEUR_MOTEUR = 2;
+		public static final int ELEVATEUR_MOTEUR = 3;
 		
-		public static final int INTAKE_MOTEUR_GAUCHE = 3;
-		public static final int INTAKE_MOTEUR_DROITE = 4;
+		public static final int INTAKE_MOTEUR_GAUCHE = 4;
+		public static final int INTAKE_MOTEUR_DROITE = 5;
 		
-		public static final int GRIMPEUR_MOTEUR = 5;
+		public static final int GRIMPEUR_MOTEUR = 2;
 		public static final int GRIMPEUR_SERVO = 6;
 		
 		
 		
-		public static final int BASE_PILOTABLE_ENCODER_DROIT_A = 0;
-		public static final int BASE_PILOTABLE_ENCODER_DROIT_B = 1;
+		public static final int BASE_PILOTABLE_ENCODER_DROIT_A = 2;
+		public static final int BASE_PILOTABLE_ENCODER_DROIT_B = 3;
 		
-		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_A = 2;
-		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_B = 3;
+		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_A = 0;
+		public static final int BASE_PILOTABLE_ENCODER_GAUCHE_B = 1;
 
 		public static final int GRIMPEUR_ENCODER_A = 4;
 		public static final int GRIMPEUR_ENCODER_B = 5;
@@ -195,26 +195,28 @@ public class K {
 	}
 
 	public static final class Elevateur {
-		public static double MAX_ENCODER = 1000;
+		public static double MAX_ENCODER = 1.55;
 		public static double MIN_ENCODER = 0;
-		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = 0.5;
-		public static double VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = -0.5;
-		public static double P = 0;
+		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = -0.5;
+		public static double VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = 0.15;
+		public static double HAUTEUR_BAS = -0.01;
+		public static double P = -15;
 		public static double I = 0;
 		public static double D = 0;
-		public static double TOLERANCE = 0.1;
+		public static double TOLERANCE = 0.00000000000000000001;
 	}
 
 	public static final class Intake {
-		public static double VITESSE_PRENDRE = 0.7;
-		public static double VITESSE_LANCER_PROCHE = -0.2;
+		public static double VITESSE_PRENDRE = 0.40;
+		public static double VITESSE_LANCER_PROCHE = -0.4;
 		public static double VITESSE_LANCER_LOIN = -1;
-		public static double VITESSE_GARDER_CUBE = -0.2;
+		public static double VITESSE_GARDER_CUBE = 0.20;
 		
 	}
 	public static final class Grimpeur {
 		public static double VITESSE_GRIMPER = 1;
 		public static double VITESSE_DESCENDRE = -1;
+		public static double VITESSE_MAINTIEN = -0.5;
 	}
 	public static final class SuivreTrajectoire {
 		public static double VITESSE_BRAKE = -1;

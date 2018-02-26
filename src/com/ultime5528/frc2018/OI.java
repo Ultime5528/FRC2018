@@ -7,15 +7,38 @@
 
 package com.ultime5528.frc2018;
 
+
+
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 
+import com.ultime5528.frc2018.commands.AutoCentreSwitchDroite;
+import com.ultime5528.frc2018.commands.AutoCentreSwitchGauche;
+import com.ultime5528.frc2018.commands.AutoDroitScaleDroite;
+import com.ultime5528.frc2018.commands.AutoDroitScaleGauche;
+import com.ultime5528.frc2018.commands.AutoGaucheScaleDroite;
+import com.ultime5528.frc2018.commands.AutoGaucheScaleGauche;
+import com.ultime5528.frc2018.commands.AutonomeGaucheScaleGaucheSwitchGauche;
+import com.ultime5528.frc2018.commands.DemarrerElevateur;
+import com.ultime5528.frc2018.commands.DescendreElevateur;
+import com.ultime5528.frc2018.commands.LancerCube;
+import com.ultime5528.frc2018.commands.MonterElevateur;
+import com.ultime5528.frc2018.commands.MonterRobot;
+import com.ultime5528.frc2018.commands.PrendreLeverCube;
+import com.ultime5528.frc2018.commands.SetElevateur;
 import com.ultime5528.frc2018.commands.SuivreArc;
 import com.ultime5528.frc2018.commands.SuivreTrajectoire;
-import com.ultime5528.frc2018.commands.Tourner;
+import com.ultime5528.frc2018.commands.TournerCube;
+import com.ultime5528.frc2018.triggers.AxisDownTrigger;
+import com.ultime5528.frc2018.triggers.AxisUpTrigger;
+import com.ultime5528.frc2018.triggers.POVTrigger;
+import com.ultime5528.frc2018.triggers.POVTrigger.Arrow;
 import com.ultime5528.frc2018.util.CubicInterpolator;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,25 +49,114 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
 
 	private Joystick joystick;
+	private XboxController gamepad;
+	
 	
 	private CubicInterpolator interY;
+	
+	
+	private JoystickButton buttonG1;
+	private JoystickButton buttonG2;
+	private JoystickButton buttonG3;
+	private JoystickButton buttonG4;
+	private JoystickButton buttonG5;
+	private JoystickButton buttonG6;
+	private JoystickButton buttonG8;
+	
+	
+	private JoystickButton button2;
+	private JoystickButton button3;
+	private JoystickButton button5;
+	private JoystickButton button11;
+	private JoystickButton button12;
+	
+	
+	private POVTrigger downG; 
+	private AxisUpTrigger leftAxisUp;
+	private AxisDownTrigger leftAxisDown;
+	private AxisDownTrigger rightTrigger;
+
 	
 	public OI() {
 		
 		Waypoint[] ligneDroite = {
-				new Waypoint(0, 0, Pathfinder.d2r(180)),
-				new Waypoint(-2, -1, Pathfinder.d2r(180))
+				new Waypoint(0, 0, Pathfinder.d2r(0)),
+				new Waypoint(3.35, 1.05, Pathfinder.d2r(90))
 		};
 		
 		joystick = new Joystick(0);
+		gamepad = new XboxController(1);
 		interY = new CubicInterpolator(K.OI.INTER_Y_A, K.OI.INTER_Y_B, K.OI.INTER_Y_C);
 		
-		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
-		SmartDashboard.putData("Suivre courbe 2 2 ", new SuivreArc(2, 1, 0.4));
-		SmartDashboard.putData("Suivre courbe 2 0 ", new SuivreArc(2, 0, 0.4));
-		SmartDashboard.putData("Suivre Trajectoire 2 2 0", new SuivreTrajectoire(ligneDroite ,-0.4 , K.SuivreTrajectoire.VITESSE_BRAKE));
-		SmartDashboard.putData("Tourner", new Tourner(90, 0.5, -0.6));
-	
+		//SmartDashboard.putData("Scheduler", Scheduler.getInstance());
+		//SmartDashboard.putData("Set Elevateur 0", new SetElevateur(K.Elevateur.HAUTEUR_BAS));
+		//SmartDashboard.putData("Set Elevateur .1", new SetElevateur(0.1));
+		//SmartDashboard.putData("Set Elevateur 0.6", new SetElevateur(0.6));
+		//SmartDashboard.putData("Set Elevateur 1.4", new SetElevateur(1.4));
+		//SmartDashboard.putData("Autonome Gauche Scale Gauche", new AutoGaucheScaleGauche());
+		//SmartDashboard.putData("AutonomeGaucheScaleGaucheSwitchGauche",new AutonomeGaucheScaleGaucheSwitchGauche());
+		//SmartDashboard.putData("AutoCentreSwitchDroite", new AutoCentreSwitchDroite());
+		//SmartDashboard.putData("AutoCentreSwitchGauche", new AutoCentreSwitchGauche());
+		//SmartDashboard.putData("AutoGaucheScaleDroite", new AutoGaucheScaleDroite());
+		//SmartDashboard.putData("AutoDroitScaleDroite", new AutoDroitScaleDroite());
+		//SmartDashboard.putData("AutoDroitScaleGauche", new AutoDroitScaleGauche());
+		
+		
+		// Button Gamepad
+		
+		buttonG1 = new JoystickButton(gamepad, 1);
+		buttonG1.whenPressed(new SetElevateur(-0.005));
+		
+		buttonG2 = new JoystickButton(gamepad, 2);
+		buttonG2.whenPressed(new SetElevateur(0.6));
+		
+		buttonG3 = new JoystickButton(gamepad, 3);
+		buttonG3.whenPressed(new SetElevateur(0.1));
+		
+		buttonG4 = new JoystickButton(gamepad, 4);
+		buttonG4.whenPressed(new SetElevateur(1.5));
+		
+		buttonG5 = new JoystickButton(gamepad, 5);
+		buttonG5.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_PROCHE));
+		
+		buttonG6 = new JoystickButton(gamepad, 6);
+		buttonG6.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
+		
+		buttonG8 = new JoystickButton(gamepad, 8);
+		buttonG8.whenPressed(new DemarrerElevateur());
+		
+		
+		//Button Joystick
+		
+		button2 = new JoystickButton(joystick, 2);
+		button2.whileHeld(new MonterRobot());
+
+		button3 = new JoystickButton(joystick, 3);
+		button3.whileHeld(new DescendreElevateur());
+		
+		button5 = new JoystickButton(joystick, 5);
+		button5.whileHeld(new MonterElevateur());
+		
+		button11 = new JoystickButton(joystick, 11);
+		button11.toggleWhenPressed(new PrendreLeverCube());
+		
+		button12 = new JoystickButton(joystick, 12);
+		button12.whenPressed(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
+		
+		// Button Gamepad
+		
+		downG= new POVTrigger(gamepad, Arrow.DOWN);
+		downG.toggleWhenActive(new PrendreLeverCube());
+		
+		leftAxisDown = new AxisDownTrigger(gamepad, 1);
+		leftAxisDown.whileActive(new DescendreElevateur());
+		
+		leftAxisUp = new AxisUpTrigger(gamepad, 1);
+		leftAxisUp.whileActive(new MonterElevateur());
+		
+		rightTrigger = new AxisDownTrigger(gamepad, 3);
+		rightTrigger.whileActive(new TournerCube());
+		
 	}
 	
 	public Joystick getJoystick() {

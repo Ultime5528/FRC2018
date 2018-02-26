@@ -40,7 +40,6 @@ public class SuivreArc extends Command {
         	
         	angle = Math.asin(xForward / radius);
         	distance = radius * angle;
-            System.out.println("Distance : " + distance);
         	
             //Si on tourne vers la droite, la roue gauche va plus vite.
             vGauche = vitesse;

@@ -16,7 +16,6 @@ public class Grimpeur extends Subsystem {
     private Encoder encoder;
     private Servo servo;
     
-    
     public Grimpeur () {
     	
     	super("Grimpeur");
@@ -48,6 +47,9 @@ public class Grimpeur extends Subsystem {
     	moteur.set(K.Grimpeur.VITESSE_DESCENDRE);
     }
     
+    public void maintien(){
+    	moteur.set(K.Grimpeur.VITESSE_MAINTIEN);
+    }
     
 }
 
