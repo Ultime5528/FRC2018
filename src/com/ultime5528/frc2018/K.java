@@ -207,7 +207,7 @@ public class K {
 	}
 
 	public static final class Intake {
-		public static double VITESSE_PRENDRE = 0.40;
+		public static double VITESSE_PRENDRE = 0.45;
 		public static double VITESSE_LANCER_PROCHE = -0.4;
 		public static double VITESSE_LANCER_LOIN = -1;
 		public static double VITESSE_GARDER_CUBE = 0.20;

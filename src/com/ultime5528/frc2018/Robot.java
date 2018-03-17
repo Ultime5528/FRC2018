@@ -9,10 +9,12 @@ package com.ultime5528.frc2018;
 
 import com.ultime5528.frc2018.commands.AutoCentreSwitchDroite;
 import com.ultime5528.frc2018.commands.AutoCentreSwitchGauche;
+import com.ultime5528.frc2018.commands.AutoDroitScaleDroitRecule;
 import com.ultime5528.frc2018.commands.AutoDroitScaleDroite;
 import com.ultime5528.frc2018.commands.AutoDroitScaleGauche;
 import com.ultime5528.frc2018.commands.AutoGaucheScaleDroite;
 import com.ultime5528.frc2018.commands.AutoGaucheScaleGauche;
+import com.ultime5528.frc2018.commands.AutoGaucheScaleGaucheRecule;
 import com.ultime5528.frc2018.commands.AutoLigneDroite;
 import com.ultime5528.frc2018.commands.DemarrerElevateur;
 import com.ultime5528.frc2018.commands.SignalerLED;
@@ -48,14 +50,13 @@ public class Robot extends TimedRobot {
 	public static final Intake intake = new Intake();
 	public static final Grimpeur grimpeur = new Grimpeur (); 
 	public static final LEDController ledController = new LEDController();
-	public static final PowerDistributionPanel pdp = new PowerDistributionPanel();
 	public static OI oi;
 
 	private static final AutoCentreSwitchDroite autoCentreSwitchDroite = new AutoCentreSwitchDroite();
 	private static final AutoCentreSwitchGauche autoCentreSwitchGauche = new AutoCentreSwitchGauche();
-	private static final AutoGaucheScaleGauche autoGaucheScaleGauche = new AutoGaucheScaleGauche();
+	private static final AutoGaucheScaleGauche autoGaucheScaleGauche = new AutoGaucheScaleGauche(); // new AutoGaucheScaleGaucheRecule();
 	private static final AutoGaucheScaleDroite autoGaucheScaleDroite = new AutoGaucheScaleDroite();
-	private static final AutoDroitScaleDroite autoDroitScaleDroite = new AutoDroitScaleDroite();
+	private static final AutoDroitScaleDroite autoDroitScaleDroite = new AutoDroitScaleDroite();  // new AutoDroitScaleDroitRecule();
 	private static final AutoDroitScaleGauche autoDroitScaleGauche = new AutoDroitScaleGauche();
 	private static final AutoLigneDroite autoLigneDroite = new AutoLigneDroite();
 	private Command autoCommand;
@@ -75,12 +76,11 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = new OI();
 		
-		SmartDashboard.putData(pdp);
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
-		
+		SmartDashboard.putBoolean("PrendreCube", false);
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setResolution(640, 480);
-		camera.setFPS(22);
+		camera.setResolution(320, 240);
+		camera.setFPS(20);
 
 		chooser = new SendableChooser<>();
 		chooser.addObject(DROITE, DROITE);
@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putData("Position", chooser);
 
-		K.init();
+		//K.init();
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class Robot extends TimedRobot {
 
 		String message = DriverStation.getInstance().getGameSpecificMessage();
 
-		if(message.length() >= 2){
+		if(message != null && message.length() >= 3){
 
 			if(position.equals(GAUCHE)){
 
@@ -226,9 +226,8 @@ public class Robot extends TimedRobot {
 		
 		}
 		
-		K.update();
+		//K.update();
 		ledController.setModeTeleop();
-		new DemarrerElevateur().start();
 		new SignalerLED().start();
 
 	}
@@ -239,8 +238,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Intake gauche", pdp.getCurrent(6));
-		SmartDashboard.putNumber("Intake droit", pdp.getCurrent(7));
 	}
 
 	/**

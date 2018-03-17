@@ -30,33 +30,36 @@ public class AutoGaucheScaleGauche extends CommandGroup {
 				new Waypoint(6.4, 0.5, Pathfinder.d2r(17.5))
 		}, 0.65, -0.07));
 
-
+		addSequential(new WaitForChildren());
+		
 		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
 		
 
 		//Deuxieme cubes
+		
+		CommandGroup prendreCubeGroup = new CommandGroup();
 		
 		addParallel(new PrendreLeverCube());
 		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0,Pathfinder.d2r(-180)),
 				new Waypoint(-0.5, -0.0, Pathfinder.d2r(-180))
-		}, -0.55, 0.1));
+		}, -0.6, 0.1));
 		
-		addSequential(new Tourner(133, 0.5, -0.1));
+		addSequential(new Tourner(133, 0.6, -0.1));
 		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0,Pathfinder.d2r(0)),
-				new Waypoint(1.75, 0, Pathfinder.d2r(0))
-		}, 0.30, -0.1));
+				new Waypoint(1.85, 0, Pathfinder.d2r(0))
+		}, 0.35, -0.1));
 		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0,Pathfinder.d2r(-180)),
-				new Waypoint(-0.5, 0, Pathfinder.d2r(-180)),
+				new Waypoint(-0.58, 0, Pathfinder.d2r(-180)),
 				
 		}, -0.35, 0.1));
 		
-		addSequential(new Tourner(-138, -0.5, 0.1));
+		addSequential(new Tourner(-138, -0.6, 0.1));
 		
 		addParallel(new SetElevateur(1.50));
 		
@@ -64,35 +67,17 @@ public class AutoGaucheScaleGauche extends CommandGroup {
 				new Waypoint(0, 0,Pathfinder.d2r(0)),
 				new Waypoint(1.60 , 0, Pathfinder.d2r(0))
 				
-		}, 0.35, -0.1));
-		/*addSequential(new SuivreTrajectoire(new Waypoint[] {
-				new Waypoint(0, 0,Pathfinder.d2r(-180)),
-				new Waypoint(-0.85, -0.70, Pathfinder.d2r(-110))
-		}, -0.55, 0.1));
-		
-		addSequential(new SuivreTrajectoire(new Waypoint[] {
-				new Waypoint(0, 0,Pathfinder.d2r(0)),
-				new Waypoint(1, 0.7, Pathfinder.d2r(52)),
-				new Waypoint(1.60, 1.65, Pathfinder.d2r(52))
-		}, 0.35, -0.1),4.0);
-		
-		addSequential(new SuivreTrajectoire(new Waypoint[] {
-				new Waypoint(0, 0,Pathfinder.d2r(-180)),
-				new Waypoint(-1.20, 0.80, Pathfinder.d2r(-260)),
-		}, -0.55, 0.1));
-		*/
-		
-		
-		/*
-		addParallel(new SuivreTrajectoire(new Waypoint[] {
-				new Waypoint(0, 0,Pathfinder.d2r(0)),
-				new Waypoint(1.6, -1, Pathfinder.d2r(-48)),
-		}, 0.5, -0.1));
-		*/
+		}, 0.65, -0.1));
 		
 		addSequential(new WaitForChildren());
 
 		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
+		
+		addParallel(new SuivreTrajectoire(new Waypoint[] {
+				new Waypoint(0, 0,Pathfinder.d2r(-180)),
+				new Waypoint(-0.5, 0, Pathfinder.d2r(-180)),
+				
+		}, -0.35, 0.1));
 		
 		addSequential(new SetElevateur(-0.005));
 		

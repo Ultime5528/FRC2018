@@ -18,7 +18,6 @@ import com.ultime5528.frc2018.commands.AutoDroitScaleDroite;
 import com.ultime5528.frc2018.commands.AutoDroitScaleGauche;
 import com.ultime5528.frc2018.commands.AutoGaucheScaleDroite;
 import com.ultime5528.frc2018.commands.AutoGaucheScaleGauche;
-import com.ultime5528.frc2018.commands.AutonomeGaucheScaleGaucheSwitchGauche;
 import com.ultime5528.frc2018.commands.DemarrerElevateur;
 import com.ultime5528.frc2018.commands.DescendreElevateur;
 import com.ultime5528.frc2018.commands.LancerCube;
@@ -108,7 +107,7 @@ public class OI {
 		buttonG1.whenPressed(new SetElevateur(-0.005));
 		
 		buttonG2 = new JoystickButton(gamepad, 2);
-		buttonG2.whenPressed(new SetElevateur(0.6));
+		buttonG2.whenPressed(new SetElevateur(0.7));
 		
 		buttonG3 = new JoystickButton(gamepad, 3);
 		buttonG3.whenPressed(new SetElevateur(0.1));

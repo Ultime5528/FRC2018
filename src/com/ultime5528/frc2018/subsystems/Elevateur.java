@@ -42,9 +42,9 @@ public class Elevateur extends PIDSubsystem {
 		
 		pointsDescendre = new Point[]{
 				new Point(0.1, 0.15),
-				new Point(0.15, 0.3),
-				new Point(0.65,0.3),
-				new Point(0.8,0.2)
+				new Point(0.15, 0.35),
+				new Point(0.65,0.45),
+				new Point(0.8,0.25)
 		};
 		
 		interpolateurMonter = new LinearInterpolator(pointsMonter);

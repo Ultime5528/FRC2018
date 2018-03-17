@@ -45,7 +45,7 @@ public class Intake extends Subsystem {
 	}
 	
 	public void prendre(){
-		moteurGauche.set(-0.6 * K.Intake.VITESSE_PRENDRE);
+		moteurGauche.set(-0.65 * K.Intake.VITESSE_PRENDRE);
 		moteurDroite.set(K.Intake.VITESSE_PRENDRE);
 	}
 	

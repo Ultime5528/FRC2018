@@ -22,26 +22,25 @@ public class AutoGaucheScaleDroite extends CommandGroup {
 		commandeDebut.addSequential(new SetElevateur(1.45));
     	
         addParallel(commandeDebut);
-		addSequential(new SuivreTrajectoire(new Waypoint[]{
+		
+        addSequential(new SuivreTrajectoire(new Waypoint[]{
         	new Waypoint(0, 0, 0),
         	new Waypoint(5.25, 2.5, Pathfinder.d2r(90)),
         	new Waypoint(5.25, 4.3, Pathfinder.d2r(75)),
-        	new Waypoint(6.65, 4.9, Pathfinder.d2r(-25))
+        	new Waypoint(6.70, 4.85, Pathfinder.d2r(-25))
         }, 0.485, -0.08));
-        addSequential(new WaitForChildren());
-		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+       
+		addSequential(new WaitForChildren());
+		
+        addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
+        
+		addParallel(new SuivreTrajectoire(new Waypoint[] {
+				new Waypoint(0, 0,Pathfinder.d2r(-180)),
+				new Waypoint(-0.5, 0, Pathfinder.d2r(-180)),
+				
+		}, -0.35, 0.1));
+		
+		addSequential(new SetElevateur(-0.005));
+		
     }
 }
