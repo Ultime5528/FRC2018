@@ -4,6 +4,7 @@ import org.opencv.core.Mat;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -27,7 +28,11 @@ public class Camera extends Subsystem {
 	
 	private void visionLoop(){
 		
-		CvSink source = CameraServer.getInstance().getVideo();
+		UsbCamera cam = new UsbCamera("Main Cam", 0);
+		cam.setResolution(LARGEUR, HAUTEUR);
+		cam.setFPS(20);
+		
+		CvSink source = CameraServer.getInstance().getVideo(cam);
 		CvSource video = CameraServer.getInstance().putVideo("Video", LARGEUR, HAUTEUR);
 		
 		Mat image = new Mat();
