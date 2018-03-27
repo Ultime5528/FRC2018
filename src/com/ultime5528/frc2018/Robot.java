@@ -19,6 +19,7 @@ import com.ultime5528.frc2018.commands.AutoLigneDroite;
 import com.ultime5528.frc2018.commands.DemarrerElevateur;
 import com.ultime5528.frc2018.commands.SignalerLED;
 import com.ultime5528.frc2018.subsystems.BasePilotable;
+import com.ultime5528.frc2018.subsystems.Camera;
 import com.ultime5528.frc2018.subsystems.Elevateur;
 import com.ultime5528.frc2018.subsystems.Intake;
 import com.ultime5528.frc2018.subsystems.Grimpeur;
@@ -50,6 +51,7 @@ public class Robot extends TimedRobot {
 	public static final Intake intake = new Intake();
 	public static final Grimpeur grimpeur = new Grimpeur (); 
 	public static final LEDController ledController = new LEDController();
+	public static final Camera camera = new Camera();
 	public static OI oi;
 
 	private static final AutoCentreSwitchDroite autoCentreSwitchDroite = new AutoCentreSwitchDroite();
@@ -78,9 +80,9 @@ public class Robot extends TimedRobot {
 		
 		SmartDashboard.putData("Scheduler", Scheduler.getInstance());
 		SmartDashboard.putBoolean("PrendreCube", false);
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setResolution(320, 240);
-		camera.setFPS(20);
+		//UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		//camera.setResolution(320, 240);
+		//camera.setFPS(20);
 
 		chooser = new SendableChooser<>();
 		chooser.addObject(DROITE, DROITE);
