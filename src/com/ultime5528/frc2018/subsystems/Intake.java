@@ -36,8 +36,8 @@ public class Intake extends Subsystem {
 	}
 	
 	public boolean hasCube(){
-		
-		return switchDroite.get() && switchGauche.get();
+		// TODO enlever 
+		return false; //switchDroite.get() && switchGauche.get();
 	}
 
 	public void initDefaultCommand() {

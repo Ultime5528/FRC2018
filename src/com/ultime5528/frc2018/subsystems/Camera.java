@@ -1,5 +1,8 @@
 package com.ultime5528.frc2018.subsystems;
 
+import java.util.ArrayList;
+
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
 import edu.wpi.cscore.CvSink;
@@ -31,21 +34,55 @@ public class Camera extends Subsystem {
 		UsbCamera cam = new UsbCamera("Main Cam", 0);
 		cam.setResolution(LARGEUR, HAUTEUR);
 		cam.setFPS(20);
+		cam.setBrightness(80);
+		cam.setExposureManual(1);
+		cam.setWhiteBalanceManual(4000);
+		
 		
 		CvSink source = CameraServer.getInstance().getVideo(cam);
 		CvSource video = CameraServer.getInstance().putVideo("Video", LARGEUR, HAUTEUR);
+		CvSource videoinitial = CameraServer.getInstance().putVideo("Videointial", LARGEUR, HAUTEUR);
 		
 		Mat image = new Mat();
 		
 		while(!Thread.interrupted()){
-			
-			source.grabFrame(image);
-			//
-			video.putFrame(image);
-			
+			try {
+				source.grabFrame(image);
+				videoinitial.putFrame(image);
+				detecterCube(image);
+				
+				video.putFrame(image);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
 			
 		}
 		
+	}
+	
+	private void detecterCube(Mat image){
+		
+		Mat output = new Mat();
+    	ArrayList<Mat> channels = new ArrayList<>();
+    	Core.split(image, channels);
+    	
+    	if(channels.size() < 3)
+    		return;
+    	
+    	Core.add(channels.get(1), channels.get(2), output);
+    	Core.addWeighted(output, 1, channels.get(0), -2.3, 0, output);
+    	Core.absdiff(channels.get(1), channels.get(2), channels.get(1));
+    	Core.addWeighted(output, 1, channels.get(1), -5, 0, output);
+    	
+ 		
+    	for(Mat c : channels)
+    		c.release();
+	
+    	output.copyTo(image);
+    	
+    	output.release();
 	}
 	
     public void initDefaultCommand() {

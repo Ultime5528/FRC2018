@@ -51,9 +51,9 @@ public class BasePilotable extends Subsystem {
 		encoderDroit.setDistancePerPulse(-0.00022624);
 		addChild("encodeur droit", encoderDroit);
 
-		gyro = new ADIS16448_IMU(Axis.kY);
-		gyro.calibrate();
-		addChild("Gyro", gyro);
+		//gyro = new ADIS16448_IMU(Axis.kY);
+		//gyro.calibrate();
+		//addChild("Gyro", gyro);
 		
 		averageSpeed = new PIDSource() {
 			@Override

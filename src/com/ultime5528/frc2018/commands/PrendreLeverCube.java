@@ -15,6 +15,7 @@ public class PrendreLeverCube extends CommandGroup {
     	addParallel(new MaintienElevateur());
     	addSequential(new PrendreCube());
     	addSequential(new SetElevateur(0.2));
+    	addParallel(new MaintienCube());
 
     }
 }

@@ -105,7 +105,6 @@ public class LEDController extends Subsystem {
 				Thread.sleep(3000);
 				signal1 = false;
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}).start();
@@ -123,7 +122,6 @@ public class LEDController extends Subsystem {
 				Thread.sleep(3000);
 				signal2 = false;
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}).start();
