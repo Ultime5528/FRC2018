@@ -3,6 +3,7 @@ package com.ultime5528.frc2018.subsystems;
 import com.ultime5528.frc2018.K;
 import com.ultime5528.frc2018.commands.MaintienCube;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,6 +17,7 @@ public class Intake extends Subsystem {
 	private VictorSP moteurDroite;
 	private DigitalInput switchDroite;
 	private DigitalInput switchGauche;
+	private AnalogInput sonar;
 
 	public Intake() {
 		
@@ -32,6 +34,9 @@ public class Intake extends Subsystem {
 		
 		switchGauche = new DigitalInput(K.Ports.INTAKE_SWITCH_GAUCHE);
 		addChild("Switch Gauche", switchGauche);
+		
+		sonar = new AnalogInput(0);
+		addChild("Sonar", sonar);
 		
 	}
 	

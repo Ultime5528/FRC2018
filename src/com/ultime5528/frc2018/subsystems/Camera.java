@@ -4,12 +4,16 @@ import java.util.ArrayList;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -26,6 +30,7 @@ public class Camera extends Subsystem {
 	public Camera(){
 		
 		new Thread(this::visionLoop).start();
+		
 	}
 
 	
@@ -34,9 +39,11 @@ public class Camera extends Subsystem {
 		UsbCamera cam = new UsbCamera("Main Cam", 0);
 		cam.setResolution(LARGEUR, HAUTEUR);
 		cam.setFPS(20);
-		cam.setBrightness(80);
-		cam.setExposureManual(1);
-		cam.setWhiteBalanceManual(4000);
+		cam.setExposureAuto();
+		cam.setWhiteBalanceAuto();
+		//cam.setBrightness(10);
+		//cam.setExposureManual(22);
+		//cam.setWhiteBalanceManual(3000);
 		
 		
 		CvSink source = CameraServer.getInstance().getVideo(cam);
@@ -56,11 +63,12 @@ public class Camera extends Subsystem {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		
 			
 		}
 		
 	}
+	
+	
 	
 	private void detecterCube(Mat image){
 		
@@ -71,18 +79,35 @@ public class Camera extends Subsystem {
     	if(channels.size() < 3)
     		return;
     	
+    	// Vert + Rouge -> output (jaune)
     	Core.add(channels.get(1), channels.get(2), output);
-    	Core.addWeighted(output, 1, channels.get(0), -2.3, 0, output);
-    	Core.absdiff(channels.get(1), channels.get(2), channels.get(1));
-    	Core.addWeighted(output, 1, channels.get(1), -5, 0, output);
     	
+    	// Output - K * Bleu -> output
+    	Core.addWeighted(output, 1, channels.get(0), -2.0, 0, output);
+    	
+    	// |Vert - Rouge| -> Channel 1 (difference absolue entre rouge et vert 
+    	Core.absdiff(channels.get(1), channels.get(2), channels.get(1));
+    	
+    	// Output + K * AbsDiff -> Output
+    	Core.addWeighted(output, 1, channels.get(1), -5, 0, output);
  		
     	for(Mat c : channels)
     		c.release();
+    	
+    	Rect roi = new Rect( (int)(0.3*LARGEUR), (int)(0.3*HAUTEUR),(int)( 0.55*LARGEUR), (int)(0.6*HAUTEUR));
+    	Imgproc.rectangle(output, roi.br(), roi.tl(), new Scalar(255));
+    	
+    	Mat cropped = new Mat(output, roi);
+    	
+    	double moyenne = Core.sumElems(cropped).val[0] / (cropped.rows()*cropped.cols());
+    	
+    	cropped.release();
 	
+    	SmartDashboard.putNumber("moyenne", moyenne);
     	output.copyTo(image);
     	
     	output.release();
+    	
 	}
 	
     public void initDefaultCommand() {
