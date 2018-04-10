@@ -210,7 +210,7 @@ public class K {
 		public static double VITESSE_PRENDRE = 0.45;
 		public static double VITESSE_LANCER_PROCHE = -0.4;
 		public static double VITESSE_LANCER_LOIN = -1;
-		public static double VITESSE_GARDER_CUBE = 0.20;
+		public static double VITESSE_GARDER_CUBE = 0.12;
 		
 	}
 	public static final class Grimpeur {

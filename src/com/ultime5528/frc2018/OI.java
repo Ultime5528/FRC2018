@@ -23,6 +23,7 @@ import com.ultime5528.frc2018.commands.DescendreElevateur;
 import com.ultime5528.frc2018.commands.LancerCube;
 import com.ultime5528.frc2018.commands.MonterElevateur;
 import com.ultime5528.frc2018.commands.MonterRobot;
+import com.ultime5528.frc2018.commands.PrendreCube;
 import com.ultime5528.frc2018.commands.PrendreLeverCube;
 import com.ultime5528.frc2018.commands.SetElevateur;
 import com.ultime5528.frc2018.commands.SuivreArc;
@@ -30,6 +31,7 @@ import com.ultime5528.frc2018.commands.SuivreTrajectoire;
 import com.ultime5528.frc2018.commands.TournerCube;
 import com.ultime5528.frc2018.triggers.AxisDownTrigger;
 import com.ultime5528.frc2018.triggers.AxisUpTrigger;
+import com.ultime5528.frc2018.triggers.CubeTrigger;
 import com.ultime5528.frc2018.triggers.POVTrigger;
 import com.ultime5528.frc2018.triggers.POVTrigger.Arrow;
 import com.ultime5528.frc2018.util.CubicInterpolator;
@@ -74,6 +76,7 @@ public class OI {
 	private AxisUpTrigger leftAxisUp;
 	private AxisDownTrigger leftAxisDown;
 	private AxisDownTrigger rightTrigger;
+	private CubeTrigger cubeTrigger;
 
 	
 	public OI() {
@@ -145,7 +148,7 @@ public class OI {
 		// Button Gamepad
 		
 		downG= new POVTrigger(gamepad, Arrow.DOWN);
-		downG.toggleWhenActive(new PrendreLeverCube());
+		downG.whileActive(new PrendreCube());
 		
 		leftAxisDown = new AxisDownTrigger(gamepad, 1);
 		leftAxisDown.whileActive(new DescendreElevateur());
@@ -155,6 +158,11 @@ public class OI {
 		
 		rightTrigger = new AxisDownTrigger(gamepad, 3);
 		rightTrigger.whileActive(new TournerCube());
+		
+		cubeTrigger = new CubeTrigger();
+		cubeTrigger.whenActive(new PrendreCube());
+		
+		
 		
 	}
 	

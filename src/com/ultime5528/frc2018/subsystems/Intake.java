@@ -18,6 +18,7 @@ public class Intake extends Subsystem {
 	private DigitalInput switchDroite;
 	private DigitalInput switchGauche;
 	private AnalogInput sonar;
+	private Boolean aCube;
 
 	public Intake() {
 		
@@ -41,8 +42,8 @@ public class Intake extends Subsystem {
 	}
 	
 	public boolean hasCube(){
-		// TODO enlever 
-		return false; //switchDroite.get() && switchGauche.get();
+		
+		return (sonar.getVoltage() < 0.08); //switchDroite.get() && switchGauche.get();
 	}
 
 	public void initDefaultCommand() {

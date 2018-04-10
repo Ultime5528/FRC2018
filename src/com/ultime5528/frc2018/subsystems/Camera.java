@@ -1,6 +1,7 @@
 package com.ultime5528.frc2018.subsystems;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -25,11 +26,14 @@ public class Camera extends Subsystem {
 	
 	public static final int LARGEUR = 320;
 	public static final int HAUTEUR = 240;
+	private AtomicBoolean cubeDetecte;
+	
 	
 	
 	public Camera(){
 		
 		new Thread(this::visionLoop).start();
+		cubeDetecte = new AtomicBoolean(false);
 		
 	}
 
@@ -101,6 +105,7 @@ public class Camera extends Subsystem {
     	
     	double moyenne = Core.sumElems(cropped).val[0] / (cropped.rows()*cropped.cols());
     	
+    	cubeDetecte.set(moyenne > 40);
     	cropped.release();
 	
     	SmartDashboard.putNumber("moyenne", moyenne);
@@ -108,8 +113,14 @@ public class Camera extends Subsystem {
     	
     	output.release();
     	
+    	
 	}
 	
+	public boolean cubeDetecte() {
+		
+		return cubeDetecte.get();
+		
+	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
