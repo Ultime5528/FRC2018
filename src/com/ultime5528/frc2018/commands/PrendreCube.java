@@ -22,6 +22,7 @@ public class PrendreCube extends Command {
 	protected void initialize() {
 		tourner = false;
 		SmartDashboard.putBoolean("PrendreCube", true);
+		Robot.camera.setIntake(true);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -39,6 +40,7 @@ public class PrendreCube extends Command {
 	protected void end() {
 		
 		SmartDashboard.putBoolean("PrendreCube", false);
+		Robot.camera.setIntake(false);
 		Robot.intake.stop();
 		Robot.ledController.setModeCube();
 		
@@ -49,5 +51,6 @@ public class PrendreCube extends Command {
 	protected void interrupted() {
 		Robot.intake.stop();
 		SmartDashboard.putBoolean("PrendreCube", false);
+		Robot.camera.setIntake(false);
 	}
 }
