@@ -125,39 +125,32 @@ public class Camera extends Subsystem {
     	
 	}
 	
-	public static void ecrireInfo( Mat img, int tempsRestant, boolean intake ) {
-
-		int hauteur = img.rows();
-		int largeur = img.cols();
+	private void ecrireInfo( Mat img, int tempsRestant, boolean intake ) {
 
 		Scalar couleur;
 
-		if(tempsRestant >= 30){
+		if(tempsRestant >= 30)
 			couleur = new Scalar(0, 255, 0);
-
-		}
-
-		else{
-
+		
+		else
 			couleur = new Scalar(0, 255, 255);
 
-		}
 
-		Imgproc.rectangle(img, new Point(0, hauteur * 0.9) , new Point(largeur* tempsRestant / 135.0, hauteur), couleur, -1, 8, 0);
+		Imgproc.rectangle(img, new Point(0, HAUTEUR * 0.9) , new Point(LARGEUR * tempsRestant / 135.0, HAUTEUR), couleur, -1, 8, 0);
 
 		Size tailleTexte = Imgproc.getTextSize(tempsRestant + "", Core.FONT_HERSHEY_DUPLEX, 1, 3, null);
-		Imgproc.putText(img, tempsRestant + "", new Point((largeur / 2 ) - (tailleTexte.width / 2) , (hauteur * 0.97)), Core.FONT_HERSHEY_DUPLEX, 1, new Scalar(0, 0, 255), 3);
+		Imgproc.putText(img, tempsRestant + "", new Point((LARGEUR / 2 ) - (tailleTexte.width / 2) , (HAUTEUR * 0.97)), Core.FONT_HERSHEY_DUPLEX, 0.8, new Scalar(0, 0, 255), 1);
 
-		Imgproc.putText(img, "Intake:", new Point(0 , (hauteur * 0.05)), Core.FONT_HERSHEY_COMPLEX_SMALL, 1, new Scalar(255, 255, 255), 2);
+		Imgproc.putText(img, "Intake:", new Point(0 , (HAUTEUR * 0.08)), Core.FONT_HERSHEY_COMPLEX_SMALL, 1, new Scalar(255, 255, 255), 1);
 
 		if(intake){
-			Imgproc.putText(img, "ON", new Point(largeur * 0.14 , (hauteur * 0.05)), Core.FONT_HERSHEY_COMPLEX_SMALL, 1, new Scalar(0, 255, 0), 2);
+			Imgproc.putText(img, "ON", new Point(LARGEUR * 0.28, (HAUTEUR * 0.08)), Core.FONT_HERSHEY_COMPLEX_SMALL, 1, new Scalar(0, 255, 0), 1);
 		}
 		else{
-			Imgproc.putText(img, "OFF", new Point(largeur * 0.14 , (hauteur * 0.05)), Core.FONT_HERSHEY_COMPLEX_SMALL, 1, new Scalar(0, 0, 255), 2);
+			Imgproc.putText(img, "OFF", new Point(LARGEUR * 0.28, (HAUTEUR * 0.08)), Core.FONT_HERSHEY_COMPLEX_SMALL, 1, new Scalar(0, 0, 255), 1);
 		}
 
-		Imgproc.rectangle(img, new Point(0, hauteur * 0.05),new Point(0, largeur * 0.5) , new Scalar(255, 255, 255), -1, 8, 0);
+		Imgproc.rectangle(img, new Point(0, HAUTEUR * 0.05),new Point(0, LARGEUR * 0.5) , new Scalar(255, 255, 255), -1, 8, 0);
 
 	}
 	
