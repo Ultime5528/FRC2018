@@ -33,7 +33,7 @@ public class PrendreCube extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.intake.hasCube();
+		return Robot.intake.hasCube() && !Robot.oi.getDownGamepad();
 	}
 
 	// Called once after isFinished returns true

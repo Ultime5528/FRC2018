@@ -166,6 +166,11 @@ public class OI {
 		
 	}
 	
+	public boolean getDownGamepad(){
+		
+		return downG.get();
+	}
+	
 	public Joystick getJoystick() {
 		return joystick;
 	}
