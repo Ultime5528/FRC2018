@@ -32,6 +32,9 @@ public class Camera extends Subsystem {
 	private AtomicBoolean cubeDetecte;
 	private AtomicBoolean intake;
 
+	
+	// Mettre à TRUE pour envoyer l'image de la vision sur le Dashboard
+	private final boolean DEBUG_VISION = true;
 
 	public Camera(){
 
@@ -58,9 +61,13 @@ public class Camera extends Subsystem {
 
 
 		CvSink source = CameraServer.getInstance().getVideo(cam);
-		CvSource video = CameraServer.getInstance().putVideo("Video", LARGEUR, HAUTEUR);
-		CvSource videoinitial = CameraServer.getInstance().putVideo("Videointial", LARGEUR, HAUTEUR);
+		CvSource videoinitial = CameraServer.getInstance().putVideo("Video initial", LARGEUR, HAUTEUR);
 
+		CvSource video = null;
+		
+		if(DEBUG_VISION)
+			video = CameraServer.getInstance().putVideo("Video vision", LARGEUR, HAUTEUR);
+		
 		Mat image = new Mat(), output = new Mat();
 
 		while(!Thread.interrupted()){
@@ -69,7 +76,9 @@ public class Camera extends Subsystem {
 				source.grabFrame(image);
 
 				detecterCube(image, output);
-				video.putFrame(output);
+				
+				if(DEBUG_VISION)
+					video.putFrame(output);
 				
 				ecrireInfo(image, (int)DriverStation.getInstance().getMatchTime(), intake.get());
 				videoinitial.putFrame(image);
