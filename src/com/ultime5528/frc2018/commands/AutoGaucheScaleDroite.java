@@ -15,13 +15,7 @@ public class AutoGaucheScaleDroite extends CommandGroup {
 
     public AutoGaucheScaleDroite() {
 
-    	CommandGroup commandeDebut = new CommandGroup("Debut");
-		commandeDebut.addSequential(new DemarrerElevateur());
-		commandeDebut.addSequential(new SetElevateur(0.1));
-		commandeDebut.addSequential(new WaitCommand(5));
-		commandeDebut.addSequential(new SetElevateur(1.45));
-    	
-        addParallel(commandeDebut);
+    	addParallel(new DebutAutonome(5, 1.45));
 		
         addSequential(new SuivreTrajectoire(new Waypoint[]{
         	new Waypoint(0, 0, 0),

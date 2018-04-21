@@ -12,14 +12,12 @@ public class AutoCentreSwitchDroite extends CommandGroup {
 
    public AutoCentreSwitchDroite() {
         
-		CommandGroup commandeDebut = new CommandGroup("Debut");
-		commandeDebut.addSequential(new DemarrerElevateur());
-		commandeDebut.addSequential(new SetElevateur(0.7));
+		
 		   
 	   // Add Commands here
         
     	CommandGroup commandeAvancerLever = new CommandGroup("AvancerLever");
-		commandeAvancerLever.addParallel(commandeDebut);
+		commandeAvancerLever.addParallel(new DebutAutonome(0, 0.7));
 		commandeAvancerLever.addParallel(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, 0),
 				new Waypoint(2.54, 1.1, 0),

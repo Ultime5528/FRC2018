@@ -15,13 +15,8 @@ import edu.wpi.first.wpilibj.command.WaitForChildren;
 public class AutoDroitScaleGauche extends CommandGroup {
 
     public AutoDroitScaleGauche() {
-    	CommandGroup commandeDebut = new CommandGroup("Debut");
-		commandeDebut.addSequential(new DemarrerElevateur());
-		commandeDebut.addSequential(new SetElevateur(0.1));
-		commandeDebut.addSequential(new WaitCommand(5));
-		commandeDebut.addSequential(new SetElevateur(1.45));
     	
-        addParallel(commandeDebut);
+    	addParallel(new DebutAutonome(5, 1.45));
 		addSequential(new SuivreTrajectoire(new Waypoint[]{
         	new Waypoint(0, 0, 0),
         	new Waypoint(5.25, -2.5, Pathfinder.d2r(-90)),

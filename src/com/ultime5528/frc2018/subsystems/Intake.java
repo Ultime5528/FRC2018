@@ -74,9 +74,15 @@ public class Intake extends Subsystem {
 		moteurGauche.set(-speed);
 	}
 
-	public void tournerCube() {
+	public void tournerCubeDroite() {
 		moteurGauche.set(0.5); // Cote gauche inverse. moins rapide que le droit
 		moteurDroite.set(0.8);
+	}
+	
+	public void tournerCubeGauche(){
+		
+		moteurGauche.set(-0.8);
+		moteurDroite.set(-0.5);
 	}
 
 	public void prendreFort() {

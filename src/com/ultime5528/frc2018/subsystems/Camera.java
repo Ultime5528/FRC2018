@@ -61,17 +61,18 @@ public class Camera extends Subsystem {
 		CvSource video = CameraServer.getInstance().putVideo("Video", LARGEUR, HAUTEUR);
 		CvSource videoinitial = CameraServer.getInstance().putVideo("Videointial", LARGEUR, HAUTEUR);
 
-		Mat image = new Mat();
+		Mat image = new Mat(), output = new Mat();
 
 		while(!Thread.interrupted()){
 			try {
+				
 				source.grabFrame(image);
 
+				detecterCube(image, output);
+				video.putFrame(output);
+				
 				ecrireInfo(image, (int)DriverStation.getInstance().getMatchTime(), intake.get());
 				videoinitial.putFrame(image);
-
-				detecterCube(image);
-				video.putFrame(image);
 
 
 			} catch (Exception e) {
@@ -84,9 +85,8 @@ public class Camera extends Subsystem {
 
 
 
-	private void detecterCube(Mat image){
+	private void detecterCube(Mat image, Mat output){
 
-		Mat output = new Mat();
 		ArrayList<Mat> channels = new ArrayList<>();
 		Core.split(image, channels);
 
@@ -119,11 +119,7 @@ public class Camera extends Subsystem {
 		cropped.release();
 
 		SmartDashboard.putNumber("moyenne", moyenne);
-		output.copyTo(image);
-
-		output.release();
-
-
+		
 	}
 
 

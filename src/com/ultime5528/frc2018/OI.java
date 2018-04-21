@@ -28,7 +28,8 @@ import com.ultime5528.frc2018.commands.PrendreLeverCube;
 import com.ultime5528.frc2018.commands.SetElevateur;
 import com.ultime5528.frc2018.commands.SuivreArc;
 import com.ultime5528.frc2018.commands.SuivreTrajectoire;
-import com.ultime5528.frc2018.commands.TournerCube;
+import com.ultime5528.frc2018.commands.TournerCubeDroite;
+import com.ultime5528.frc2018.commands.TournerCubeGauche;
 import com.ultime5528.frc2018.triggers.AxisDownTrigger;
 import com.ultime5528.frc2018.triggers.AxisUpTrigger;
 import com.ultime5528.frc2018.triggers.CubeTrigger;
@@ -76,6 +77,7 @@ public class OI {
 	private AxisUpTrigger leftAxisUp;
 	private AxisDownTrigger leftAxisDown;
 	private AxisDownTrigger rightTrigger;
+	private AxisDownTrigger leftTrigger;
 	private CubeTrigger cubeTrigger;
 
 	
@@ -157,7 +159,10 @@ public class OI {
 		leftAxisUp.whileActive(new MonterElevateur());
 		
 		rightTrigger = new AxisDownTrigger(gamepad, 3);
-		rightTrigger.whileActive(new TournerCube());
+		rightTrigger.whileActive(new TournerCubeDroite());
+		
+		leftTrigger = new AxisDownTrigger(gamepad, 2);
+		leftTrigger.whileActive(new TournerCubeGauche());
 		
 		cubeTrigger = new CubeTrigger();
 		cubeTrigger.whenActive(new PrendreCube());
