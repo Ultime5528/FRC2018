@@ -37,6 +37,7 @@ import com.ultime5528.frc2018.triggers.POVTrigger;
 import com.ultime5528.frc2018.triggers.POVTrigger.Arrow;
 import com.ultime5528.frc2018.util.CubicInterpolator;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
@@ -169,6 +170,12 @@ public class OI {
 		
 		
 		
+	}
+	
+	
+	public void setRumble(double value) {
+		gamepad.setRumble(RumbleType.kLeftRumble, value);
+		gamepad.setRumble(RumbleType.kRightRumble, value);
 	}
 	
 	public boolean getDownGamepad(){
