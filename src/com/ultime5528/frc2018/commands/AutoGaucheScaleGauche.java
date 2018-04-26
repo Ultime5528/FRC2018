@@ -16,14 +16,14 @@ public class AutoGaucheScaleGauche extends CommandGroup {
 
 	public AutoGaucheScaleGauche() {
 
-		addParallel(new DebutAutonome(0.8, 1.45));
+		addParallel(new DebutAutonome(0.5, 1.45));
 		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, 0),
 				new Waypoint(6.4, 0.5, Pathfinder.d2r(17.5))
 		}, 0.65, -0.07));
 
-		addSequential(new WaitForChildren());
+		addSequential(new WaitForChildren(), 1.0);
 		
 		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
 		

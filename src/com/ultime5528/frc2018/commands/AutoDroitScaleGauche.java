@@ -16,7 +16,7 @@ public class AutoDroitScaleGauche extends CommandGroup {
 
     public AutoDroitScaleGauche() {
     	
-    	addParallel(new DebutAutonome(5, 1.45, false));
+    	addParallel(new DebutAutonome(3.5, 1.45, false));
     	
 		addSequential(new SuivreTrajectoire(new Waypoint[]{
         	new Waypoint(0, 0, 0),

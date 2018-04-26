@@ -22,7 +22,7 @@ public class AutoDroitScaleDroite extends CommandGroup {
 				new Waypoint(6.4, -0.5, Pathfinder.d2r(-17.5))
 		}, 0.65, -0.07));
 
-		addSequential(new WaitForChildren());
+		addSequential(new WaitForChildren(), 1.0);
 		
 		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
 

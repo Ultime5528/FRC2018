@@ -67,9 +67,9 @@ public class OI {
 	private JoystickButton buttonG8;
 	
 	
-	private JoystickButton button3;
 	private JoystickButton button5;
 	private JoystickButton button6;
+	private JoystickButton button8;
 	private JoystickButton button11;
 	private JoystickButton button12;
 	
@@ -136,14 +136,16 @@ public class OI {
 		//button2 = new JoystickButton(joystick, 2);
 		//button2.whileHeld(new MonterRobot());
 
-		button3 = new JoystickButton(joystick, 3);
-		button3.whileHeld(new MonterRobot());
+		
 		
 		button5 = new JoystickButton(joystick, 5);
 		button5.whileHeld(new DescendreElevateur());
 		
 		button6 = new JoystickButton(joystick, 6);
 		button6.whileHeld(new MonterElevateur());
+		
+		button8 = new JoystickButton(joystick, 8);
+		button8.whileHeld(new MonterRobot());
 		
 		button11 = new JoystickButton(joystick, 11);
 		button11.toggleWhenPressed(new PrendreCube());
