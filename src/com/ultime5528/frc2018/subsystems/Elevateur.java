@@ -36,8 +36,8 @@ public class Elevateur extends PIDSubsystem {
 		encoder.setDistancePerPulse(-0.00006006);
 		
 		pointsMonter = new Point[] { 
-				new Point(1.38, -0.7),
-				new Point(1.50, -0.3),
+				new Point(1.38, -0.8),
+				new Point(1.50, -0.4),
 				};
 		
 		pointsDescendre = new Point[]{

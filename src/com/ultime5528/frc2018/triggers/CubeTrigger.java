@@ -10,6 +10,6 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
 public class CubeTrigger extends Trigger {
 
     public boolean get() {
-        return Robot.camera.cubeDetecte();
+        return false;//Robot.camera.cubeDetecte();
     }
 }

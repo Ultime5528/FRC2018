@@ -33,8 +33,8 @@ public class Camera extends Subsystem {
 	private AtomicBoolean intake;
 
 	
-	// Mettre à TRUE pour envoyer l'image de la vision sur le Dashboard
-	private final boolean DEBUG_VISION = true;
+	// Mettre a TRUE pour envoyer l'image de la vision sur le Dashboard
+	private final boolean DEBUG_VISION = false;
 
 	public Camera(){
 
@@ -54,10 +54,10 @@ public class Camera extends Subsystem {
 		cam.setResolution(LARGEUR, HAUTEUR);
 		cam.setFPS(20);
 		//cam.setExposureAuto();
-		cam.setWhiteBalanceAuto();
-		cam.setBrightness(10);
-		cam.setExposureManual(-8);
-		cam.setWhiteBalanceManual(3000);
+		//cam.setWhiteBalanceAuto();
+		cam.setBrightness(50);
+		cam.setExposureManual(10);
+		cam.setWhiteBalanceManual(5000);
 
 
 		CvSink source = CameraServer.getInstance().getVideo(cam);
@@ -106,18 +106,18 @@ public class Camera extends Subsystem {
 		Core.add(channels.get(1), channels.get(2), output);
 
 		// Output - K * Bleu -> output
-		Core.addWeighted(output, 1, channels.get(0), -2.0, 0, output);
+		Core.addWeighted(output, 1, channels.get(0), -1.5, 0, output);
 
 		// |Vert - Rouge| -> Channel 1 (difference absolue entre rouge et vert 
 		Core.absdiff(channels.get(1), channels.get(2), channels.get(1));
 
 		// Output + K * AbsDiff -> Output
-		Core.addWeighted(output, 1, channels.get(1), -5, 0, output);
+		Core.addWeighted(output, 1, channels.get(1), -3, 0, output);
 
 		for(Mat c : channels)
 			c.release();
 
-		Rect roi = new Rect( (int)(0.4*LARGEUR), (int)(0.45*HAUTEUR),(int)( 0.2*LARGEUR), (int)(0.2*HAUTEUR));
+		Rect roi = new Rect( (int)(0.6*LARGEUR), (int)(0.8*HAUTEUR),(int)( 0.1*LARGEUR), (int)(0.1*HAUTEUR));
 		Imgproc.rectangle(output, roi.br(), roi.tl(), new Scalar(255));
 
 		Mat cropped = new Mat(output, roi);

@@ -28,27 +28,30 @@ public class AutoGaucheScaleGauche extends CommandGroup {
 		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
 		
 
-		//Deuxieme cubes
+		//Deuxieme cube
 		
 		CommandGroup prendreCubeGroup = new CommandGroup();
 		
 		addParallel(new PrendreLeverCube());
 		
+		// Augmenter la distance de recul
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0,Pathfinder.d2r(-180)),
-				new Waypoint(-0.5, -0.0, Pathfinder.d2r(-180))
+				new Waypoint(-0.57, -0.0, Pathfinder.d2r(-180))
 		}, -0.6, 0.1));
 		
-		addSequential(new Tourner(133, 0.6, -0.1));
+		addSequential(new Tourner(142, 0.6, -0.1));
 		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0,Pathfinder.d2r(0)),
-				new Waypoint(1.85, 0, Pathfinder.d2r(0))
-		}, 0.35, -0.1));
+				new Waypoint(1.65, 0, Pathfinder.d2r(0))
+		}, 0.35, -0.1), 3.5);
+		
+		// Separer en deux avancees
 		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0,Pathfinder.d2r(-180)),
-				new Waypoint(-0.58, 0, Pathfinder.d2r(-180)),
+				new Waypoint(-0.5, 0, Pathfinder.d2r(-180)),
 				
 		}, -0.35, 0.1));
 		

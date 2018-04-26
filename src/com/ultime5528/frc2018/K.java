@@ -197,7 +197,7 @@ public class K {
 	public static final class Elevateur {
 		public static double MAX_ENCODER = 1.55;
 		public static double MIN_ENCODER = 0;
-		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = -0.5;
+		public static double VITESSE_MOTEUR_ELEVATEUR_MONTER = -0.6;
 		public static double VITESSE_MOTEUR_ELEVATEUR_DESCENDRE = 0.15;
 		public static double HAUTEUR_BAS = -0.01;
 		public static double P = -15;

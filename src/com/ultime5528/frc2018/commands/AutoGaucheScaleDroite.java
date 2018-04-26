@@ -15,7 +15,7 @@ public class AutoGaucheScaleDroite extends CommandGroup {
 
     public AutoGaucheScaleDroite() {
 
-    	addParallel(new DebutAutonome(5, 1.45));
+    	addParallel(new DebutAutonome(4, 1.45, false));
 		
         addSequential(new SuivreTrajectoire(new Waypoint[]{
         	new Waypoint(0, 0, 0),
@@ -23,9 +23,7 @@ public class AutoGaucheScaleDroite extends CommandGroup {
         	new Waypoint(5.25, 4.3, Pathfinder.d2r(75)),
         	new Waypoint(6.70, 4.85, Pathfinder.d2r(-25))
         }, 0.485, -0.08));
-       
-		addSequential(new WaitForChildren());
-		
+       		
         addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
         
 		addParallel(new SuivreTrajectoire(new Waypoint[] {

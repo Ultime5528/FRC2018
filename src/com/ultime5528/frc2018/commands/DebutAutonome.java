@@ -9,15 +9,22 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class DebutAutonome extends CommandGroup {
 
     public DebutAutonome(double temps, double hauteur) {
-    	super("DebutAutonome " + temps + " " + hauteur);
+    	this(temps, hauteur, true);
+    }
+
+	public DebutAutonome(double temps, double hauteur, boolean stopIntake) {
+		super("DebutAutonome " + temps + " " + hauteur);
     	
     	addParallel(new MaintienCube());
     	addSequential(new DemarrerElevateur());
-		addSequential(new SetElevateur(0.07));
-		addParallel(new PrendreCube());
+    	addParallel(new PrendreCube());
+    	addSequential(new SetElevateur(0.07));
 		addSequential(new WaitCommand(0.5));
-		addParallel(new MaintienCube());
+		//addParallel(new MaintienCube()); // A enlever?
 		addSequential(new WaitCommand(temps));
 		addSequential(new SetElevateur(hauteur));
-    }
+		
+		if(stopIntake)
+			addSequential(new StopIntake());
+	}
 }
