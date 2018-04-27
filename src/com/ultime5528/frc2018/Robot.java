@@ -12,9 +12,11 @@ import com.ultime5528.frc2018.commands.AutoCentreSwitchGauche;
 import com.ultime5528.frc2018.commands.AutoDroitScaleDroitRecule;
 import com.ultime5528.frc2018.commands.AutoDroitScaleDroite;
 import com.ultime5528.frc2018.commands.AutoDroitScaleGauche;
+import com.ultime5528.frc2018.commands.AutoDroitSwitchDroite;
 import com.ultime5528.frc2018.commands.AutoGaucheScaleDroite;
 import com.ultime5528.frc2018.commands.AutoGaucheScaleGauche;
 import com.ultime5528.frc2018.commands.AutoGaucheScaleGaucheRecule;
+import com.ultime5528.frc2018.commands.AutoGaucheSwitchGauche;
 import com.ultime5528.frc2018.commands.AutoLigneDroite;
 import com.ultime5528.frc2018.commands.DemarrerElevateur;
 import com.ultime5528.frc2018.commands.SignalerLED;
@@ -56,10 +58,16 @@ public class Robot extends TimedRobot {
 
 	private static final AutoCentreSwitchDroite autoCentreSwitchDroite = new AutoCentreSwitchDroite();
 	private static final AutoCentreSwitchGauche autoCentreSwitchGauche = new AutoCentreSwitchGauche();
+	
 	private static final AutoGaucheScaleGauche autoGaucheScaleGauche = new AutoGaucheScaleGauche(); // new AutoGaucheScaleGaucheRecule();
 	private static final AutoGaucheScaleDroite autoGaucheScaleDroite = new AutoGaucheScaleDroite();
+	
+	private static final AutoDroitSwitchDroite autoDroitSwitchDroite = new AutoDroitSwitchDroite();
+	private static final AutoGaucheSwitchGauche autoGaucheSwitchGauche = new AutoGaucheSwitchGauche();
+	
 	private static final AutoDroitScaleDroite autoDroitScaleDroite = new AutoDroitScaleDroite();  // new AutoDroitScaleDroitRecule();
 	private static final AutoDroitScaleGauche autoDroitScaleGauche = new AutoDroitScaleGauche();
+	
 	private static final AutoLigneDroite autoLigneDroite = new AutoLigneDroite();
 	private Command autoCommand;
 
@@ -68,6 +76,8 @@ public class Robot extends TimedRobot {
 	private static final String CENTRE = "Centre";
 	private static final String DROITE = "Droite";
 	private static final String LIGNE_DROITE = "Ligne droite";
+	private static final String SWITCH_DROITE = "Switch droite";
+	private static final String SWITCH_GAUCHE = "Switch gauche";
 
 	private String position;
 	/**
@@ -88,6 +98,9 @@ public class Robot extends TimedRobot {
 		chooser.addObject(DROITE, DROITE);
 		chooser.addObject(GAUCHE, GAUCHE);
 		chooser.addObject(CENTRE, CENTRE);
+		chooser.addObject(SWITCH_DROITE, SWITCH_DROITE);
+		chooser.addObject(SWITCH_GAUCHE, SWITCH_GAUCHE);
+		chooser.addObject(LIGNE_DROITE, LIGNE_DROITE);
 
 		SmartDashboard.putData("Position", chooser);
 
@@ -187,7 +200,36 @@ public class Robot extends TimedRobot {
 				autoCommand = autoLigneDroite;
 				
 			}
+
+			else if(position.equals(SWITCH_DROITE)) {
+
+				if(message.charAt(0) == 'L'){
+
+					autoCommand = autoLigneDroite;
+
+				}
+
+				else if(message.charAt(0) == 'R'){
+
+					autoCommand = autoDroitSwitchDroite;
+				}
+
+			}
 			
+			else if(position.equals(SWITCH_GAUCHE)) {
+
+				if(message.charAt(0) == 'L'){
+
+					autoCommand = autoGaucheSwitchGauche;
+
+				}
+
+				else if(message.charAt(0) == 'R'){
+
+					autoCommand = autoLigneDroite;
+				}
+
+			}
 			autoCommand.start();
 			
 		}

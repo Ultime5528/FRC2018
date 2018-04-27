@@ -30,7 +30,7 @@ public class AutoCentreSwitchDroite extends CommandGroup {
 		
 		//Deuxieme cube
 		
-		/*
+		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, Pathfinder.d2r(-180)),
 				new Waypoint(-1.6, -0.4, Pathfinder.d2r(-210))
@@ -41,7 +41,7 @@ public class AutoCentreSwitchDroite extends CommandGroup {
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, Pathfinder.d2r(0)),
 				new Waypoint(0.5, 0, Pathfinder.d2r(0))
-		}, 0.55, 0.1));
+		}, 0.55, 0.1), 2);
 		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, Pathfinder.d2r(-180)),
@@ -52,7 +52,9 @@ public class AutoCentreSwitchDroite extends CommandGroup {
 				new Waypoint(0, 0, Pathfinder.d2r(0)),
 				new Waypoint(1.6, 0.4, Pathfinder.d2r(30))
 		}, 0.55, 0.1));
-		*/
+		
+		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
+		
 
     }
 }
