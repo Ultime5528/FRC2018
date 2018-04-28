@@ -157,6 +157,7 @@ public class Robot extends TimedRobot {
 
 				else if(message.charAt(1) == 'R'){
 
+					//autoCommand = autoLigneDroite;
 					autoCommand = autoGaucheScaleDroite;
 
 				}
@@ -189,6 +190,7 @@ public class Robot extends TimedRobot {
 
 				else if(message.charAt(1) == 'L'){
 
+					//autoCommand = autoLigneDroite;
 					autoCommand = autoDroitScaleGauche;
 
 				}

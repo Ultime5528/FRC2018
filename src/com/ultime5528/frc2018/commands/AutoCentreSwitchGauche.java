@@ -30,8 +30,8 @@ public class AutoCentreSwitchGauche extends CommandGroup {
 		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
 
 	//Deuxieme cube
-		
-		
+		/*
+		addParallel(new SetElevateur(0));
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, Pathfinder.d2r(-180)),
 				new Waypoint(-1.6, 0.4, Pathfinder.d2r(-150))
@@ -49,12 +49,13 @@ public class AutoCentreSwitchGauche extends CommandGroup {
 				new Waypoint(-0.5, 0, Pathfinder.d2r(-180))
 		}, -0.55, 0.1));
 		
+		addParallel(new SetElevateur(0.7));
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, Pathfinder.d2r(0)),
 				new Waypoint(1.6, -0.4, Pathfinder.d2r(-30))
 		}, 0.55, 0.1));
 		
 		addSequential(new LancerCube(K.Intake.VITESSE_LANCER_LOIN));
-		
+		*/
     }
 }

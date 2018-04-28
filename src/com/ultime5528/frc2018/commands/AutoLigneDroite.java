@@ -10,6 +10,7 @@ public class AutoLigneDroite extends CommandGroup {
 
     public AutoLigneDroite() {
         
+    	addParallel(new DemarrerElevateur());
         addSequential(new SuivreTrajectoire(new Waypoint[]{
         		new Waypoint(0, 0 ,0),
         		new Waypoint(3.2, 0, 0)

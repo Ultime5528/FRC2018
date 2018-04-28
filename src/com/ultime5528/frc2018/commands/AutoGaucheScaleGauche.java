@@ -16,7 +16,7 @@ public class AutoGaucheScaleGauche extends CommandGroup {
 
 	public AutoGaucheScaleGauche() {
 
-		addParallel(new DebutAutonome(0.5, 1.45));
+		addParallel(new DebutAutonome(0, 1.45));
 		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, 0),
@@ -44,20 +44,22 @@ public class AutoGaucheScaleGauche extends CommandGroup {
 		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0,Pathfinder.d2r(0)),
-				new Waypoint(1.65, 0, Pathfinder.d2r(0))
+				new Waypoint(1.7, 0, Pathfinder.d2r(0))
 		}, 0.35, -0.1), 3.5);
 		
 		// Separer en deux avancees
 		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0,Pathfinder.d2r(-180)),
-				new Waypoint(-0.5, 0, Pathfinder.d2r(-180)),
+				new Waypoint(-0.55, 0, Pathfinder.d2r(-180)),
 				
 		}, -0.35, 0.1));
 		
 		addSequential(new Tourner(-138, -0.6, 0.1));
 		
 		addParallel(new SetElevateur(1.50));
+		
+		addSequential(new WaitCommand(0.5));
 		
 		addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0,Pathfinder.d2r(0)),

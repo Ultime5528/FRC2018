@@ -65,19 +65,26 @@ public class LEDController extends Subsystem {
 		sendString(mode);
 	}
 
-	private synchronized void sendString(String command){
+	private synchronized void sendString(String command) {
 		if(estBranche && command != null){
-			if(signal1){
-				serial.writeString("signal1\n");
+
+			try {
+				if(signal1){
+					serial.writeString("signal1\n");
+				}
+
+				else if(signal2){
+					serial.writeString("signal2\n");
+				}
+
+				else{
+					serial.writeString(command + "\n");
+				}
+			} catch (Exception e) {
+				DriverStation.reportError("ERROR LED", true);
 			}
 
-			else if(signal2){
-				serial.writeString("signal2\n");
-			}
 
-			else{
-				serial.writeString(command + "\n");
-			}
 			mode = command;
 		}	
 	}
@@ -97,9 +104,9 @@ public class LEDController extends Subsystem {
 	}
 
 	public void setModeSignal1(){
-		
+
 		signal1 = true;
-		
+
 		new Thread(() -> {
 			try {
 				Thread.sleep(3000);
@@ -110,13 +117,13 @@ public class LEDController extends Subsystem {
 		}).start();
 
 	}
-	
-	
-	
+
+
+
 	public void setModeSignal2(){
 
 		signal2 = true;
-		
+
 		new Thread(() -> {
 			try {
 				Thread.sleep(3000);
@@ -127,12 +134,12 @@ public class LEDController extends Subsystem {
 		}).start();
 	}
 
-	
+
 	public void setModeDebutMatch() {
 		sendString("debutMatch");
 	}
 
-	
+
 	public void setModeAlliance() {
 
 		if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue) {
